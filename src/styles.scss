@@ -1,0 +1,12 @@
+/* Add application styles & imports to this file! */
+@import '~ag-grid-community/dist/styles/ag-grid.css';
+@import '~ag-grid-community/dist/styles/ag-theme-balham.css';
+
+@import '~@adaptabletools/adaptableblotter-angular-aggrid/index.css';
+@import '~@adaptabletools/adaptableblotter-angular-aggrid/themes/dark.css';
+
+$theme-color: #fea7ff;
+
+html.ab--theme-light {
+  --ab-cmp-dashboardpanel_header__background: #{$theme-color};
+}
