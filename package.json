@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptableblotter-angular-aggrid": "^5.0.1",
+    "@adaptabletools/adaptableblotter-angular-aggrid": "^5.1.0",
     "@angular/animations": "~8.0.0",
     "@angular/common": "~8.0.0",
     "@angular/compiler": "~8.0.0",
