@@ -1,6 +1,8 @@
-# ExampleAb
+# AdaptableBlotter Angular example with two custom themes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.0.
+
+It proves how you can use the `adaptableblotter-angular-aggrid` component for angular, with custom system themes.
 
 ## Development server
 

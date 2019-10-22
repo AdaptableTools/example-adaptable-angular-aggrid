@@ -30,12 +30,12 @@ export class AppComponent {
     blotterId: 'angular wrapper theming demo',
     predefinedConfig: {
       Theme: {
-        CurrentTheme: 'Wimbledon',
+        CurrentTheme: 'Dark-Blue',
         SystemThemes: [
           {
             Name: 'Wimbledon',
             Description: 'The Wimbledon theme',
-            VendorGridClassName: 'ag-theme-balham'
+            VendorGridClassName: 'ag-theme-balham' // this prop is available starting with v5.1.4 of the adaptableblotter-angular-aggrid
           },
           {
             Name: 'Dark-Blue',
