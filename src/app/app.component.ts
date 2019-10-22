@@ -27,7 +27,24 @@ export class AppComponent {
   private blotterOptions: AdaptableBlotterOptions = {
     primaryKey: 'account',
     userName: 'demo user',
-    blotterId: 'angular wrapper'
+    blotterId: 'angular wrapper theming demo',
+    predefinedConfig: {
+      Theme: {
+        CurrentTheme: 'Wimbledon',
+        SystemThemes: [
+          {
+            Name: 'Wimbledon',
+            Description: 'The Wimbledon theme',
+            VendorGridClassName: 'ag-theme-balham'
+          },
+          {
+            Name: 'Dark-Blue',
+            Description: 'Dark Blue Theme',
+            VendorGridClassName: 'ag-theme-balham-dark'
+          }
+        ]
+      }
+    }
   };
 
   constructor(private http: HttpClient) {
