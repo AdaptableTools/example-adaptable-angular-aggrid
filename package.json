@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node --max-old-space-size=4096 ./node_modules/.bin/ng serve --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptableblotter-angular-aggrid": "^5.2.0",
+    "@adaptabletools/adaptableblotter-angular-aggrid": "^5.2.1-canary.1",
     "@angular/animations": "~8.0.0",
     "@angular/common": "~8.0.0",
     "@angular/compiler": "~8.0.0",

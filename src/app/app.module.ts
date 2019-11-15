@@ -11,11 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
-    AdaptableBlotterAngularAgGridModule,
+
     HttpClientModule,
+    AdaptableBlotterAngularAgGridModule,
     AgGridModule.withComponents([])
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
