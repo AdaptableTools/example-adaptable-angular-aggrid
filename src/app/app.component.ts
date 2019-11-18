@@ -2,19 +2,21 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GridApi, GridOptions } from 'ag-grid-community';
 
-
 import rowData from './rowData';
 import columns from './columns';
-import { AdaptableBlotterOptions, BlotterApi } from '@adaptabletools/adaptableblotter-angular-aggrid';
+import {
+  AdaptableBlotterOptions,
+  BlotterApi
+} from '@adaptabletools/adaptableblotter-angular-aggrid/adaptableblotter/types';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'APP_ROOT';
   blotterStyle = {
-    height: '100vh',
+    height: '100vh'
   };
 
   public gridOptions: GridOptions;
@@ -24,14 +26,14 @@ export class AppComponent {
     userName: 'demo user',
     blotterId: 'an angular wrapper',
     containerOptions: {
-      vendorContainer: 'adaptableBlotter',
+      vendorContainer: 'adaptableBlotter'
     },
     predefinedConfig: {},
     auditOptions: {
       auditCellEdits: {
-        auditAsEvent: true,
-      },
-    },
+        auditAsEvent: true
+      }
+    }
   };
   constructor() {
     this.gridOptions = {
@@ -54,15 +56,15 @@ export class AppComponent {
         abColDefString: {},
         abColDefBoolean: {},
         abColDefDate: {},
-        abColDefObject: {},
-      },
+        abColDefObject: {}
+      }
     };
   }
 
   onBlotterReady(api: BlotterApi) {
     console.log('blotter ready!!!', api);
 
-    api.auditEventApi.on('AuditCellEdited', function (args) {
+    api.auditEventApi.on('AuditCellEdited', function(args) {
       console.warn(args, '!!!!!');
     });
   }
