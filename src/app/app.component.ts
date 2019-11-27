@@ -16,15 +16,15 @@ import { AdaptableBlotterOptions } from '@adaptabletools/adaptableblotter-angula
   `
 })
 export class AppComponent {
-  private gridApi: GridApi;
-  private gridColumnApi;
+  public gridApi: GridApi;
+  public gridColumnApi;
 
-  private columnDefs;
+  public columnDefs;
 
-  private rowData: any[];
-  private gridOptions: GridOptions;
+  public rowData: any[];
+  public gridOptions: GridOptions;
 
-  private blotterOptions: AdaptableBlotterOptions = {
+  public blotterOptions: AdaptableBlotterOptions = {
     primaryKey: 'account',
     userName: 'demo user',
     blotterId: 'angular wrapper theming demo',
