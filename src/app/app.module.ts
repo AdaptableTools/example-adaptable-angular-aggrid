@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { AdaptableBlotterAngularAgGridModule } from '@adaptabletools/adaptableblotter-angular-aggrid';
+import { AdaptableAngularAgGridModule } from '@adaptabletools/adaptable-angular-aggrid';
 
-import { AgGridModule } from 'ag-grid-angular';
+import { AgGridModule } from '@ag-grid-community/angular';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
-    AdaptableBlotterAngularAgGridModule,
+    AdaptableAngularAgGridModule,
     HttpClientModule,
     AgGridModule.withComponents([])
   ],

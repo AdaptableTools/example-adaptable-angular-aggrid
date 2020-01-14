@@ -1,10 +1,10 @@
 /* Add application styles & imports to this file! */
-@import '~ag-grid-community/dist/styles/ag-grid.css';
-@import '~ag-grid-community/dist/styles/ag-theme-balham.css';
-@import '~ag-grid-community/dist/styles/ag-theme-balham-dark.css';
+@import '~@ag-grid-community/all-modules/dist/styles/ag-grid.css';
+@import '~@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css';
+@import '~@ag-grid-community/all-modules/dist/styles/ag-theme-balham-dark.css';
 
-@import '~@adaptabletools/adaptableblotter-angular-aggrid/index.css';
-@import '~@adaptabletools/adaptableblotter-angular-aggrid/themes/dark.css';
+@import '~@adaptabletools/adaptable-angular-aggrid/index.css';
+@import '~@adaptabletools/adaptable-angular-aggrid/themes/dark.css';
 
 $primaryColor: #462376;
 $primaryLightColor: #0e6537;

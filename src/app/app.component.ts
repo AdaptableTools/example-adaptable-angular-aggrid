@@ -1,22 +1,27 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GridApi, GridOptions } from 'ag-grid-community';
+import { GridApi, GridOptions, Module } from '@ag-grid-community/all-modules';
+import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 
-import { AdaptableBlotterOptions } from '@adaptabletools/adaptableblotter-angular-aggrid';
+import { AdaptableOptions } from '@adaptabletools/adaptable-angular-aggrid';
+import charts from '@adaptabletools/adaptable-plugin-charts';
+import finance from '@adaptabletools/adaptable-plugin-finance';
 
 @Component({
-  selector: 'adaptableblotter-root',
+  selector: 'adaptable-root',
   template: `
-    <adaptableblotter-angular-aggrid
+    <adaptable-angular-aggrid
       style="width: 100vw; height: 100vh;"
-      [blotterOptions]="blotterOptions"
+      [adaptableOptions]="adaptableOptions"
       [gridOptions]="gridOptions"
+      [modules]="agGridModules"
     >
-    </adaptableblotter-angular-aggrid>
+    </adaptable-angular-aggrid>
   `
 })
 export class AppComponent {
   public gridApi: GridApi;
+  public agGridModules: Module[] = AllEnterpriseModules;
   public gridColumnApi;
 
   public columnDefs;
@@ -24,10 +29,11 @@ export class AppComponent {
   public rowData: any[];
   public gridOptions: GridOptions;
 
-  public blotterOptions: AdaptableBlotterOptions = {
+  public adaptableOptions: AdaptableOptions = {
     primaryKey: 'account',
     userName: 'demo user',
-    blotterId: 'angular wrapper theming demo',
+    adaptableId: 'angular wrapper theming demo',
+    plugins: [charts(), finance()],
     predefinedConfig: {
       Theme: {
         CurrentTheme: 'Dark-Blue',
@@ -49,6 +55,7 @@ export class AppComponent {
 
   constructor(private http: HttpClient) {
     this.http = http;
+
     this.columnDefs = [
       {
         field: 'name',
@@ -58,12 +65,12 @@ export class AppComponent {
       { field: 'calls', type: 'abColDefNumber' },
       {
         field: 'minutes',
-        type: 'abColDefNumber',
-        valueFormatter: "x.toLocaleString() + 'm'"
+        type: 'abColDefNumber'
       }
     ];
 
     this.gridOptions = {
+      enableRangeSelection: true,
       columnDefs: this.columnDefs,
       columnTypes: {
         abColDefNumber: {},
