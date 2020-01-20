@@ -41,7 +41,7 @@ export class AppComponent {
           {
             Name: 'Wimbledon',
             Description: 'The Wimbledon theme',
-            VendorGridClassName: 'ag-theme-balham' // this prop is available starting with v5.1.4 of the adaptableblotter-angular-aggrid
+            VendorGridClassName: 'ag-theme-balham'
           },
           {
             Name: 'Dark-Blue',
