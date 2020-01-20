@@ -4,6 +4,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 It proves how you can use the `@adaptabletools/adaptable-angular-aggrid` component for angular, with custom system themes.
 
+## Installation
+
+NOTE: In order to be able to run `npm install`, you need to follow the [Adaptable installation instructions](https://adaptabletools.zendesk.com/hc/en-us/articles/360002754737-Installation) - so you need to be logged into our private NPM registry.
+
+Run `npm install` (or `yarn`), depending on what tool you're using.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
