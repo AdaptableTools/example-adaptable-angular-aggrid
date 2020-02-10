@@ -1,0 +1,36 @@
+import { ApiBase } from './ApiBase';
+import { DashboardApi } from '../DashboardApi';
+import { DashboardState, CustomToolbar } from '../../PredefinedConfig/DashboardState';
+import { AdaptableDashboardToolbars, AdaptableDashboardToolbar, AdaptableFunctionButtons } from '../../PredefinedConfig/Common/Types';
+import { ToolbarButton } from '../../PredefinedConfig/Common/ToolbarButton';
+export declare class DashboardApiImpl extends ApiBase implements DashboardApi {
+    getDashboardState(): DashboardState;
+    getCustomToolbars(): CustomToolbar[] | undefined;
+    setAvailableToolbars(availableToolbars: AdaptableDashboardToolbars): void;
+    setVisibleToolbars(visibleToolbars: AdaptableDashboardToolbars): void;
+    showToolbar(visibleToolbar: AdaptableDashboardToolbar): void;
+    hideToolbar(visibleToolbar: AdaptableDashboardToolbar): void;
+    setVisibleButtons(functionButtons: AdaptableFunctionButtons): void;
+    setVisibility(dashboardVisibility: 'Minimised' | 'Visible' | 'Hidden'): void;
+    show(): void;
+    hide(): void;
+    minimise(): void;
+    showSystemStatusButton(): void;
+    hideSystemStatusButton(): void;
+    showGridInfoButton(): void;
+    hideGridInfoButton(): void;
+    showFunctionsDropdown(): void;
+    hideFunctionsDropdown(): void;
+    showColumnsDropdown(): void;
+    hideColumnsDropdown(): void;
+    showToolbarsDropdown(): void;
+    hideToolbarsDropdown(): void;
+    setHomeToolbarTitle(title: string): void;
+    getCustomToolbarContentsDiv(customToolbarName: string): HTMLElement | null;
+    getCustomToolbarByName(customToolbarName: string): CustomToolbar;
+    setCustomToolbarButtons(customToolbarName: string, buttons: ToolbarButton[]): void;
+    addCustomToolbarButtons(customToolbarName: string, buttons: ToolbarButton[]): void;
+    clearCustomToolbarButtons(customToolbarName: string): void;
+    private updateCustomToolbarButtons;
+    showDashboardPopup(): void;
+}

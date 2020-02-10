@@ -1,0 +1,37 @@
+import { ApiBase } from './ApiBase';
+import { IPushPullState, IPushPullDomain, IPushPullReport, IPushPullSchedule } from '../../PredefinedConfig/IPushPullState';
+import { IPushPullApi } from '../IPushPullApi';
+export declare class IPushPullApiImpl extends ApiBase implements IPushPullApi {
+    getIPushPullState(): IPushPullState | undefined;
+    getIPushPullUsername(): string | undefined;
+    getIPushPullPassword(): string | undefined;
+    getAutoLogin(): boolean | undefined;
+    getCurrentLiveIPushPullReport(): IPushPullReport | undefined;
+    getIPushPullInstance(): any;
+    sendSnapshot(iPushPullReport: IPushPullReport): void;
+    startLiveData(iPushPullReport: IPushPullReport): void;
+    stopLiveData(): void;
+    isIPushPullReportLive(iPushPullReport: IPushPullReport): boolean;
+    isIPushPullAvailable(): boolean | undefined;
+    isIPushPullRunning(): boolean | undefined;
+    getIPushPullDomains(): IPushPullDomain[];
+    getPagesForIPushPullDomain(folderName: string): string[];
+    setIPushPullLoginErrorMessage(loginErrorMessage: string): void;
+    getFolderIdForName(folderName: string): number;
+    addNewIPushPullPage(folderName: string, pageName: string): void;
+    getIPushPullThrottleTime(): number | undefined;
+    setIPushPullThrottleTime(throttleTime: number): void;
+    setIPushPullDomains(iPushPullDomains: IPushPullDomain[]): void;
+    clearIPushPullDomains(): void;
+    getIPushPullSchedules(): IPushPullSchedule[];
+    showIPushPullPopup(): void;
+    setIPushPullAvailableOn(): void;
+    setIPushPullAvailableOff(): void;
+    setIPushPullRunningOn(): void;
+    setIPushPullRunningOff(): void;
+    isIPushPullLiveDataRunning(): boolean;
+    loginToIPushPull(userName: string, password: string): Promise<void>;
+    retrieveIPushPullDomainsFromIPushPull(): Promise<void>;
+    logoutFromIPushPull(): void;
+    clearIPushPullInternalState(): void;
+}

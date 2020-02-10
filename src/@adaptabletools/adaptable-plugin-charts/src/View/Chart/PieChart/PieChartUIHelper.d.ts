@@ -1,0 +1,24 @@
+import { PieChartDefinition, ChartData, PieChartDataItem } from '@adaptabletools/adaptable/src/PredefinedConfig/ChartState';
+import { PieChartComponentState } from './PieChartComponentState';
+import { SliceSortOption } from '@adaptabletools/adaptable/src/PredefinedConfig/Common/ChartEnums';
+export declare function getBrushesEven(): string[];
+export declare function getBrushesOdd(): string[];
+export declare function setChartDisplayPopupState(chartDefinition: PieChartDefinition, dataSource: ChartData): PieChartComponentState;
+export declare function setDefaultChartDisplayPopupState(): PieChartComponentState;
+export declare function sortDataSource(sliceSortOption: SliceSortOption, oldData: PieChartDataItem[]): PieChartDataItem[];
+export declare function sortByNameAscending(a: PieChartDataItem, b: PieChartDataItem): number;
+export declare function sortByNameDescending(a: PieChartDataItem, b: PieChartDataItem): number;
+export declare function sortByValueAscending(a: PieChartDataItem, b: PieChartDataItem): number;
+export declare function sortByValueDescending(a: PieChartDataItem, b: PieChartDataItem): number;
+export declare const PieChartUIHelper: {
+    getBrushesEven: typeof getBrushesEven;
+    getBrushesOdd: typeof getBrushesOdd;
+    setChartDisplayPopupState: typeof setChartDisplayPopupState;
+    setDefaultChartDisplayPopupState: typeof setDefaultChartDisplayPopupState;
+    sortDataSource: typeof sortDataSource;
+    sortByNameAscending: typeof sortByNameAscending;
+    sortByNameDescending: typeof sortByNameDescending;
+    sortByValueAscending: typeof sortByValueAscending;
+    sortByValueDescending: typeof sortByValueDescending;
+};
+export default PieChartUIHelper;

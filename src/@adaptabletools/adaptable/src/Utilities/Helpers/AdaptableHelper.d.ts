@@ -1,0 +1,25 @@
+import { AdaptableObject } from '../../PredefinedConfig/Common/AdaptableObject';
+import { IAdaptable } from '../../AdaptableInterfaces/IAdaptable';
+import { Entitlement } from '../../PredefinedConfig/EntitlementState';
+import { AccessLevel } from '../../PredefinedConfig/Common/Enums';
+import { AdaptableColumn } from '../../PredefinedConfig/Common/AdaptableColumn';
+import { AdaptableFunctionName } from '../../PredefinedConfig/Common/Types';
+import { AdaptableOptions } from '../../AdaptableOptions/AdaptableOptions';
+import { AdaptableEventArgs } from '../../Api/Events/AdaptableEvents';
+export declare function assignadaptableOptions(adaptableOptions: AdaptableOptions): AdaptableOptions;
+export declare function isValidPrimaryKey(adaptable: IAdaptable, columns: AdaptableColumn[]): boolean;
+export declare function isConfigServerEnabled(adaptableOptions: AdaptableOptions): boolean;
+export declare function AdaptableObjectExistsInState(array: AdaptableObject[], itemToCheck: AdaptableObject): boolean;
+export declare function CheckadaptableOptions(adaptableOptions: AdaptableOptions): void;
+export declare function getEntitlementAccessLevelForStrategy(entitlements: Entitlement[], functionName: AdaptableFunctionName): AccessLevel;
+export declare function createFDC3Message(type: string, id: any): AdaptableEventArgs;
+export declare const AdaptableHelper: {
+    assignadaptableOptions: typeof assignadaptableOptions;
+    isValidPrimaryKey: typeof isValidPrimaryKey;
+    isConfigServerEnabled: typeof isConfigServerEnabled;
+    AdaptableObjectExistsInState: typeof AdaptableObjectExistsInState;
+    CheckadaptableOptions: typeof CheckadaptableOptions;
+    getEntitlementAccessLevelForStrategy: typeof getEntitlementAccessLevelForStrategy;
+    createFDC3Message: typeof createFDC3Message;
+};
+export default AdaptableHelper;

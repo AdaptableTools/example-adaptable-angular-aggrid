@@ -1,0 +1,14 @@
+export declare const SYSTEM = "System";
+export declare const GRID = "Grid";
+export declare const POPUP = "Popup";
+export declare const TEAM_SHARING = "TeamSharing";
+export declare const BULK_UPDATE = "BulkUpdate";
+export declare const USER_INTERFACE = "UserInterface";
+export declare const ENTITLEMENTS = "Entitlements";
+export declare const APPLICATION = "Application";
+export declare const NAMED_FILTER = "NamedFilter";
+export declare const ACTION_COLUMN = "ActionColumn";
+export declare const SPARKLINE_COLUMN = "SparklineColumn";
+export declare const CELL_SUMMARY = "CellSummary";
+export declare const SYSTEM_FILTER = "SystemFilter";
+export declare const PLUGINS = "Plugins";

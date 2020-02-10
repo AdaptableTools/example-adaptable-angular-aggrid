@@ -1,0 +1,95 @@
+{
+  "_from": "@adaptabletools/adaptable@>=6.0.5",
+  "_id": "@adaptabletools/adaptable@6.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-Ek5ojWvmpkuc+lO8+Q6HgVJKDnfXqhEfg8lADcP8ggejxHit07FQU7ehMJQJ5UtqeUGo4+VQGoJMgomXiV36cQ==",
+  "_location": "/@adaptabletools/adaptable",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@adaptabletools/adaptable@>=6.0.5",
+    "name": "@adaptabletools/adaptable",
+    "escapedName": "@adaptabletools%2fadaptable",
+    "scope": "@adaptabletools",
+    "rawSpec": ">=6.0.5",
+    "saveSpec": null,
+    "fetchSpec": ">=6.0.5"
+  },
+  "_requiredBy": [
+    "/",
+    "/@adaptabletools/adaptable-angular-aggrid",
+    "/@adaptabletools/adaptable-plugin-charts",
+    "/@adaptabletools/adaptable-plugin-finance"
+  ],
+  "_resolved": "https://registry.adaptabletools.com/@adaptabletools%2fadaptable/-/adaptable-6.0.5.tgz",
+  "_shasum": "04debcaeaca30d51505b2d77c1b343e7ea52f0a2",
+  "_spec": "@adaptabletools/adaptable@>=6.0.5",
+  "_where": "/Users/radu/code/example-adaptableblotter-angular-aggrid",
+  "author": {
+    "name": "Jonny Wolfson",
+    "email": "jonny.wolfson@adaptabletools.com"
+  },
+  "bugs": {
+    "url": "https://github.com/AdaptableTools/adaptable/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "deep-diff": "^1.0.2",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.10",
+    "mathjs": "^5.1.1",
+    "normalize.css": "^8.0.1",
+    "openfin-notifications": "^0.10.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-redux": "7.1.3",
+    "react-remove-scroll": "^1.0.8",
+    "rebass": "^3.2.2",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.5",
+    "resize-observer-polyfill": "^1.5.1",
+    "styled-components": "^4.4.1",
+    "tslib": "^1.9.3",
+    "uuid": "^3.3.2"
+  },
+  "deprecated": false,
+  "description": "Powerful data-agnostic HTML5 datagrid add-on that sits on top of an underlying grid component and provides all the rich functionality that advanced users expect from their DataGrids and Data Tables",
+  "homepage": "http://www.adaptabletools.com/",
+  "keywords": [
+    "web-components",
+    "datagrid",
+    "fintech",
+    "grid",
+    "data",
+    "table",
+    "openfin",
+    "ag-grid",
+    "adaptable",
+    "blotter"
+  ],
+  "license": "SEE LICENSE IN LICENSE.md",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "JonnyAdaptableTools",
+      "email": "jonny.wolfson@adaptabletools.com"
+    }
+  ],
+  "name": "@adaptabletools/adaptable",
+  "peerDependencies": {
+    "@ag-grid-community/all-modules": "^22.1.1"
+  },
+  "publishConfig": {
+    "registry": "https://registry.adaptabletools.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdaptableTools/adaptable.git"
+  },
+  "typings": "index.d.ts",
+  "version": "6.0.5"
+}

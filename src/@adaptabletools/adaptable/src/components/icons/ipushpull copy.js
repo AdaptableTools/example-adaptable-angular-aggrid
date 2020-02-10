@@ -1,0 +1,40 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
+var React = require("react");
+var DefaultIcon_1 = require("./DefaultIcon");
+exports.default = (function (props) { return (React.createElement(DefaultIcon_1.default, tslib_1.__assign({}, props),
+    React.createElement("style", { type: "text/css", dangerouslySetInnerHTML: {
+            __html: "\n      .st0{clip - path:url(#SVGID_2_);fill:url(#SVGID_3_);}\n\t.st1{fill:#F16522;}\n\t.st2{clip - path:url(#SVGID_5_);fill:url(#SVGID_6_);}\n\t.st3{fill:#BFBEBF;}\n\t.st4{clip - path:url(#SVGID_8_);fill:url(#SVGID_9_);}",
+        } }),
+    React.createElement("g", null,
+        React.createElement("g", null,
+            React.createElement("defs", null,
+                React.createElement("polygon", { id: "SVGID_1_", points: "194,156.41 182,148.4 182,159.99 194,168 206,159.99 206,148.4 \t\t\t" })),
+            React.createElement("clipPath", { id: "SVGID_2_" },
+                React.createElement("use", { xlinkHref: "#SVGID_1_", style: { overflow: 'visible' } })),
+            React.createElement("linearGradient", { id: "SVGID_3_", gradientUnits: "userSpaceOnUse", x1: "3.5049", y1: "297.8159", x2: "4.5049", y2: "297.8159", gradientTransform: "matrix(14.0794 -7.9832 -7.9832 -14.0794 2519.2864 4380.8882)" },
+                React.createElement("stop", { offset: "0", style: { stopColor: '#FFA001' } }),
+                React.createElement("stop", { offset: "1", style: { stopColor: '#F16522' } })),
+            React.createElement("polygon", { className: "st0", points: "173.59,153.17 200.16,138.1 214.41,163.23 187.84,178.3 \t\t" })),
+        React.createElement("polygon", { className: "st1", points: "182,159.99 185.31,162.2 194,156.41 182,148.4 \t" }),
+        React.createElement("g", null,
+            React.createElement("defs", null,
+                React.createElement("polygon", { id: "SVGID_4_", points: "194,140.01 194,151.6 206,143.59 218,151.6 218,140.01 206,132 \t\t\t" })),
+            React.createElement("clipPath", { id: "SVGID_5_" },
+                React.createElement("use", { xlinkHref: "#SVGID_4_", style: { overflow: 'visible' } })),
+            React.createElement("linearGradient", { id: "SVGID_6_", gradientUnits: "userSpaceOnUse", x1: "-3.5873", y1: "301.6547", x2: "-2.5874", y2: "301.6547", gradientTransform: "matrix(-14.2996 7.4224 7.4224 14.2996 -2083.252 -4145.6582)" },
+                React.createElement("stop", { offset: "0", style: { stopColor: '#E2E3E4' } }),
+                React.createElement("stop", { offset: "1", style: { stopColor: '#C0BFBF' } })),
+            React.createElement("polygon", { className: "st2", points: "226.02,147.44 199.09,161.41 185.98,136.16 212.91,122.19 \t\t" })),
+        React.createElement("polygon", { className: "st3", points: "218,151.6 218,140.01 214.69,137.8 206,143.59 \t" }),
+        React.createElement("g", null,
+            React.createElement("defs", null,
+                React.createElement("polygon", { id: "SVGID_7_", points: "206,159.99 206,148.4 194,156.41 182,148.4 182,159.99 194,168 \t\t\t" })),
+            React.createElement("clipPath", { id: "SVGID_8_" },
+                React.createElement("use", { xlinkHref: "#SVGID_7_", style: { overflow: 'visible' } })),
+            React.createElement("linearGradient", { id: "SVGID_9_", gradientUnits: "userSpaceOnUse", x1: "3.5393", y1: "300.0256", x2: "4.5392", y2: "300.0256", gradientTransform: "matrix(14.2996 -7.4224 -7.4224 -14.2996 2369.252 4475.2598)" },
+                React.createElement("stop", { offset: "0", style: { stopColor: '#E2E3E4' } }),
+                React.createElement("stop", { offset: "1", style: { stopColor: '#C0BFBF' } })),
+            React.createElement("polygon", { className: "st4", points: "173.98,152.56 200.91,138.59 214.02,163.84 187.09,177.81 \t\t" })),
+        React.createElement("polygon", { className: "st3", points: "182,148.4 182,159.99 185.31,162.2 194,156.41 \t" })))); });

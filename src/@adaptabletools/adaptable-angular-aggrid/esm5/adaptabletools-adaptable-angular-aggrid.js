@@ -1,0 +1,10 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { AdaptableAngularAgGridComponent, AdaptableAngularAgGridModule, AdaptablePlugin } from './public-api';
+export { AgGridOverrideComponent as ɵa } from './lib/aggrid-angular-override.component';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWRhcHRhYmxldG9vbHMtYWRhcHRhYmxlLWFuZ3VsYXItYWdncmlkLmpzIiwic291cmNlUm9vdCI6Im5nOi8vQGFkYXB0YWJsZXRvb2xzL2FkYXB0YWJsZS1hbmd1bGFyLWFnZ3JpZC8iLCJzb3VyY2VzIjpbImFkYXB0YWJsZXRvb2xzLWFkYXB0YWJsZS1hbmd1bGFyLWFnZ3JpZC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBSUEsK0ZBQWMsY0FBYyxDQUFDO0FBRTdCLE9BQU8sRUFBQyx1QkFBdUIsSUFBSSxFQUFFLEVBQUMsTUFBTSx5Q0FBeUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogR2VuZXJhdGVkIGJ1bmRsZSBpbmRleC4gRG8gbm90IGVkaXQuXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9wdWJsaWMtYXBpJztcblxuZXhwb3J0IHtBZ0dyaWRPdmVycmlkZUNvbXBvbmVudCBhcyDJtWF9IGZyb20gJy4vbGliL2FnZ3JpZC1hbmd1bGFyLW92ZXJyaWRlLmNvbXBvbmVudCc7Il19

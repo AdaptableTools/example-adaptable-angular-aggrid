@@ -1,0 +1,43 @@
+{
+  "_from": "@adaptabletools/adaptable-plugin-finance@>=6.0.5",
+  "_id": "@adaptabletools/adaptable-plugin-finance@6.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-kdWHVVcpp6iTLNI7jBLWKmpXWSIXk5CPqDqYwojwP6OHcmJBy5gXcrUjLza7rOpJyebuuZd7ChaKl1Xm9NOVRQ==",
+  "_location": "/@adaptabletools/adaptable-plugin-finance",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@adaptabletools/adaptable-plugin-finance@>=6.0.5",
+    "name": "@adaptabletools/adaptable-plugin-finance",
+    "escapedName": "@adaptabletools%2fadaptable-plugin-finance",
+    "scope": "@adaptabletools",
+    "rawSpec": ">=6.0.5",
+    "saveSpec": null,
+    "fetchSpec": ">=6.0.5"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.adaptabletools.com/@adaptabletools%2fadaptable-plugin-finance/-/adaptable-plugin-finance-6.0.5.tgz",
+  "_shasum": "955a37b9e6d8b13f396230d6be7e221961d69cc0",
+  "_spec": "@adaptabletools/adaptable-plugin-finance@>=6.0.5",
+  "_where": "/Users/radu/code/example-adaptableblotter-angular-aggrid",
+  "author": {
+    "name": "Jonny Wolfson",
+    "email": "jonny.wolfson@adaptabletools.com"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@adaptabletools/adaptable": "6.0.5"
+  },
+  "deprecated": false,
+  "description": "",
+  "homepage": "http://www.adaptabletools.com/",
+  "main": "src/index.js",
+  "name": "@adaptabletools/adaptable-plugin-finance",
+  "publishConfig": {
+    "registry": "https://registry.adaptabletools.com"
+  },
+  "version": "6.0.5"
+}

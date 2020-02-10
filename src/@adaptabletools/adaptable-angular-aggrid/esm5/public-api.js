@@ -1,0 +1,11 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/*
+ * Public API Surface of adaptable-angular-aggrid
+ */
+export { AdaptableAngularAgGridComponent } from './lib/adaptable-angular-aggrid.component';
+export { AdaptableAngularAgGridModule } from './lib/adaptable-angular-aggrid.module';
+export { AdaptablePlugin } from '@adaptabletools/adaptable/src/types';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0BhZGFwdGFibGV0b29scy9hZGFwdGFibGUtYW5ndWxhci1hZ2dyaWQvIiwic291cmNlcyI6WyJwdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFJQSxnREFBYywwQ0FBMEMsQ0FBQztBQUN6RCw2Q0FBYyx1Q0FBdUMsQ0FBQztBQUN0RCxnQ0FBYyxxQ0FBcUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2YgYWRhcHRhYmxlLWFuZ3VsYXItYWdncmlkXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvYWRhcHRhYmxlLWFuZ3VsYXItYWdncmlkLmNvbXBvbmVudCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9hZGFwdGFibGUtYW5ndWxhci1hZ2dyaWQubW9kdWxlJztcbmV4cG9ydCAqIGZyb20gJ0BhZGFwdGFibGV0b29scy9hZGFwdGFibGUvc3JjL3R5cGVzJztcbiJdfQ==

@@ -1,0 +1,27 @@
+export declare function IsNull(stringToCheck: string | undefined): boolean;
+export declare function IsNotNull(stringToCheck: string | undefined): boolean;
+export declare function IsEmpty(stringToCheck: string | undefined): boolean;
+export declare function IsNotEmpty(stringToCheck: string | undefined): boolean;
+export declare function IsNullOrEmpty(stringToCheck: string | undefined): boolean;
+export declare function IsNotNullOrEmpty(stringToCheck: string | undefined): boolean;
+export declare function PlaceSpaceBetweenCapitalisedWords(stringToCheck: string): string;
+export declare function RemoveTrailingComma(stringToCheck: string): string;
+export declare function ToLowerCase(stringToCheck: string): string;
+export declare function Includes(stringToCheck: string, valueToCheck: string): boolean;
+export declare function NotIncludes(stringToCheck: string, valueToCheck: string): boolean;
+export declare function abbreviateString(stringToAbbreviate: string, maxLength: number): string;
+export declare const StringExtensions: {
+    IsNull: typeof IsNull;
+    IsNotNull: typeof IsNotNull;
+    IsEmpty: typeof IsEmpty;
+    IsNotEmpty: typeof IsNotEmpty;
+    IsNullOrEmpty: typeof IsNullOrEmpty;
+    IsNotNullOrEmpty: typeof IsNotNullOrEmpty;
+    PlaceSpaceBetweenCapitalisedWords: typeof PlaceSpaceBetweenCapitalisedWords;
+    RemoveTrailingComma: typeof RemoveTrailingComma;
+    ToLowerCase: typeof ToLowerCase;
+    Includes: typeof Includes;
+    NotIncludes: typeof NotIncludes;
+    abbreviateString: typeof abbreviateString;
+};
+export default StringExtensions;

@@ -1,0 +1,22 @@
+import { MessageType } from '../../PredefinedConfig/Common/Enums';
+export declare function LogAlert(message: string, messageType: MessageType, ...optionalParams: any[]): void;
+export declare function LogAdaptableInfo(message: string, ...optionalParams: any[]): void;
+export declare function LogAdaptableSuccess(message: string, ...optionalParams: any[]): void;
+export declare function LogAdaptableWarning(message: string, ...optionalParams: any[]): void;
+export declare function LogAdaptableError(message: string, ...optionalParams: any[]): void;
+export declare function LogWarning(message: string, ...optionalParams: any[]): void;
+export declare function LogError(message: string, ...optionalParams: any[]): void;
+export declare function LogInfo(message: string, ...optionalParams: any[]): void;
+export declare function LogObject(objectToLog: any, ...optionalParams: any[]): void;
+export declare const LoggingHelper: {
+    LogAlert: typeof LogAlert;
+    LogAdaptableInfo: typeof LogAdaptableInfo;
+    LogAdaptableSuccess: typeof LogAdaptableSuccess;
+    LogAdaptableWarning: typeof LogAdaptableWarning;
+    LogAdaptableError: typeof LogAdaptableError;
+    LogWarning: typeof LogWarning;
+    LogError: typeof LogError;
+    LogInfo: typeof LogInfo;
+    LogObject: typeof LogObject;
+};
+export default LoggingHelper;

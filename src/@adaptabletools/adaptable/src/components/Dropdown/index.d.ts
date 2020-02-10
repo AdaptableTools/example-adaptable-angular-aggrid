@@ -1,0 +1,30 @@
+import * as React from 'react';
+import { ReactNode } from 'react';
+import { BoxProps } from 'rebass';
+export declare type DropdownOption = {
+    label: string;
+    value: string;
+};
+export declare type DropdownProps = Omit<BoxProps, 'onChange' | 'value'> & {
+    autoFocus?: boolean;
+    expanded?: boolean;
+    disabled?: boolean;
+    multiple?: boolean;
+    allowSearch?: boolean;
+    emptyText?: string;
+    placeholder?: ReactNode;
+    clearButtonProps?: any;
+    value: string | number | null | undefined;
+    renderLabel?: (label?: string | null, option?: DropdownOption) => ReactNode;
+    name?: string;
+    showEmptyItem?: boolean;
+    options: (DropdownOption | string)[] | (() => (DropdownOption | string)[]);
+    defaultExpanded?: boolean;
+    showClearButton?: boolean;
+    onChange?: (value: any, e?: React.SyntheticEvent, option?: DropdownOption) => void;
+    onCollapse?: () => void | Function;
+    onExpand?: () => void | Function;
+    onSelect?: () => void | Function;
+};
+declare const Dropdown: (props: DropdownProps) => JSX.Element;
+export default Dropdown;

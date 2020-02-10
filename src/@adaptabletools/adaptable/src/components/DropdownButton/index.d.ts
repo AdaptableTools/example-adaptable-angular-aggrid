@@ -1,0 +1,21 @@
+import * as React from 'react';
+import { BoxProps } from 'rebass';
+import { SimpleButtonProps } from '../SimpleButton';
+import { ExpandedProps } from './useExpanded';
+import DropdownButtonItem from './DropdownButtonItem';
+import { OverlayTriggerProps } from '../OverlayTrigger';
+export declare type DropdownButtonProps = BoxProps & React.HTMLProps<HTMLElement> & SimpleButtonProps & ExpandedProps & {
+    collapseOnItemClick?: boolean;
+    columns?: string[];
+    overlayProps?: OverlayTriggerProps;
+    listOffset?: number;
+    items?: DropdownButtonItem[];
+    idProperty?: string;
+    listItemClassName?: string;
+    listStyle?: React.CSSProperties;
+    listMinWidth?: number;
+    listItemStyle?: React.CSSProperties | ((item: DropdownButtonItem, index: number) => React.CSSProperties);
+    isItemDisabled?: (item: DropdownButtonItem) => boolean | undefined;
+};
+declare const DropdownButton: (props: DropdownButtonProps) => JSX.Element;
+export default DropdownButton;

@@ -1,0 +1,33 @@
+import { DataChangedInfo } from '../../PredefinedConfig/Common/DataChangedInfo';
+import { AuditLogEntry, AuditTrigger } from '../Interface/AuditLogEntry';
+import { IAuditLogService } from './Interface/IAuditLogService';
+import { IAdaptable } from '../../types';
+import { StateChangedDetails, FunctionAppliedDetails } from '../../Api/Events/AuditEvents';
+export declare class AuditLogService implements IAuditLogService {
+    private auditLogQueue;
+    private canSendLog;
+    private numberOfMissedPing;
+    private adaptable;
+    isAuditEnabled: boolean;
+    isAuditStateChangesEnabled: boolean;
+    isAuditCellEditsEnabled: boolean;
+    isAuditFunctionEventsEnabled: boolean;
+    isAuditUserStateChangesEnabled: boolean;
+    isAuditInternalStateChangesEnabled: boolean;
+    isAuditTickingDataUpdatesEnabled: boolean;
+    constructor(adaptable: IAdaptable);
+    addEditCellAuditLog(dataChangedInfo: DataChangedInfo): void;
+    addUserStateChangeAuditLog(stateChangeDetails: StateChangedDetails): void;
+    addInternalStateChangeAuditLog(stateChangeDetails: StateChangedDetails): void;
+    addFunctionAppliedAuditLog(functionAppliedDetails: FunctionAppliedDetails): void;
+    private handleDataSourceChanged;
+    private createAuditLogEntryFromDataChangedInfo;
+    private ping;
+    private SetCanSendLog;
+    private flushAuditQueue;
+    convertAuditMessageToText(obj: any): string;
+    private isAuditOptionEnabled;
+    private shouldAuditToHttpChannel;
+    showAlert(header: string, message: string): void;
+    fireAuditLogEvent(auditLogEntry: AuditLogEntry, auditTrigger: AuditTrigger): void;
+}

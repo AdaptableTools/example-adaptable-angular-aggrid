@@ -1,0 +1,15 @@
+import * as React from 'react';
+import { AdaptableWizardStep, AdaptableWizardStepProps } from '../../Wizard/Interface/IAdaptableWizard';
+import { PercentBar } from '../../../PredefinedConfig/PercentBarState';
+export interface PercentBarSummaryWizardProps extends AdaptableWizardStepProps<PercentBar> {
+}
+export declare class PercentBarSummaryWizard extends React.Component<PercentBarSummaryWizardProps, {}> implements AdaptableWizardStep {
+    constructor(props: PercentBarSummaryWizardProps);
+    render(): any;
+    canNext(): boolean;
+    canBack(): boolean;
+    Next(): void;
+    Back(): void;
+    GetIndexStepIncrement(): number;
+    GetIndexStepDecrement(): number;
+}

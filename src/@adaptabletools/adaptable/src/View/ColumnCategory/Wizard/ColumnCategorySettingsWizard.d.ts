@@ -1,0 +1,21 @@
+import * as React from 'react';
+import { AdaptableWizardStep, AdaptableWizardStepProps } from '../../Wizard/Interface/IAdaptableWizard';
+import { ColumnCategory } from '../../../PredefinedConfig/ColumnCategoryState';
+export interface ColumnCategorySettingsWizardProps extends AdaptableWizardStepProps<ColumnCategory> {
+    ColumnCategorys: ColumnCategory[];
+}
+export interface ColumnCategorySettingsWizardState {
+    ColumnCategoryId: string;
+    ErrorMessage: string;
+}
+export declare class ColumnCategorySettingsWizard extends React.Component<ColumnCategorySettingsWizardProps, ColumnCategorySettingsWizardState> implements AdaptableWizardStep {
+    constructor(props: ColumnCategorySettingsWizardProps);
+    render(): any;
+    onColumnCategoryNameChange(event: React.FormEvent<any>): void;
+    canNext(): boolean;
+    canBack(): boolean;
+    Next(): void;
+    Back(): void;
+    GetIndexStepIncrement(): number;
+    GetIndexStepDecrement(): number;
+}

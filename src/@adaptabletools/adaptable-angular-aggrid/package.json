@@ -1,0 +1,65 @@
+{
+  "_from": "@adaptabletools/adaptable-angular-aggrid@>=6.0.5",
+  "_id": "@adaptabletools/adaptable-angular-aggrid@6.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-CtXqHZkFZxWt6R4v8X4NVZc+SWuIaQyk+MvPLiOT0QK/2CgtkVkKeTwOVce6oLZQRI5LaA2XPLC0vM7oo4T4Rw==",
+  "_location": "/@adaptabletools/adaptable-angular-aggrid",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@adaptabletools/adaptable-angular-aggrid@>=6.0.5",
+    "name": "@adaptabletools/adaptable-angular-aggrid",
+    "escapedName": "@adaptabletools%2fadaptable-angular-aggrid",
+    "scope": "@adaptabletools",
+    "rawSpec": ">=6.0.5",
+    "saveSpec": null,
+    "fetchSpec": ">=6.0.5"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.adaptabletools.com/@adaptabletools%2fadaptable-angular-aggrid/-/adaptable-angular-aggrid-6.0.5.tgz",
+  "_shasum": "68b1f7d19d6a0d9e815314376cdb56dc6fac492d",
+  "_spec": "@adaptabletools/adaptable-angular-aggrid@>=6.0.5",
+  "_where": "/Users/radu/code/example-adaptableblotter-angular-aggrid",
+  "bugs": {
+    "url": "https://github.com/AdaptableTools/adaptable/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@adaptabletools/adaptable": "6.0.5",
+    "tslib": "^1.9.0"
+  },
+  "deprecated": false,
+  "description": "Angular version of the powerful data-agnostic HTML5 datagrid add-on that sits on top of the agGrid component and provides all the rich functionality that advanced users expect from their DataGrids and Data Tables",
+  "es2015": "fesm2015/adaptabletools-adaptable-angular-aggrid.js",
+  "esm2015": "esm2015/adaptabletools-adaptable-angular-aggrid.js",
+  "esm5": "esm5/adaptabletools-adaptable-angular-aggrid.js",
+  "fesm2015": "fesm2015/adaptabletools-adaptable-angular-aggrid.js",
+  "fesm5": "fesm5/adaptabletools-adaptable-angular-aggrid.js",
+  "homepage": "https://github.com/AdaptableTools/adaptable#readme",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "main": "bundles/adaptabletools-adaptable-angular-aggrid.umd.js",
+  "metadata": "adaptabletools-adaptable-angular-aggrid.metadata.json",
+  "module": "fesm5/adaptabletools-adaptable-angular-aggrid.js",
+  "name": "@adaptabletools/adaptable-angular-aggrid",
+  "peerDependencies": {
+    "@angular/common": ">=7.0.0",
+    "@angular/core": ">=7.0.0",
+    "mathjs": "^5.1.1",
+    "@ag-grid-community/all-modules": "^22.1.1",
+    "@ag-grid-community/angular": "^22.1.1"
+  },
+  "publishConfig": {
+    "registry": "https://registry.adaptabletools.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdaptableTools/adaptable.git",
+    "directory": "packages/adaptable-ng-aggrid"
+  },
+  "sideEffects": false,
+  "typings": "adaptabletools-adaptable-angular-aggrid.d.ts",
+  "version": "6.0.5"
+}

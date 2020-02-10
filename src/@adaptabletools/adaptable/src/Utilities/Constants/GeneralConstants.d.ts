@@ -1,0 +1,73 @@
+import { DisplayAction, MathOperation, LeafExpressionOperator, CellSummaryOperation } from '../../PredefinedConfig/Common/Enums';
+import { ChartVisibility, AxisTotal } from '../../PredefinedConfig/Common/ChartEnums';
+import { AdaptableTheme } from '../../PredefinedConfig/ThemeState';
+export declare const MISSING_COLUMN: string;
+export declare const DEFAULT_LAYOUT: string;
+export declare const LIGHT_THEME: string;
+export declare const DARK_THEME: string;
+export declare const USER_NAME: string;
+export declare const ADAPTABLE_ID: string;
+export declare const ADAPTABLE: string;
+export declare const MENU_PREFIX: string;
+export declare const READ_ONLY_STYLE: string;
+export declare const ALL_COLUMN_VALUES: string;
+export declare const FILTER_ALWAYS: 'Always' | 'Never' | 'Throttle';
+export declare const FILTER_NEVER: 'Always' | 'Never' | 'Throttle';
+export declare const FILTER_THROTTLE: 'Always' | 'Never' | 'Throttle';
+export declare const EMPTY_STRING: string;
+export declare const EMPTY_ARRAY: any[];
+export declare const HALF_SECOND: number;
+export declare const YEAR_ADD: number;
+export declare const MONTH_ADD: number;
+export declare const ALERT_DEFAULT_MAX_ALERTS_IN_STORE: number;
+export declare const CALENDAR_DEFAULT_CURRENT_CALENDER: string;
+export declare const CHART_DEFAULT_REFRESH_RATE: number;
+export declare const QUICK_SEARCH_DEFAULT_DISPLAY_ACTION: DisplayAction;
+export declare const QUICK_SEARCH_DEFAULT_BACK_COLOR: string;
+export declare const QUICK_SEARCH_DEFAULT_FORE_COLOR: string;
+export declare const FLASHING_CELLS_DEFAULT_DURATION: 250 | 500 | 750 | 1000;
+export declare const UPDATED_ROWS_DEFAULT_DURATION: 250 | 500 | 750 | 1000;
+export declare const SMART_EDIT_DEFAULT_VALUE: number;
+export declare const SMART_EDIT_DEFAULT_OPERATION: Exclude<MathOperation, MathOperation.Replace>;
+export declare const CELL_SUMMARY_DEFAULT_OPERATION: CellSummaryOperation | string;
+export declare const SYSTEM_DEFAULT_CHART_VISIBILITY: ChartVisibility;
+export declare const SYSTEM_DEFAULT_SYSTEM_STATUS_TYPE: 'Error' | 'Warning' | 'Success' | 'Info';
+export declare const THEME_DEFAULT_CURRENT_THEME: string;
+export declare const UPDATED_ROW_DEFAULT_MAX_ALERTS_IN_STORE: number;
+export declare const DEFAULT_LIVE_REPORT_THROTTLE_TIME: number;
+/**
+ * Object Factory
+ */
+export declare const CHART_DEFAULT_YAXIS_TOTAL: AxisTotal;
+export declare const PLUS_MINUS_DEFAULT_NUDGE_VALUE: number;
+export declare const ALERT_DEFAULT_OPERATOR: LeafExpressionOperator;
+export declare const ALERT_DEFAULT_RANGE_OPERAND_TYPE: 'Value' | 'Column';
+export declare const ALERT_DEFAULT_MESSAGE_TYPE: 'Success' | 'Info' | 'Warning' | 'Error';
+export declare const ALERT_DEFAULT_SHOW_POPUP: boolean;
+export declare const ALERT_DEFAULT_HIGHLIGHT_CELL: boolean;
+export declare const ALERT_DEFAULT_HIGHLIGHT_ROW: boolean;
+/**
+ * Constants for State (primarily for audit property events) - good idea?
+ */
+export declare const CURRENT_ADVANCED_SEARCH_STATE_PROPERTY: string;
+export declare const CURRENT_CHART_NAME_STATE_PROPERTY: string;
+export declare const BULK_UPDATE_VALUE_STATE_PROPERTY: string;
+export declare const CURRENT_CALENDAR_STATE_PROPERTY: string;
+export declare const SUMMARY_OPERATION_STATE_PROPERTY: string;
+export declare const CURRENT_LAYOUT_STATE_PROPERTY: string;
+export declare const CURRENT_DATA_SOURCE_STATE_PROPERTY: string;
+export declare const CURRENT_REPORT_STATE_PROPERTY: string;
+export declare const FLASHING_CELL_DEFAULT_UP_COLOR_STATE_PROPERTY: string;
+export declare const FLASHING_CELL_DEFAULT_DOWN_COLOR_STATE_PROPERTY: string;
+export declare const FLASHING_CELL_DEFAULT_DURATION_STATE_PROPERTY: string;
+export declare const CURRENT_THEME_STATE_PROPERTY: string;
+export declare const QUICK_SEARCH_TEXT_STATE_PROPERTY: string;
+export declare const QUICK_SEARCH_DISPLAY_ACTION_STATE_PROPERTY: string;
+export declare const QUICK_SEARCH_STYLE_STATE_PROPERTY: string;
+export declare const SMART_EDIT_VALUE_STATE_PROPERTY: string;
+export declare const SMART_EDIT_MATH_OPERATION_STATE_PROPERTY: string;
+export declare const SYSTEM_THEMES: Array<AdaptableTheme>;
+export declare const ALL_DATA_REPORT = "All Data";
+export declare const VISIBLE_DATA_REPORT = "Visible Data";
+export declare const SELECTED_CELLS_REPORT = "Selected Cells";
+export declare const SELECTED_ROWS_REPORT = "Selected Rows";
