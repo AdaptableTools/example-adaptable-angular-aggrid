@@ -7,12 +7,18 @@ import { AdaptableOptions } from '@adaptabletools/adaptable-angular-aggrid';
 import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
 
+import orders from '../orders.json';
+
+const MAX_DATA_COUNT = 100;
+orders.length = Math.min(MAX_DATA_COUNT, orders.length);
+
 @Component({
   selector: 'adaptable-root',
   template: `
     <adaptable-angular-aggrid
       style="width: 100vw; height: 100vh;"
       [adaptableOptions]="adaptableOptions"
+      [onAdaptableReady]="onAdaptableReady"
       [gridOptions]="gridOptions"
       [modules]="agGridModules"
     >
@@ -30,7 +36,7 @@ export class AppComponent {
   public gridOptions: GridOptions;
 
   public adaptableOptions: AdaptableOptions = {
-    primaryKey: 'account',
+    primaryKey: 'OrderId',
     userName: 'demo user',
     adaptableId: 'angular wrapper theming demo',
     plugins: [charts(), finance()],
@@ -58,13 +64,17 @@ export class AppComponent {
 
     this.columnDefs = [
       {
-        field: 'name',
-        type: 'abColDefString'
+        field: 'OrderId',
+        type: 'abColDefNumber',
+        resizable: true
       },
-      { field: 'account', type: 'abColDefString' },
-      { field: 'calls', type: 'abColDefNumber' },
+      { field: 'CompanyName', type: 'abColDefString' },
+      { field: 'ContactName', type: 'abColDefString' },
+      { field: 'Employee', type: 'abColDefString' },
+      { field: 'OrderCost', type: 'abColDefNumber' },
+      { field: 'ItemCost', type: 'abColDefNumber' },
       {
-        field: 'minutes',
+        field: 'PackageCost',
         type: 'abColDefNumber'
       }
     ];
@@ -85,17 +95,38 @@ export class AppComponent {
     };
   }
 
+  onAdaptableReady = ({ adaptableApi, vendorGrid }) => {
+    console.log(adaptableApi, vendorGrid, '!!!');
+  };
+
   onGridReady = params => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    this.http
-      .get(
-        'https://raw.githubusercontent.com/ag-grid/ag-grid-docs/latest/src/javascript-grid-master-detail/custom-detail-with-form/data/data.json'
-      )
-      .subscribe((data: any[]) => {
-        this.gridApi.setRowData(data);
-      });
+    // this.http
+    //   .get(
+    //     'https://raw.githubusercontent.com/ag-grid/ag-grid-docs/latest/src/javascript-grid-master-detail/custom-detail-with-form/data/data.json'
+    //   )
+    //   .subscribe((data: any[]) => {
+    //     this.gridApi.setRowData(data);
+    //   });
+
+    setTimeout(() => {
+      this.gridApi.setRowData(orders);
+
+      setInterval(() => {
+        const index = Math.round(Math.random() * orders.length);
+        let data = orders[index];
+        if (data) {
+          data = { ...data };
+          data.OrderCost = Math.round(Math.random() * 100);
+          data.ItemCost = Math.round(Math.random() * 100);
+          data.PackageCost = Math.round(Math.random() * 100);
+
+          this.gridApi.updateRowData({ update: [data] });
+        }
+      }, 10);
+    }, 500);
 
     params.api.forEachNode(function(node) {
       node.setExpanded(node.id === '1');
