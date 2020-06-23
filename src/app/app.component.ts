@@ -16,13 +16,19 @@ orders.length = Math.min(MAX_DATA_COUNT, orders.length);
   selector: 'adaptable-root',
   template: `
     <adaptable-angular-aggrid
-      style="width: 100vw; height: 100vh;"
       [adaptableOptions]="adaptableOptions"
       [onAdaptableReady]="onAdaptableReady"
       [gridOptions]="gridOptions"
-      [modules]="agGridModules"
     >
     </adaptable-angular-aggrid>
+    <ag-grid-angular
+      [gridOptions]="gridOptions"
+      [rowData]="rowData"
+      [modules]="agGridModules"
+      style="height: 90vh"
+      class="ag-theme-alpine"
+    >
+    </ag-grid-angular>
   `
 })
 export class AppComponent {
@@ -97,6 +103,7 @@ export class AppComponent {
 
   onAdaptableReady = ({ adaptableApi, vendorGrid }) => {
     console.log(adaptableApi, vendorGrid, '!!!');
+    // tslint:disable-next-line:semicolon
   };
 
   onGridReady = params => {
