@@ -3,7 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { GridApi, GridOptions, Module } from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 
-import { AdaptableOptions } from '@adaptabletools/adaptable-angular-aggrid';
+import {
+  AdaptableOptions,
+  AdaptableToolPanelAgGridComponent
+} from '@adaptabletools/adaptable-angular-aggrid';
+
 import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
 
@@ -17,7 +21,7 @@ orders.length = Math.min(MAX_DATA_COUNT, orders.length);
   template: `
     <adaptable-angular-aggrid
       [adaptableOptions]="adaptableOptions"
-      [onAdaptableReady]="onAdaptableReady"
+      (adaptableReady)="adaptableReady($event)"
       [gridOptions]="gridOptions"
     >
     </adaptable-angular-aggrid>
@@ -25,11 +29,20 @@ orders.length = Math.min(MAX_DATA_COUNT, orders.length);
       [gridOptions]="gridOptions"
       [rowData]="rowData"
       [modules]="agGridModules"
-      style="height: 90vh"
+      style="flex: 1"
       class="ag-theme-alpine"
     >
     </ag-grid-angular>
-  `
+  `,
+  styles: [
+    `
+      :host {
+        height: 100vh;
+        display: flex;
+        flex-flow: column;
+      }
+    `
+  ]
 })
 export class AppComponent {
   public gridApi: GridApi;
@@ -44,24 +57,10 @@ export class AppComponent {
   public adaptableOptions: AdaptableOptions = {
     primaryKey: 'OrderId',
     userName: 'demo user',
-    adaptableId: 'angular wrapper theming demo',
+    adaptableId: 'angular1 wrapper theming demo',
     plugins: [charts(), finance()],
-    predefinedConfig: {
-      Theme: {
-        CurrentTheme: 'Dark-Blue',
-        SystemThemes: [
-          {
-            Name: 'Wimbledon',
-            Description: 'The Wimbledon theme',
-            VendorGridClassName: 'ag-theme-balham'
-          },
-          {
-            Name: 'Dark-Blue',
-            Description: 'Dark Blue Theme',
-            VendorGridClassName: 'ag-theme-balham-dark'
-          }
-        ]
-      }
+    userInterfaceOptions: {
+      showAdaptableToolPanel: true
     }
   };
 
@@ -87,6 +86,10 @@ export class AppComponent {
 
     this.gridOptions = {
       enableRangeSelection: true,
+      sideBar: true,
+      components: {
+        AdaptableToolPanel: AdaptableToolPanelAgGridComponent
+      },
       columnDefs: this.columnDefs,
       columnTypes: {
         abColDefNumber: {},
@@ -101,9 +104,8 @@ export class AppComponent {
     };
   }
 
-  onAdaptableReady = ({ adaptableApi, vendorGrid }) => {
-    console.log(adaptableApi, vendorGrid, '!!!');
-    // tslint:disable-next-line:semicolon
+  adaptableReady = ({ adaptableApi, vendorGrid }) => {
+    console.log(adaptableApi, vendorGrid, '!!!!!!!');
   };
 
   onGridReady = params => {
@@ -130,9 +132,11 @@ export class AppComponent {
           data.ItemCost = Math.round(Math.random() * 100);
           data.PackageCost = Math.round(Math.random() * 100);
 
-          this.gridApi.updateRowData({ update: [data] });
+          console.log(data);
+
+          this.gridApi.applyTransactionAsync({ update: [data] });
         }
-      }, 10);
+      }, 500);
     }, 500);
 
     params.api.forEachNode(function(node) {
