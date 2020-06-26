@@ -30,7 +30,7 @@ orders.length = Math.min(MAX_DATA_COUNT, orders.length);
       [rowData]="rowData"
       [modules]="agGridModules"
       style="flex: 1"
-      class="ag-theme-alpine"
+      class="ag-theme-balham"
     >
     </ag-grid-angular>
   `,
@@ -105,7 +105,7 @@ export class AppComponent {
   }
 
   adaptableReady = ({ adaptableApi, vendorGrid }) => {
-    console.log(adaptableApi, vendorGrid, '!!!!!!!');
+    console.log({ adaptableApi, vendorGrid });
   };
 
   onGridReady = params => {
@@ -131,8 +131,6 @@ export class AppComponent {
           data.OrderCost = Math.round(Math.random() * 100);
           data.ItemCost = Math.round(Math.random() * 100);
           data.PackageCost = Math.round(Math.random() * 100);
-
-          console.log(data);
 
           this.gridApi.applyTransactionAsync({ update: [data] });
         }
