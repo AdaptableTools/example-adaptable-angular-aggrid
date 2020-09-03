@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GridApi, GridOptions, Module } from '@ag-grid-community/all-modules';
+import {
+  GridApi,
+  GridOptions,
+  Module,
+  ColDef
+} from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 
 import {
@@ -82,7 +87,11 @@ export class AppComponent {
         field: 'PackageCost',
         type: 'abColDefNumber'
       }
-    ];
+    ].map((c: ColDef) => {
+      c.filter = true;
+      c.floatingFilter = true;
+      return c;
+    });
 
     this.gridOptions = {
       enableRangeSelection: true,
