@@ -32,9 +32,9 @@ orders.length = Math.min(MAX_DATA_COUNT, orders.length);
     </adaptable-angular-aggrid>
     <ag-grid-angular
       [gridOptions]="gridOptions"
-      [rowData]="rowData"
       [modules]="agGridModules"
       style="flex: 1"
+      [rowData]="rowData"
       class="ag-theme-balham"
     >
     </ag-grid-angular>
@@ -56,7 +56,7 @@ export class AppComponent {
 
   public columnDefs;
 
-  public rowData: any[];
+  public rowData: any[] = null;
   public gridOptions: GridOptions;
 
   public adaptableOptions: AdaptableOptions = {
@@ -123,7 +123,7 @@ export class AppComponent {
         abColDefNumberArray: {},
         abColDefObject: {}
       },
-      rowData: this.rowData,
+      rowData: [],
       onGridReady: this.onGridReady
     };
   }
@@ -144,7 +144,9 @@ export class AppComponent {
     //     console.log('data', data);
     //     this.gridApi.setRowData(data);
     //   });
-    this.gridApi.setRowData(orders);
+    setTimeout(() => {
+      this.gridApi.setRowData(orders);
+    }, 500);
 
     // setTimeout(() => {
     //   this.gridApi.setRowData(orders);
