@@ -66,6 +66,21 @@ export class AppComponent {
     plugins: [charts(), finance()],
     userInterfaceOptions: {
       showAdaptableToolPanel: true
+    },
+    predefinedConfig: {
+      ConditionalStyle: {
+        ConditionalStyles: [
+          {
+            Scope: {
+              All: true
+            },
+            Style: {
+              BackColor: 'red'
+            },
+            Expression: '[Employee]="Michael Suyama"'
+          }
+        ]
+      }
     }
   };
 
@@ -126,25 +141,27 @@ export class AppComponent {
     //     'https://raw.githubusercontent.com/ag-grid/ag-grid-docs/latest/src/javascript-grid-master-detail/custom-detail-with-form/data/data.json'
     //   )
     //   .subscribe((data: any[]) => {
+    //     console.log('data', data);
     //     this.gridApi.setRowData(data);
     //   });
+    this.gridApi.setRowData(orders);
 
-    setTimeout(() => {
-      this.gridApi.setRowData(orders);
+    // setTimeout(() => {
+    //   this.gridApi.setRowData(orders);
 
-      setInterval(() => {
-        const index = Math.round(Math.random() * orders.length);
-        let data = orders[index];
-        if (data) {
-          data = { ...data };
-          data.OrderCost = Math.round(Math.random() * 100);
-          data.ItemCost = Math.round(Math.random() * 100);
-          data.PackageCost = Math.round(Math.random() * 100);
+    //   setInterval(() => {
+    //     const index = Math.round(Math.random() * orders.length);
+    //     let data = orders[index];
+    //     if (data) {
+    //       data = { ...data };
+    //       data.OrderCost = Math.round(Math.random() * 100);
+    //       data.ItemCost = Math.round(Math.random() * 100);
+    //       data.PackageCost = Math.round(Math.random() * 100);
 
-          this.gridApi.applyTransactionAsync({ update: [data] });
-        }
-      }, 500);
-    }, 500);
+    //       this.gridApi.applyTransactionAsync({ update: [data] });
+    //     }
+    //   }, 500);
+    // }, 500);
 
     params.api.forEachNode(function(node) {
       node.setExpanded(node.id === '1');
