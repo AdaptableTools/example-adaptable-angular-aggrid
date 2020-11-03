@@ -44,7 +44,6 @@ Licences can be purchased individually, for a team (minimum 30 end-users), for a
 We can make a trial licence available for a short period of time to allow you to try out AdapTable for yourself.
 
 Please contact [`sales@adaptabletools.com`](mailto:sales@adaptabletools.com) for more information.
-
  
 ## Demo
 
@@ -52,11 +51,7 @@ To see AdapTable in action visit our [Demo Site](https://demo.adaptabletools.com
 
 ## Help
 
-Developers can learn how to access AdapTable programmatically at [AdapTable Developer Documentation](https://api.adaptabletools.com) 
-
-The other source for Help is our collection of 'Read Me' Docs ([full list here](https://github.com/AdaptableTools/adaptable/blob/master/packages/adaptable/readme/readme-list.md)).
-
-> Previously the main source of AdapTable Help was our [Zendesk Pages](https://adaptabletools.zendesk.com/hc/en-us/articles/360007083017-Help-) but these have been replaced by these 'Read Me' docs and the Developer Documentation that is automatically produced and therefore always up to date.
+Developers can learn how to access AdapTable programmatically at [AdapTable Documentation](https://docs.adaptabletools.com).
 
 ## More Information
 
