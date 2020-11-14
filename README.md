@@ -6,7 +6,7 @@ It proves how you can use the `@adaptabletools/adaptable-angular-aggrid` compone
 
 ## Installation
 
-NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Wrapper Read Me](https://github.com/AdaptableTools/adaptable/blob/master/packages/adaptable-ng-aggrid/README.md)
+NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Wrapper Documentation](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-installation)
 
 > If you do not have an Adpatable Login please contact support@adaptabletools.com
 
