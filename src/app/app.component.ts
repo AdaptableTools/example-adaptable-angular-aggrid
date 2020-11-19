@@ -100,6 +100,7 @@ export class AppComponent {
       { field: 'ItemCost', type: 'abColDefNumber' },
       {
         field: 'PackageCost',
+        editable: true,
         type: 'abColDefNumber'
       }
     ].map((c: ColDef) => {
