@@ -28,6 +28,7 @@ orders.length = Math.min(MAX_DATA_COUNT, orders.length);
       [adaptableOptions]="adaptableOptions"
       (adaptableReady)="adaptableReady($event)"
       [gridOptions]="gridOptions"
+      [modules]="agGridModules"
     >
     </adaptable-angular-aggrid>
     <ag-grid-angular
