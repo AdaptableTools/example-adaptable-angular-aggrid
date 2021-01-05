@@ -117,14 +117,6 @@ export class AppComponent {
         AdaptableToolPanel: AdaptableToolPanelAgGridComponent
       },
       columnDefs: this.columnDefs,
-      columnTypes: {
-        abColDefNumber: {},
-        abColDefString: {},
-        abColDefBoolean: {},
-        abColDefDate: {},
-        abColDefNumberArray: {},
-        abColDefObject: {}
-      },
       rowData: [],
       onGridReady: this.onGridReady
     };
