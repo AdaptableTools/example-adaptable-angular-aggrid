@@ -1,10 +1,10 @@
-# AdapTable Angular example with two custom themes
+# AdapTable Angular 10 Example App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.
 
 Note: 9 is the minimium Angular version required for using Adaptable 7.0 and higher.
 
-It proves how you can use the `@adaptabletools/adaptable-angular-aggrid` component for angular, with custom system themes.
+The small app contains 2 themes to demonstration how you can use the `@adaptabletools/adaptable-angular-aggrid` component with custom system themes.
 
 ## Installation
 
