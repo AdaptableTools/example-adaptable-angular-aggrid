@@ -1,6 +1,6 @@
 # AdapTable Angular example with two custom themes
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) **Version 9.0.0.**
 
 This is the minimium Angular version required for using Adaptable 7.0 and higher.
 
