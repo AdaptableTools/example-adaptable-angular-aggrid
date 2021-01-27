@@ -11,7 +11,6 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable": "7.3.5",
     "@adaptabletools/adaptable-angular-aggrid": "7.3.5",
     "@adaptabletools/adaptable-plugin-charts": "7.3.5",
     "@adaptabletools/adaptable-plugin-finance": "7.3.5",
