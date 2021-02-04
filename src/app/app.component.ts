@@ -6,16 +6,16 @@ import {
   Module,
   ColDef,
 } from '@ag-grid-community/all-modules';
-import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
-
+import {
+  AllEnterpriseModules,
+  DateTimeCellEditorModule,
+} from '@ag-grid-enterprise/all-modules';
 import {
   AdaptableOptions,
   AdaptableToolPanelAgGridComponent,
 } from '@adaptabletools/adaptable-angular-aggrid';
-
 import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
-
 import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 
 var dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
@@ -44,6 +44,18 @@ var dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
         height: 100vh;
         display: flex;
         flex-flow: column;
+        body {
+          font-family: 'Lato', BlinkMacSystemFont, -apple-system, 'Segoe UI',
+            'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+            'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !important;
+
+          font-size: 16px;
+
+          -webkit-font-smoothing: antialiased;
+          color: #333;
+          font-weight: 400;
+          line-height: 1.5;
+        }
       }
     `,
   ],
@@ -65,6 +77,14 @@ export class AppComponent {
       showAdaptableToolPanel: true,
     },
     predefinedConfig: {
+      Dashboard: {
+        Revision: Date.now(),
+        VisibleButtons: ['Layout', 'CalculatedColumn', 'GridInfo'],
+      },
+      Theme: {
+        Revision: Date.now(),
+        CurrentTheme: 'dark',
+      },
       Layout: {
         Revision: Date.now(),
         CurrentLayout: 'basic',
@@ -79,6 +99,7 @@ export class AppComponent {
               'bid',
               'bidOfferSpread',
               'ask',
+              'bestAsk',
               'notional',
               'status',
               'country',
@@ -87,12 +108,7 @@ export class AppComponent {
               'rating',
               'tradeDate',
               'settlementDate',
-              'bloombergBid',
-              'bloombergAsk',
-              'indicativeBid',
-              'indicativeAsk',
-              'markitBid',
-              'markitAsk',
+              'diffDays',
             ],
           },
           {
@@ -195,6 +211,7 @@ export class AppComponent {
             },
             Style: {
               BackColor: 'lightYellow',
+              ForeColor: 'Black',
             },
             Expression: '[status]="Pending"',
           },
@@ -219,6 +236,33 @@ export class AppComponent {
             Predicate: {
               PredicateId: 'Negative',
             },
+          },
+        ],
+      },
+      CalculatedColumn: {
+        Revision: Date.now(),
+        CalculatedColumns: [
+          {
+            CalculatedColumnSettings: {
+              Aggregatable: true,
+              DataType: 'Number',
+              Pivotable: true,
+              Filterable: true,
+            },
+            ColumnExpression:
+              'MIN([ask] ,[markitAsk], [bloombergAsk],[indicativeAsk]) ',
+            ColumnId: 'bestAsk',
+            FriendlyName: 'Best Ask',
+          },
+          {
+            CalculatedColumnSettings: {
+              Aggregatable: true,
+              DataType: 'Number',
+              Filterable: true,
+            },
+            ColumnExpression: 'DIFF_DAYS([settlementDate],[tradeDate]) ',
+            ColumnId: 'diffDays',
+            FriendlyName: 'Diff Days',
           },
         ],
       },

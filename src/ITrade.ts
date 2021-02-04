@@ -49,7 +49,7 @@ export class DummyTradeBuilder {
       isLive: this.generateRandomBool(),
       rating: this.getRandomItem(this.getRatings()),
       tradeDate: tradeDate,
-      settlementDate: this.addDays(tradeDate, 3),
+      settlementDate: this.addDays(tradeDate, this.generateRandomInt(3, 20)),
       bloombergAsk: this.roundTo4Dp(ask + this.generateRandomDouble()),
       bloombergBid: this.roundTo4Dp(bid - this.generateRandomDouble()),
       indicativeAsk: this.roundTo4Dp(ask + this.generateRandomDouble()),
