@@ -24,6 +24,7 @@ import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 
 var dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
 var adapTableApi: AdaptableApi;
+var tradeCount = 1000;
 @Component({
   selector: 'adaptable-root',
   template: `
@@ -162,14 +163,31 @@ export class AppComponent {
         },
       },
     ],
+    auditOptions: {
+      auditUserStateChanges: {
+        auditToConsole: true,
+      },
+      auditCellEdits: {
+        auditToConsole: true,
+      },
+      auditFunctionsApplied: {
+        auditToConsole: true,
+      },
+    },
     predefinedConfig: {
       Dashboard: {
-        Revision: Date.now(),
         VisibleButtons: ['Layout', 'CalculatedColumn', 'GridInfo'],
         Tabs: [
           {
             Name: 'Grid',
-            Toolbars: ['Layout', 'Alert', 'CellSummary', 'Export', 'Trades'],
+            Toolbars: [
+              'Layout',
+              'Alert',
+              'CellSummary',
+              'Export',
+              'Trades',
+              'Theme',
+            ],
           },
           {
             Name: 'Search',
@@ -197,63 +215,9 @@ export class AppComponent {
               },
             ],
           },
-          // Show no Title and no Configure Button
-          {
-            Name: 'Deals',
-            ToolbarButtons: [
-              {
-                Name: 'dealsButton1',
-                Caption: 'New Deal',
-                ButtonStyle: {
-                  Variant: 'text',
-                  Tone: 'success',
-                },
-              },
-            ],
-          },
-          // Show Configure Button but no Title
-          // Note that we have also added an Icon to the button
-          {
-            Name: 'Orders',
-            Title: 'Orders',
-            ShowConfigureButton: true,
-            ToolbarButtons: [
-              {
-                Name: 'ordersButton1',
-                Caption: 'Create Order',
-                ButtonStyle: {
-                  Variant: 'outlined',
-                  Tone: 'info',
-                },
-                Icon: {
-                  height: 20,
-                  width: 25,
-                  src:
-                    'https://www.pngfind.com/pngs/m/278-2781613_blue-plus-icon-add-new-button-png-transparent.png',
-                },
-              },
-            ],
-          },
         ],
-      },
-      Query: {
-        Revision: Date.now(),
-        CurrentQuery: '',
-        SharedQueries: [
-          {
-            Uuid: 'pending_dollar_trades',
-            Name: 'Pending Dollar Trades',
-            Expression:
-              "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')",
-          },
-        ],
-      },
-      Theme: {
-        Revision: Date.now(),
-        CurrentTheme: 'dark',
       },
       Layout: {
-        Revision: Date.now(),
         CurrentLayout: 'Basic',
         Layouts: [
           {
@@ -268,6 +232,7 @@ export class AppComponent {
               'ask',
               'bestAsk',
               'notional',
+              'size',
               'status',
               'statusActionColumn',
               'country',
@@ -335,108 +300,7 @@ export class AppComponent {
           },
         ],
       },
-      ActionColumn: {
-        Revision: Date.now(),
-        ActionColumns: [
-          {
-            ColumnId: 'statusActionColumn',
-            FriendlyName: 'Action',
-            ButtonText: 'Reject',
-            ShouldRenderPredicate: 'renderStatusPredicate',
-            RenderFunction: 'renderStatusFunction',
-          },
-        ],
-      },
-      FlashingCell: {
-        FlashingCells: [
-          {
-            ColumnId: 'bid',
-            DownColor: '#FF0000',
-            FlashingCellDuration: 500,
-            IsLive: true,
-            UpColor: '#008000',
-          },
-          {
-            ColumnId: 'ask',
-            DownColor: '#FF0000',
-            FlashingCellDuration: 500,
-            IsLive: true,
-            UpColor: '#008000',
-          },
-          {
-            ColumnId: 'price',
-            DownColor: '#FF0000',
-            FlashingCellDuration: 500,
-            IsLive: true,
-            UpColor: '#008000',
-          },
-        ],
-      },
-      PercentBar: {
-        Revision: Date.now(),
-        PercentBars: [
-          {
-            ColumnId: 'notional',
-            Ranges: [
-              { Min: 1, Max: 2500000, Color: '#a52a2a' },
-              { Min: 2500001, Max: 6000000, Color: '#ffa500' },
-              { Min: 6000001, Max: 11000000, Color: '#006400' },
-            ],
-          },
-        ],
-      },
-      GradientColumn: {
-        GradientColumns: [
-          {
-            ColumnId: 'bidOfferSpread',
-            PositiveValue: 0.5,
-            PositiveColor: '#006400',
-            BaseValue: 0,
-          },
-        ],
-      },
-      FormatColumn: {
-        Revision: Date.now(),
-        FormatColumns: [
-          {
-            Scope: {
-              DataTypes: ['Date'],
-            },
-            DisplayFormat: {
-              Formatter: 'DateFormatter',
-              Options: {
-                Pattern: 'MM/dd/yyyy',
-              },
-            },
-          },
-          {
-            Scope: {
-              DataTypes: ['Number'],
-            },
-            CellAlignment: 'Right',
-          },
-        ],
-      },
-      SparklineColumn: {
-        Revision: Date.now(),
-        SparklineColumns: [
-          {
-            ColumnId: 'history',
-            SparklineType: 'Line',
-          },
-        ],
-      },
-      CustomSort: {
-        Revision: Date.now(),
-        CustomSorts: [
-          {
-            ColumnId: 'currency',
-            SortedValues: ['USD', 'GBP', 'EUR'],
-          },
-        ],
-      },
       ConditionalStyle: {
-        Revision: Date.now(),
         ConditionalStyles: [
           {
             Scope: {
@@ -473,8 +337,155 @@ export class AppComponent {
           },
         ],
       },
+      FormatColumn: {
+        FormatColumns: [
+          {
+            Scope: {
+              DataTypes: ['Date'],
+            },
+            DisplayFormat: {
+              Formatter: 'DateFormatter',
+              Options: {
+                Pattern: 'dd/MM/yyyy',
+              },
+            },
+          },
+          {
+            Scope: {
+              DataTypes: ['Number'],
+            },
+            CellAlignment: 'Right',
+          },
+          {
+            Scope: {
+              ColumnIds: ['ask', 'bid', 'price', 'bestAsk'],
+            },
+            CellAlignment: 'Right',
+            DisplayFormat: {
+              Formatter: 'NumberFormatter',
+              Options: {
+                FractionDigits: 3,
+              },
+            },
+          },
+        ],
+      },
+      Query: {
+        CurrentQuery: '',
+        SharedQueries: [
+          {
+            Uuid: 'pending_dollar_trades',
+            Name: 'Pending Dollar Trades',
+            Expression:
+              "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')",
+          },
+        ],
+      },
+      Export: {
+        Reports: [
+          {
+            Name: 'Trades Due This Week',
+            ReportColumnScope: 'ScopeColumns',
+            ReportRowScope: 'ExpressionRows',
+            Scope: {
+              ColumnIds: [
+                'tradeId',
+                'notional',
+                'counterparty',
+                'changeOnYear',
+                'tradeDate',
+                'bidOfferSpread',
+                'country',
+                'currency',
+                'price',
+                'rating',
+                'settlementDate',
+                'status',
+              ],
+            },
+            Expression:
+              "  [status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7",
+          },
+        ],
+      },
+      Theme: {
+        CurrentTheme: 'dark',
+      },
+      ActionColumn: {
+        ActionColumns: [
+          {
+            ColumnId: 'statusActionColumn',
+            FriendlyName: 'Action',
+            ButtonText: 'Reject',
+            ShouldRenderPredicate: 'renderStatusPredicate',
+            RenderFunction: 'renderStatusFunction',
+          },
+        ],
+      },
+      FlashingCell: {
+        FlashingCells: [
+          {
+            ColumnId: 'bid',
+            DownColor: '#FF6666',
+            FlashingCellDuration: 500,
+            IsLive: true,
+            UpColor: '#90ee90',
+          },
+          {
+            ColumnId: 'ask',
+            DownColor: '#FF6666',
+            FlashingCellDuration: 500,
+            IsLive: true,
+            UpColor: '#90ee90',
+          },
+          {
+            ColumnId: 'price',
+            DownColor: '#FF6666',
+            FlashingCellDuration: 500,
+            IsLive: true,
+            UpColor: '#90ee90',
+          },
+        ],
+      },
+      PercentBar: {
+        PercentBars: [
+          {
+            ColumnId: 'notional',
+            Ranges: [
+              { Min: 1, Max: 2500000, Color: '#a52a2a' },
+              { Min: 2500001, Max: 6000000, Color: '#ffa500' },
+              { Min: 6000001, Max: 11000000, Color: '#006400' },
+            ],
+          },
+        ],
+      },
+      GradientColumn: {
+        GradientColumns: [
+          {
+            ColumnId: 'bidOfferSpread',
+            PositiveValue: 0.5,
+            PositiveColor: 'purple',
+            BaseValue: 0,
+          },
+        ],
+      },
+      SparklineColumn: {
+        SparklineColumns: [
+          {
+            ColumnId: 'history',
+            SparklineType: 'Line',
+          },
+        ],
+      },
+      CustomSort: {
+        CustomSorts: [
+          {
+            ColumnId: 'currency',
+            SortedValues: ['USD', 'GBP', 'EUR'],
+          },
+        ],
+      },
       CalculatedColumn: {
-        Revision: Date.now(),
         CalculatedColumns: [
           {
             CalculatedColumnSettings: {
@@ -498,10 +509,20 @@ export class AppComponent {
             ColumnId: 'diffDays',
             FriendlyName: 'Diff Days',
           },
+          {
+            CalculatedColumnSettings: {
+              Pivotable: true,
+              DataType: 'String',
+              Filterable: true,
+            },
+            ColumnExpression:
+              "[notional] < 3000000? 'Low' : [notional] < 6000000 ? 'Medium' : 'High' ",
+            ColumnId: 'size',
+            FriendlyName: 'Size',
+          },
         ],
       },
       UserInterface: {
-        Revision: Date.now(),
         EditLookUpItems: [
           {
             Scope: {
@@ -515,6 +536,28 @@ export class AppComponent {
             Label: 'Reject Trade',
             UserMenuItemClickedFunction: 'rejectTrade',
             UserMenuItemShowPredicate: 'isTradePending',
+          },
+        ],
+      },
+      Shortcut: {
+        Shortcuts: [
+          {
+            ColumnType: 'Number',
+            ShortcutKey: 'M',
+            ShortcutResult: 1000000,
+            ShortcutOperation: 'Multiply',
+          },
+        ],
+      },
+      CellValidation: {
+        CellValidations: [
+          {
+            Scope: {
+              ColumnIds: ['notional', 'bidOfferSpread'],
+            },
+            Predicate: {
+              PredicateId: 'Negative',
+            },
           },
         ],
       },
@@ -550,7 +593,6 @@ export class AppComponent {
       {
         headerName: 'Change',
         field: 'changeOnYear',
-        editable: true,
         type: 'abColDefNumber',
       },
       {
@@ -570,7 +612,6 @@ export class AppComponent {
       {
         headerName: 'Price',
         field: 'price',
-        editable: true,
         enableValue: true,
         enableRowGroup: true,
         type: 'abColDefNumber',
@@ -597,13 +638,11 @@ export class AppComponent {
       {
         headerName: 'Trade Date',
         field: 'tradeDate',
-        editable: true,
         type: 'abColDefDate',
       },
       {
         headerName: 'Settlement Date',
         field: 'settlementDate',
-        editable: true,
         type: 'abColDefDate',
       },
       {
@@ -655,7 +694,6 @@ export class AppComponent {
       {
         headerName: 'History',
         field: 'history',
-        editable: false,
         type: 'abColDefNumberArray',
         resizable: true,
       },
@@ -689,6 +727,15 @@ export class AppComponent {
 
   adaptableReady = ({ adaptableApi, vendorGrid }) => {
     adapTableApi = adaptableApi;
+
+    adaptableApi.eventApi.on('AdaptableReady', () => {
+      dummyTradeBuilder.startTickingDataagGridTrade(
+        adaptableApi,
+        vendorGrid,
+        50,
+        tradeCount
+      );
+    });
 
     adapTableApi.eventApi.on(
       'ToolbarButtonClicked',
@@ -725,7 +772,7 @@ export class AppComponent {
 
     setTimeout(() => {
       let trades: ITrade[] = [];
-      for (let i = 1; i <= 10000; i++) {
+      for (let i = 1; i <= tradeCount; i++) {
         trades.push(dummyTradeBuilder.createTrade(i));
       }
       this.gridApi.setRowData(trades);

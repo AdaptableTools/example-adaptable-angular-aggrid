@@ -1,3 +1,9 @@
+import {
+  AdaptableApi,
+  DataUpdateConfig,
+} from '@adaptabletools/adaptable-angular-aggrid';
+import { GridOptions, RowNode } from '@ag-grid-community/all-modules';
+
 export interface ITrade {
   tradeId: number;
   notional: number;
@@ -27,8 +33,8 @@ export class DummyTradeBuilder {
   public createTrade(i: number): ITrade {
     var price = this.getMeaningfulDouble();
     var bidOfferSpread = this.getRandomItem(this.getBidOfferSpreads());
-    var ask = this.roundTo4Dp(price + bidOfferSpread / 2);
-    var bid = this.roundTo4Dp(price - bidOfferSpread / 2);
+    var ask = price + bidOfferSpread / 2;
+    var bid = price - bidOfferSpread / 2;
     var tradeDate = this.generateRandomDateAndTime(-500, 10);
     let tradeCurrency = this.getRandomItem(this.getCurrencies());
     var trade: ITrade = {
@@ -239,5 +245,49 @@ export class DummyTradeBuilder {
     return this.roundTo4Dp(
       this.generateRandomInt(-150, 150) + this.generateRandomDouble()
     );
+  }
+
+  public startTickingDataagGridTrade(
+    api: AdaptableApi,
+    gridOptions: GridOptions,
+    tickingFrequency: number,
+    upperLevel: number
+  ) {
+    if (gridOptions != null && gridOptions.api != null) {
+      setInterval(() => {
+        let index: string = this.generateRandomInt(1, upperLevel).toString();
+        let rowNode: RowNode = gridOptions.api!.getRowNode(index);
+        if (rowNode) {
+          // NOTE:  You need to make a COPY of the data that you are changing...
+          const trade: ITrade = { ...rowNode.data };
+          if (trade) {
+            const randomInt = this.generateRandomInt(1, 2);
+            const numberToAdd: number = randomInt == 1 ? -0.5 : 0.5;
+            const directionToAdd: number = randomInt == 1 ? -0.01 : 0.01;
+            const newPrice = this.roundTo4Dp(trade.price + numberToAdd); // numberToAdd
+            const bidOfferSpread = trade.bidOfferSpread;
+            const ask = this.roundTo4Dp(newPrice + bidOfferSpread / 2);
+            const bid = this.roundTo4Dp(newPrice - bidOfferSpread / 2);
+            const notional = this.getRandomItem(this.getNotionals());
+
+            trade.price = newPrice;
+            trade.bid = bid;
+            trade.ask = ask;
+            trade.bloombergAsk = this.roundTo4Dp(ask + directionToAdd);
+            trade.bloombergBid = this.roundTo4Dp(bid - directionToAdd);
+            trade.notional = notional;
+            //    trade.notional = this.generateRandomInt(1, 50);
+            trade.changeOnYear = this.getMeaningfulDouble();
+
+            let config: DataUpdateConfig = {
+              runAsync: true,
+              // callback: test,
+            };
+            api.gridApi.updateGridData([trade], config);
+            // gridOptions.api!.applyTransaction({ update: [trade] });
+          }
+        }
+      }, tickingFrequency);
+    }
   }
 }
