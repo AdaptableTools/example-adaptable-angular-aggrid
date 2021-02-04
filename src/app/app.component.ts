@@ -4,23 +4,21 @@ import {
   GridApi,
   GridOptions,
   Module,
-  ColDef
+  ColDef,
 } from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 
 import {
   AdaptableOptions,
-  AdaptableToolPanelAgGridComponent
+  AdaptableToolPanelAgGridComponent,
 } from '@adaptabletools/adaptable-angular-aggrid';
 
 import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
 
-import orders from '../orders.json';
+import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 
-const MAX_DATA_COUNT = 100;
-orders.length = Math.min(MAX_DATA_COUNT, orders.length);
-
+var dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
 @Component({
   selector: 'adaptable-root',
   template: `
@@ -47,42 +45,184 @@ orders.length = Math.min(MAX_DATA_COUNT, orders.length);
         display: flex;
         flex-flow: column;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class AppComponent {
   public gridApi: GridApi;
   public agGridModules: Module[] = AllEnterpriseModules;
   public gridColumnApi;
-
   public columnDefs;
-
   public rowData: any[] = null;
   public gridOptions: GridOptions;
 
   public adaptableOptions: AdaptableOptions = {
-    primaryKey: 'OrderId',
+    primaryKey: 'tradeId',
     userName: 'demo user',
-    adaptableId: 'angular1 wrapper theming demo',
+    adaptableId: 'angular demo',
     plugins: [charts(), finance()],
     userInterfaceOptions: {
-      showAdaptableToolPanel: true
+      showAdaptableToolPanel: true,
     },
     predefinedConfig: {
+      Layout: {
+        Revision: Date.now(),
+        CurrentLayout: 'basic',
+        Layouts: [
+          {
+            Name: 'basic',
+            Columns: [
+              'tradeId',
+              'currency',
+              'changeOnYear',
+              'counterparty',
+              'bid',
+              'bidOfferSpread',
+              'ask',
+              'notional',
+              'status',
+              'country',
+              'price',
+              'isLive',
+              'rating',
+              'tradeDate',
+              'settlementDate',
+              'bloombergBid',
+              'bloombergAsk',
+              'indicativeBid',
+              'indicativeAsk',
+              'markitBid',
+              'markitAsk',
+            ],
+          },
+          {
+            Name: 'rowGrouped',
+            Columns: ['tradeId', 'currency'],
+            RowGroupedColumns: ['country'],
+          },
+          {
+            Name: 'pivot',
+            Columns: ['tradeId', 'currency'],
+            PivotColumns: ['status'],
+            RowGroupedColumns: ['counterparty'],
+            EnablePivot: true,
+            AggregationColumns: {
+              bid: 'avg',
+              ask: 'sum',
+              price: true,
+            },
+          },
+        ],
+      },
+      FlashingCell: {
+        FlashingCells: [
+          {
+            ColumnId: 'bid',
+            DownColor: '#FF0000',
+            FlashingCellDuration: 500,
+            IsLive: true,
+            UpColor: '#008000',
+          },
+          {
+            ColumnId: 'ask',
+            DownColor: '#FF0000',
+            FlashingCellDuration: 500,
+            IsLive: true,
+            UpColor: '#008000',
+          },
+          {
+            ColumnId: 'price',
+            DownColor: '#FF0000',
+            FlashingCellDuration: 500,
+            IsLive: true,
+            UpColor: '#008000',
+          },
+        ],
+      },
+      PercentBar: {
+        Revision: Date.now(),
+        PercentBars: [
+          {
+            ColumnId: 'notional',
+            Ranges: [
+              { Min: 1, Max: 2500000, Color: '#a52a2a' },
+              { Min: 2500001, Max: 6000000, Color: '#ffa500' },
+              { Min: 6000001, Max: 11000000, Color: '#006400' },
+            ],
+          },
+        ],
+      },
+
+      GradientColumn: {
+        GradientColumns: [
+          {
+            ColumnId: 'bidOfferSpread',
+            PositiveValue: 0.5,
+            PositiveColor: '#006400',
+            BaseValue: 0,
+          },
+        ],
+      },
+      FormatColumn: {
+        Revision: Date.now(),
+        FormatColumns: [
+          {
+            Scope: {
+              DataTypes: ['Date'],
+            },
+            DisplayFormat: {
+              Formatter: 'DateFormatter',
+              Options: {
+                Pattern: 'MM/dd/yyyy',
+              },
+            },
+          },
+          {
+            Scope: {
+              DataTypes: ['Number'],
+            },
+            CellAlignment: 'Right',
+          },
+        ],
+      },
+
       ConditionalStyle: {
+        Revision: Date.now(),
         ConditionalStyles: [
           {
             Scope: {
-              All: true
+              All: true,
             },
             Style: {
-              BackColor: 'red'
+              BackColor: 'lightYellow',
             },
-            Expression: '[Employee]="Michael Suyama"'
-          }
-        ]
-      }
-    }
+            Expression: '[status]="Pending"',
+          },
+          {
+            Scope: {
+              DataTypes: ['Number'],
+            },
+            Style: {
+              ForeColor: 'Green',
+            },
+            Predicate: {
+              PredicateId: 'Positive',
+            },
+          },
+          {
+            Scope: {
+              DataTypes: ['Number'],
+            },
+            Style: {
+              ForeColor: 'Red',
+            },
+            Predicate: {
+              PredicateId: 'Negative',
+            },
+          },
+        ],
+      },
+    },
   };
 
   constructor(private http: HttpClient) {
@@ -90,23 +230,138 @@ export class AppComponent {
 
     this.columnDefs = [
       {
-        field: 'OrderId',
-        type: 'abColDefNumber',
-        resizable: true
-      },
-      { field: 'CompanyName', type: 'abColDefString' },
-      { field: 'ContactName', type: 'abColDefString' },
-      { field: 'Employee', type: 'abColDefString' },
-      { field: 'OrderCost', type: 'abColDefNumber' },
-      { field: 'ItemCost', type: 'abColDefNumber' },
-      {
-        field: 'PackageCost',
+        headerName: 'Trade Id',
+        field: 'tradeId',
         editable: true,
-        type: 'abColDefNumber'
-      }
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Notional',
+        field: 'notional',
+        enableValue: true,
+        editable: true,
+        cellClass: 'number-cell',
+        type: 'abColDefNumber',
+        aggFunc: 'sum',
+      },
+      {
+        headerName: 'Counterparty',
+        field: 'counterparty',
+        editable: true,
+        enableRowGroup: true,
+        type: 'abColDefString',
+      },
+      {
+        headerName: 'Change',
+        field: 'changeOnYear',
+        editable: true,
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Currency',
+        field: 'currency',
+        editable: true,
+        enableRowGroup: true,
+        type: 'abColDefString',
+      },
+      {
+        headerName: 'B/O Spread',
+        field: 'bidOfferSpread',
+        enableValue: true,
+        editable: true,
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Price',
+        field: 'price',
+        editable: true,
+        enableValue: true,
+        enableRowGroup: true,
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Country',
+        field: 'country',
+        editable: true,
+        enableRowGroup: true,
+        type: 'abColDefString',
+      },
+      ,
+      {
+        headerName: 'Status',
+        field: 'status',
+        editable: true,
+        pivot: true,
+        enableRowGroup: true,
+        enablePivot: true,
+        aggFunc: 'sum',
+        type: 'abColDefString',
+        resizable: true,
+      },
+      {
+        headerName: 'Trade Date',
+        field: 'tradeDate',
+        editable: true,
+        type: 'abColDefDate',
+      },
+      {
+        headerName: 'Settlement Date',
+        field: 'settlementDate',
+        editable: true,
+        type: 'abColDefDate',
+      },
+      {
+        headerName: 'Ask',
+        field: 'ask',
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Bid',
+        field: 'bid',
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Ind Ask',
+        field: 'indicativeAsk',
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Ind Bid',
+        field: 'indicativeBid',
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Markit Ask',
+        field: 'markitAsk',
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Markit Bid',
+        field: 'markitBid',
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Bbg Ask',
+        field: 'bloombergAsk',
+        type: 'abColDefNumber',
+      },
+      {
+        headerName: 'Bbg Bid',
+        field: 'bloombergBid',
+        type: 'abColDefNumber',
+      },
+
+      {
+        headerName: 'Rating',
+        field: 'rating',
+        editable: true,
+        type: 'abColDefString',
+      },
     ].map((c: ColDef) => {
       c.filter = true;
       c.floatingFilter = true;
+      c.sortable = true;
+      c.resizable = true;
       return c;
     });
 
@@ -114,11 +369,11 @@ export class AppComponent {
       enableRangeSelection: true,
       sideBar: true,
       components: {
-        AdaptableToolPanel: AdaptableToolPanelAgGridComponent
+        AdaptableToolPanel: AdaptableToolPanelAgGridComponent,
       },
       columnDefs: this.columnDefs,
       rowData: [],
-      onGridReady: this.onGridReady
+      onGridReady: this.onGridReady,
     };
   }
 
@@ -126,41 +381,17 @@ export class AppComponent {
     console.log({ adaptableApi, vendorGrid });
   };
 
-  onGridReady = params => {
+  onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    // this.http
-    //   .get(
-    //     'https://raw.githubusercontent.com/ag-grid/ag-grid-docs/latest/src/javascript-grid-master-detail/custom-detail-with-form/data/data.json'
-    //   )
-    //   .subscribe((data: any[]) => {
-    //     console.log('data', data);
-    //     this.gridApi.setRowData(data);
-    //   });
     setTimeout(() => {
-      this.gridApi.setRowData(orders);
+      let trades: ITrade[] = [];
+      for (let i = 1; i <= 500; i++) {
+        trades.push(dummyTradeBuilder.createTrade(i));
+      }
+      this.gridApi.setRowData(trades);
+      this.gridColumnApi.autoSizeAllColumns();
     }, 500);
-
-    // setTimeout(() => {
-    //   this.gridApi.setRowData(orders);
-
-    //   setInterval(() => {
-    //     const index = Math.round(Math.random() * orders.length);
-    //     let data = orders[index];
-    //     if (data) {
-    //       data = { ...data };
-    //       data.OrderCost = Math.round(Math.random() * 100);
-    //       data.ItemCost = Math.round(Math.random() * 100);
-    //       data.PackageCost = Math.round(Math.random() * 100);
-
-    //       this.gridApi.applyTransactionAsync({ update: [data] });
-    //     }
-    //   }, 500);
-    // }, 500);
-
-    params.api.forEachNode(function(node) {
-      node.setExpanded(node.id === '1');
-    });
   };
 }
