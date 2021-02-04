@@ -2,7 +2,7 @@ export interface ITrade {
   tradeId: number;
   notional: number;
   counterparty: string;
-  // history: number[];
+  history: number[];
   currency: string;
   status: string;
   country: string;
@@ -33,9 +33,9 @@ export class DummyTradeBuilder {
     let tradeCurrency = this.getRandomItem(this.getCurrencies());
     var trade: ITrade = {
       tradeId: i,
-      //   history: [...new Array(this.generateRandomInt(5, 20))].map(_ =>
-      //    this.generateRandomInt(1, 30)
-      //   ),
+      history: [...new Array(this.generateRandomInt(5, 20))].map((_) =>
+        this.generateRandomInt(1, 30)
+      ),
       notional: this.getRandomItem(this.getNotionals()),
       counterparty: this.getRandomItem(this.getCounterparties()),
       currency: tradeCurrency,
@@ -222,14 +222,14 @@ export class DummyTradeBuilder {
   }
 
   protected getStatus(): string {
-    const randomNumber = this.generateRandomInt(1, 3);
-    if (randomNumber == 1) {
-      return 'Completed';
-    }
-    if (randomNumber == 2) {
+    const randomNumber = this.generateRandomInt(1, 9);
+    if (randomNumber < 8) {
       return 'Pending';
     }
-    if (randomNumber == 3) {
+    if (randomNumber == 8) {
+      return 'Completed';
+    }
+    if (randomNumber == 9) {
       return 'Rejected';
     }
     return '';

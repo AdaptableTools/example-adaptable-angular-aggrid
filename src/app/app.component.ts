@@ -8,6 +8,9 @@ import {
 } from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 import {
+  ActionColumnClickedEventArgs,
+  ActionColumnClickedInfo,
+  ActionColumnRenderParams,
   AdaptableOptions,
   AdaptableToolPanelAgGridComponent,
   PredicateDefHandlerParams,
@@ -116,6 +119,24 @@ export class AppComponent {
         },
       },
     ],
+    userFunctions: [
+      {
+        type: 'ActionColumnRenderFunction',
+        name: 'renderStatusFunction',
+        handler(params: ActionColumnRenderParams) {
+          return params.rowData.status == 'Pending'
+            ? '<button >Reject</button>'
+            : '<button style="font-style:italic">Cancel</button>';
+        },
+      },
+      {
+        type: 'ActionColumnShouldRenderPredicate',
+        name: 'renderStatusPredicate',
+        handler(params) {
+          return params.rowData.status != 'Completed';
+        },
+      },
+    ],
     predefinedConfig: {
       Dashboard: {
         Revision: Date.now(),
@@ -190,6 +211,18 @@ export class AppComponent {
           },
         ],
       },
+      Query: {
+        Revision: Date.now(),
+        CurrentQuery: '',
+        SharedQueries: [
+          {
+            Uuid: 'pending_dollar_trades',
+            Name: 'Pending Dollar Trades',
+            Expression:
+              "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')",
+          },
+        ],
+      },
       Theme: {
         Revision: Date.now(),
         CurrentTheme: 'dark',
@@ -211,6 +244,7 @@ export class AppComponent {
               'bestAsk',
               'notional',
               'status',
+              'statusActionColumn',
               'country',
               'price',
               'isLive',
@@ -218,6 +252,33 @@ export class AppComponent {
               'tradeDate',
               'settlementDate',
               'diffDays',
+            ],
+            ColumnSorts: [
+              {
+                ColumnId: 'tradeId',
+                SortOrder: 'Desc',
+              },
+            ],
+          },
+          {
+            Name: 'Sorted',
+            Columns: [
+              'tradeId',
+              'currency',
+              'changeOnYear',
+              'counterparty',
+              'history',
+              'settlementDate',
+            ],
+            ColumnSorts: [
+              {
+                ColumnId: 'currency',
+                SortOrder: 'Asc',
+              },
+              {
+                ColumnId: 'counterparty',
+                SortOrder: 'Desc',
+              },
             ],
           },
           {
@@ -237,7 +298,7 @@ export class AppComponent {
           },
           {
             Name: 'Pivot',
-            Columns: ['tradeId', 'currency'],
+            Columns: [],
             PivotColumns: ['status'],
             RowGroupedColumns: ['counterparty'],
             EnablePivot: true,
@@ -246,6 +307,18 @@ export class AppComponent {
               ask: 'sum',
               price: true,
             },
+          },
+        ],
+      },
+      ActionColumn: {
+        Revision: Date.now(),
+        ActionColumns: [
+          {
+            ColumnId: 'statusActionColumn',
+            FriendlyName: 'Action',
+            ButtonText: 'Reject',
+            ShouldRenderPredicate: 'renderStatusPredicate',
+            RenderFunction: 'renderStatusFunction',
           },
         ],
       },
@@ -320,7 +393,24 @@ export class AppComponent {
           },
         ],
       },
-
+      SparklineColumn: {
+        Revision: Date.now(),
+        SparklineColumns: [
+          {
+            ColumnId: 'history',
+            SparklineType: 'Line',
+          },
+        ],
+      },
+      CustomSort: {
+        Revision: Date.now(),
+        CustomSorts: [
+          {
+            ColumnId: 'currency',
+            SortedValues: ['USD', 'GBP', 'EUR'],
+          },
+        ],
+      },
       ConditionalStyle: {
         Revision: Date.now(),
         ConditionalStyles: [
@@ -329,10 +419,10 @@ export class AppComponent {
               All: true,
             },
             Style: {
-              BackColor: 'lightYellow',
+              BackColor: 'lightGray ',
               ForeColor: 'brown',
             },
-            Expression: '[status]="Pending"',
+            Expression: '[status]!="Pending"',
           },
           {
             Scope: {
@@ -524,12 +614,18 @@ export class AppComponent {
         field: 'bloombergBid',
         type: 'abColDefNumber',
       },
-
       {
         headerName: 'Rating',
         field: 'rating',
         editable: true,
         type: 'abColDefString',
+      },
+      {
+        headerName: 'History',
+        field: 'history',
+        editable: false,
+        type: 'abColDefNumberArray',
+        resizable: true,
       },
     ].map((c: ColDef) => {
       c.filter = true;
@@ -569,6 +665,24 @@ export class AppComponent {
           this.gridApi.getDisplayedRowCount() + 1
         );
         adaptableApi.gridApi.addGridData([trade]);
+      }
+    );
+
+    adaptableApi.eventApi.on(
+      'ActionColumnClicked',
+      (actionColumnEventArgs: ActionColumnClickedEventArgs) => {
+        let actionColumnClickedInfo: ActionColumnClickedInfo =
+          actionColumnEventArgs.data[0].id;
+        let rowData: any = actionColumnClickedInfo.rowData;
+        const column = actionColumnEventArgs.data[0].id.actionColumn;
+        let newStatus: string =
+          rowData.status == 'Rejected' ? 'Pending' : 'Rejected';
+        adaptableApi.gridApi.setCellValue(
+          'status',
+          newStatus,
+          actionColumnClickedInfo.primaryKeyValue,
+          true
+        );
       }
     );
   };
