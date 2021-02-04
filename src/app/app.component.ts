@@ -6,10 +6,7 @@ import {
   Module,
   ColDef,
 } from '@ag-grid-community/all-modules';
-import {
-  AllEnterpriseModules,
-  DateTimeCellEditorModule,
-} from '@ag-grid-enterprise/all-modules';
+import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 import {
   AdaptableOptions,
   AdaptableToolPanelAgGridComponent,
@@ -80,6 +77,20 @@ export class AppComponent {
       Dashboard: {
         Revision: Date.now(),
         VisibleButtons: ['Layout', 'CalculatedColumn', 'GridInfo'],
+        Tabs: [
+          {
+            Name: 'Grid',
+            Toolbars: ['Layout', 'Alert', 'CellSummary', 'Export'],
+          },
+          {
+            Name: 'Search',
+            Toolbars: ['Query'],
+          },
+          {
+            Name: 'Edit',
+            Toolbars: ['SmartEdit', 'BulkUpdate'],
+          },
+        ],
       },
       Theme: {
         Revision: Date.now(),
@@ -87,10 +98,10 @@ export class AppComponent {
       },
       Layout: {
         Revision: Date.now(),
-        CurrentLayout: 'basic',
+        CurrentLayout: 'Basic',
         Layouts: [
           {
-            Name: 'basic',
+            Name: 'Basic',
             Columns: [
               'tradeId',
               'currency',
@@ -112,12 +123,22 @@ export class AppComponent {
             ],
           },
           {
-            Name: 'rowGrouped',
-            Columns: ['tradeId', 'currency'],
-            RowGroupedColumns: ['country'],
+            Name: 'Row Grouped',
+            Columns: [
+              'tradeId',
+              'changeOnYear',
+              'counterparty',
+              'bid',
+              'bidOfferSpread',
+              'ask',
+              'bestAsk',
+              'notional',
+              'status',
+            ],
+            RowGroupedColumns: ['country', 'currency'],
           },
           {
-            Name: 'pivot',
+            Name: 'Pivot',
             Columns: ['tradeId', 'currency'],
             PivotColumns: ['status'],
             RowGroupedColumns: ['counterparty'],
@@ -211,7 +232,7 @@ export class AppComponent {
             },
             Style: {
               BackColor: 'lightYellow',
-              ForeColor: 'Black',
+              ForeColor: 'brown',
             },
             Expression: '[status]="Pending"',
           },
@@ -412,6 +433,13 @@ export class AppComponent {
     this.gridOptions = {
       enableRangeSelection: true,
       sideBar: true,
+      suppressMenuHide: true,
+      statusBar: {
+        statusPanels: [
+          { statusPanel: 'agTotalRowCountComponent', align: 'left' },
+          { statusPanel: 'agFilteredRowCountComponent' },
+        ],
+      },
       components: {
         AdaptableToolPanel: AdaptableToolPanelAgGridComponent,
       },
@@ -431,7 +459,7 @@ export class AppComponent {
 
     setTimeout(() => {
       let trades: ITrade[] = [];
-      for (let i = 1; i <= 500; i++) {
+      for (let i = 1; i <= 10000; i++) {
         trades.push(dummyTradeBuilder.createTrade(i));
       }
       this.gridApi.setRowData(trades);
