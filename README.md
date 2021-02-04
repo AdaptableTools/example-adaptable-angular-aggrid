@@ -1,9 +1,14 @@
 # AdapTable Angular 10 Example App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0 using AdapTable v8
+This demo app shows how to set up AdapTable using the Angular Wrapper.
 
-Note: 9 is the minimium Angular version required for using Adaptable 7.0 and higher.
+### Versions and Dependencies
 
+- [Angular CLI](https://github.com/angular/angular-cli) version 10
+- [Adaptable](https://github.com/angular/angular-cli) version 8
+- [ag-Grid](https://github.com/angular/angular-cli) version 25
+
+> 9 is the minimium Angular version required for using Adaptable 7.0 and higher.
 ## Installation
 
 NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Wrapper Documentation](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-installation)
