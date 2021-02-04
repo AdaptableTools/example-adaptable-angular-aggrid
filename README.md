@@ -5,8 +5,8 @@ This demo app shows how to set up AdapTable using the Angular Wrapper.
 ### Versions and Dependencies
 
 - [Angular CLI](https://github.com/angular/angular-cli) version 10
-- [Adaptable](https://github.com/angular/angular-cli) version 8
-- [ag-Grid](https://github.com/angular/angular-cli) version 25
+- [Adaptable](https://docs.adaptabletools.com/) version 8
+- [ag-Grid](https://www.ag-grid.com/ag-grid-changelog/?fixVersion=25.0.0) version 25
 
 > 9 is the minimium Angular version required for using Adaptable 7.0 and higher.
 ## Installation
