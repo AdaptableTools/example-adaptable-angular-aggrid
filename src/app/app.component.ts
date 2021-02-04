@@ -10,6 +10,8 @@ import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 import {
   AdaptableOptions,
   AdaptableToolPanelAgGridComponent,
+  PredicateDefHandlerParams,
+  ToolbarButtonClickedEventArgs,
 } from '@adaptabletools/adaptable-angular-aggrid';
 import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
@@ -73,6 +75,47 @@ export class AppComponent {
     userInterfaceOptions: {
       showAdaptableToolPanel: true,
     },
+    customPredicateDefs: [
+      {
+        id: 'high',
+        label: 'High',
+        columnScope: {
+          ColumnIds: ['tradeId'],
+        },
+        functionScope: ['filter', 'alert', 'validation', 'conditionalstyle'],
+        handler(params: PredicateDefHandlerParams) {
+          let notional: number = params.node.data.notional;
+          return notional > 8000000 ? true : false;
+        },
+      },
+      {
+        id: 'benelux',
+        label: 'Benelux',
+        columnScope: {
+          ColumnIds: ['Country'],
+        },
+        functionScope: ['filter'],
+        handler(params: PredicateDefHandlerParams) {
+          return (
+            params.value == 'Luxembourg' ||
+            params.value == 'Belgium' ||
+            params.value == 'Holland'
+          );
+        },
+      },
+      {
+        id: 'post_takeover',
+        label: 'Post Takeover',
+        columnScope: {
+          DataTypes: ['Date'],
+        },
+        functionScope: ['filter'],
+        handler(params: PredicateDefHandlerParams) {
+          let takeOverDate = new Date('2020-09-21');
+          return (params.value as Date) > takeOverDate;
+        },
+      },
+    ],
     predefinedConfig: {
       Dashboard: {
         Revision: Date.now(),
@@ -80,7 +123,7 @@ export class AppComponent {
         Tabs: [
           {
             Name: 'Grid',
-            Toolbars: ['Layout', 'Alert', 'CellSummary', 'Export'],
+            Toolbars: ['Layout', 'Alert', 'CellSummary', 'Export', 'Trades'],
           },
           {
             Name: 'Search',
@@ -89,6 +132,61 @@ export class AppComponent {
           {
             Name: 'Edit',
             Toolbars: ['SmartEdit', 'BulkUpdate'],
+          },
+        ],
+        CustomToolbars: [
+          // Show a Title and Configure Button
+          {
+            Name: 'Trades',
+            Title: 'Trades',
+            ShowConfigureButton: true,
+            ToolbarButtons: [
+              {
+                Name: 'addTradeButton',
+                Caption: 'Add Trade',
+                ButtonStyle: {
+                  Variant: 'raised',
+                  Tone: 'accent',
+                },
+              },
+            ],
+          },
+          // Show no Title and no Configure Button
+          {
+            Name: 'Deals',
+            ToolbarButtons: [
+              {
+                Name: 'dealsButton1',
+                Caption: 'New Deal',
+                ButtonStyle: {
+                  Variant: 'text',
+                  Tone: 'success',
+                },
+              },
+            ],
+          },
+          // Show Configure Button but no Title
+          // Note that we have also added an Icon to the button
+          {
+            Name: 'Orders',
+            Title: 'Orders',
+            ShowConfigureButton: true,
+            ToolbarButtons: [
+              {
+                Name: 'ordersButton1',
+                Caption: 'Create Order',
+                ButtonStyle: {
+                  Variant: 'outlined',
+                  Tone: 'info',
+                },
+                Icon: {
+                  height: 20,
+                  width: 25,
+                  src:
+                    'https://www.pngfind.com/pngs/m/278-2781613_blue-plus-icon-add-new-button-png-transparent.png',
+                },
+              },
+            ],
           },
         ],
       },
@@ -287,6 +385,17 @@ export class AppComponent {
           },
         ],
       },
+      UserInterface: {
+        Revision: Date.now(),
+        EditLookUpItems: [
+          {
+            Scope: {
+              ColumnIds: ['status'],
+            },
+            LookUpValues: ['Pending', 'Completed', 'Rejected'],
+          },
+        ],
+      },
     },
   };
 
@@ -434,6 +543,7 @@ export class AppComponent {
       enableRangeSelection: true,
       sideBar: true,
       suppressMenuHide: true,
+      singleClickEdit: true,
       statusBar: {
         statusPanels: [
           { statusPanel: 'agTotalRowCountComponent', align: 'left' },
@@ -451,6 +561,16 @@ export class AppComponent {
 
   adaptableReady = ({ adaptableApi, vendorGrid }) => {
     console.log({ adaptableApi, vendorGrid });
+
+    adaptableApi.eventApi.on(
+      'ToolbarButtonClicked',
+      (toolbarButtonClickedEventArgs: ToolbarButtonClickedEventArgs) => {
+        let trade: ITrade = dummyTradeBuilder.createTrade(
+          this.gridApi.getDisplayedRowCount() + 1
+        );
+        adaptableApi.gridApi.addGridData([trade]);
+      }
+    );
   };
 
   onGridReady = (params) => {
