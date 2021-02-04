@@ -11,8 +11,10 @@ import {
   ActionColumnClickedEventArgs,
   ActionColumnClickedInfo,
   ActionColumnRenderParams,
+  AdaptableApi,
   AdaptableOptions,
   AdaptableToolPanelAgGridComponent,
+  MenuInfo,
   PredicateDefHandlerParams,
   ToolbarButtonClickedEventArgs,
 } from '@adaptabletools/adaptable-angular-aggrid';
@@ -21,6 +23,7 @@ import finance from '@adaptabletools/adaptable-plugin-finance';
 import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 
 var dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
+var adapTableApi: AdaptableApi;
 @Component({
   selector: 'adaptable-root',
   template: `
@@ -134,6 +137,28 @@ export class AppComponent {
         name: 'renderStatusPredicate',
         handler(params) {
           return params.rowData.status != 'Completed';
+        },
+      },
+      {
+        type: 'UserMenuItemClickedFunction',
+        name: 'rejectTrade',
+        handler(menuInfo: MenuInfo) {
+          adapTableApi.gridApi.setCellValue(
+            'status',
+            'Rejected',
+            menuInfo.PrimaryKeyValue,
+            true
+          );
+        },
+      },
+      {
+        type: 'UserMenuItemShowPredicate',
+        name: 'isTradePending',
+        handler(menuInfo) {
+          if (!menuInfo.RowNode || !menuInfo.RowNode.data) {
+            return false;
+          }
+          return menuInfo.RowNode.data.status == 'Pending';
         },
       },
     ],
@@ -360,7 +385,6 @@ export class AppComponent {
           },
         ],
       },
-
       GradientColumn: {
         GradientColumns: [
           {
@@ -423,6 +447,7 @@ export class AppComponent {
               ForeColor: 'brown',
             },
             Expression: '[status]!="Pending"',
+            ExcludeGroupedRows: true,
           },
           {
             Scope: {
@@ -483,6 +508,13 @@ export class AppComponent {
               ColumnIds: ['status'],
             },
             LookUpValues: ['Pending', 'Completed', 'Rejected'],
+          },
+        ],
+        ContextMenuItems: [
+          {
+            Label: 'Reject Trade',
+            UserMenuItemClickedFunction: 'rejectTrade',
+            UserMenuItemShowPredicate: 'isTradePending',
           },
         ],
       },
@@ -656,9 +688,9 @@ export class AppComponent {
   }
 
   adaptableReady = ({ adaptableApi, vendorGrid }) => {
-    console.log({ adaptableApi, vendorGrid });
+    adapTableApi = adaptableApi;
 
-    adaptableApi.eventApi.on(
+    adapTableApi.eventApi.on(
       'ToolbarButtonClicked',
       (toolbarButtonClickedEventArgs: ToolbarButtonClickedEventArgs) => {
         let trade: ITrade = dummyTradeBuilder.createTrade(
@@ -668,7 +700,7 @@ export class AppComponent {
       }
     );
 
-    adaptableApi.eventApi.on(
+    adapTableApi.eventApi.on(
       'ActionColumnClicked',
       (actionColumnEventArgs: ActionColumnClickedEventArgs) => {
         let actionColumnClickedInfo: ActionColumnClickedInfo =
