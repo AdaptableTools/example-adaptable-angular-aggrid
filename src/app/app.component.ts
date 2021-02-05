@@ -439,7 +439,7 @@ export class AppComponent {
               ],
             },
             Expression:
-              "  [status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7",
+              "[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7",
           },
         ],
       },

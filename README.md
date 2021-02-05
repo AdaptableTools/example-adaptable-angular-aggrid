@@ -65,15 +65,18 @@ Its [Expression](https://docs.adaptabletools.com/docs/common-objects/common-obje
 #### Export
 The demo contains one Custom Reeport - 'Trades Due this Week' - which has:
 - Bespoke column list
-- Uses a custom Expression to get the rows
+- Uses an Expression to get the rows:
+  ```"[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7"```
 
 > Note: we have scheduled this report to run each day at 17:30
 
-Custom Sort
-One created on Currency Column - USD, GBP, EUR, then alphabetically
+#### Custom Sort
+There is one [Custom Sort](https://docs.adaptabletools.com/docs/adaptable-functions/custom-sort-function) on the 'Currency' column.
+
+It sorts by USD, GBP, EUR and then the rest of the column values alphabetically.
  
-Theme
-Using the dark theme - but you can switch to light easily
+#### Theme
+The demo has been set up to use the [dark theme](https://docs.adaptabletools.com/docs/key-topics/theming-and-styling) - though this can be changed in the Theme Daashboard Toolbar or the ToolPanel.
  
 Percent Bar 
 One created on Notional Column - has 3 Ranges
