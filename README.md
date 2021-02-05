@@ -32,32 +32,34 @@ This demo contains a huge amount of Predefiend Config to illustrate many of the 
 #### Layout
 In this demo we have created 4 [Layouts](https://docs.adaptabletools.com/docs/adaptable-functions/layout-function)
 - *Basic* - shows column visibility and order including Calculated Columns and Action Columns (see below)
+    
     > Note: This Layout includes 3 Calculated Columns and a FreeText Column
+
 - *Sorted* - shows column sorts including Custom Sorts (see below)
+  
   > Note: This Layout includes a Sparkline Column
+
 - *Row Grouped* - shows 2 Grouped Row Columns
+
 - *Pivot* - shows AdapTable in pivot view with aggregations and pivoted columns
 
 #### Conditional Style
-There are 3 [Conditional Styles](https://docs.adaptabletools.com/docs/adaptable-functions/conditional-style-function) provided:
+There are 4 [Conditional Styles](https://docs.adaptabletools.com/docs/adaptable-functions/conditional-style-function) provided:
 - Row Style of gray background with brown forecolor where Status is 'Rejected'
-- All Number Columns are green forecolor where value is positive
-- All Number Columns are red forecolor where value is positive
+- All numeric columns are green forecolor where value is positive
+- All numeric columns are red forecolor where value is negative
 - 'Country' column shows font bold and italics where value is 'United States'
 
+#### Format Column
+There are 3 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-functions/format-column-function) provided:
+- **Date columns** - will use Format: ‘dd/MM/yyyy’
+- **Number Ccolumns** - will align to right
+- **Ask, Bid, Price, BestAsk** columns - will have 3 decimal places
 
-Format Columns - 3 set
-Date Columns - will use Format: ‘dd/MM/yyyy’
-Number Columns - will align to right
-Ask, Bid, Price, BestAsk Columns - will have 3 decimal places
-Custom Filter Predicates
-Created 3 of these which will appear in the relevant Column Filters:
-High - appears in TradeId and filters where Notional > 8000000
-Benelux - appears in Country column and filters where value is Holland, Belgium or Luxembourg
-Post Takeover - appears in any Date Column and filters where value is after a fictitious takeover date of 21/09/2021
- 
-Query
-One shared Query which shows Pending Dollar Trades - if you load it up you can see its content
+#### Query
+There is one [Shared Query](https://docs.adaptabletools.com/docs/adaptable-functions/query-function) called 'Pending Dollar Trades'.
+
+Its [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression) is: "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')"
  
 Export
 One report - Trades Due this Week - which has bespoke column list and uses a Query to get the Data
