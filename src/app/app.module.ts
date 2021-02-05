@@ -6,6 +6,7 @@ import { AdaptableAngularAgGridModule } from '@adaptabletools/adaptable-angular-
 import { AgGridModule } from '@ag-grid-community/angular';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ToolbarComponent } from './toolbar.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AgGridModule.withComponents([])
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, ToolbarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
