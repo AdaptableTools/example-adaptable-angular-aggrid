@@ -17,6 +17,7 @@ import {
   MenuInfo,
   PredicateDefHandlerParams,
   ToolbarButtonClickedEventArgs,
+  ToolbarVisibilityChangedEventArgs,
 } from '@adaptabletools/adaptable-angular-aggrid';
 import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
@@ -180,14 +181,7 @@ export class AppComponent {
         Tabs: [
           {
             Name: 'Grid',
-            Toolbars: [
-              'Layout',
-              'Alert',
-              'CellSummary',
-              'Export',
-              'Trades',
-              'Theme',
-            ],
+            Toolbars: ['Layout', 'Alert', 'CellSummary', 'Export', 'Theme'],
           },
           {
             Name: 'Search',
@@ -197,13 +191,17 @@ export class AppComponent {
             Name: 'Edit',
             Toolbars: ['SmartEdit', 'BulkUpdate'],
           },
+          {
+            Name: 'Custom',
+            Toolbars: ['Trades', 'Details'],
+          },
         ],
         CustomToolbars: [
           // Show a Title and Configure Button
           {
             Name: 'Trades',
             Title: 'Trades',
-            ShowConfigureButton: true,
+            ShowConfigureButton: false,
             ToolbarButtons: [
               {
                 Name: 'addTradeButton',
@@ -214,6 +212,9 @@ export class AppComponent {
                 },
               },
             ],
+          },
+          {
+            Name: 'Details',
           },
         ],
       },
@@ -769,6 +770,7 @@ export class AppComponent {
 
   adaptableReady = ({ adaptableApi, vendorGrid }) => {
     adapTableApi = adaptableApi;
+    let gridOptions: GridOptions = vendorGrid as GridOptions;
 
     adaptableApi.eventApi.on('AdaptableReady', () => {
       dummyTradeBuilder.startTickingDataagGridTrade(
@@ -786,6 +788,28 @@ export class AppComponent {
           this.gridApi.getDisplayedRowCount() + 1
         );
         adaptableApi.gridApi.addGridData([trade]);
+      }
+    );
+
+    adaptableApi.eventApi.on(
+      'ToolbarVisibilityChanged',
+      (
+        toolbarVisibilityChangedEventArgs: ToolbarVisibilityChangedEventArgs
+      ) => {
+        if (
+          toolbarVisibilityChangedEventArgs.data[0].id.toolbar === 'Details'
+        ) {
+          let rowcount = gridOptions.api.getDisplayedRowCount();
+          let mySpan: any = '<span>RowCount:' + rowcount + '</span>';
+          let test: any = adaptableApi.dashboardApi.getCustomToolbarContentsDiv(
+            'Details'
+          );
+          test.innerHTML = mySpan;
+          //  ReactDOM.render(
+          //  mySpan,
+          //   adaptableApi.dashboardApi.getCustomToolbarContentsDiv('Test')
+          // );
+        }
       }
     );
 
