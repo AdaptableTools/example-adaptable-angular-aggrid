@@ -59,11 +59,16 @@ There are 3 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-func
 #### Query
 There is one [Shared Query](https://docs.adaptabletools.com/docs/adaptable-functions/query-function) called 'Pending Dollar Trades'.
 
-Its [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression) is: "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')"
+Its [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression) is: "
+```[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')"```
  
-Export
-One report - Trades Due this Week - which has bespoke column list and uses a Query to get the Data
-We can optionally also schedule this report to run on Friday - give me a time!
+#### Export
+The demo contains one Custom Reeport - 'Trades Due this Week' - which has:
+- Bespoke column list
+- Uses a custom Expression to get the rows
+
+> Note: we have scheduled this report to run each day at 17:30
+
 Custom Sort
 One created on Currency Column - USD, GBP, EUR, then alphabetically
  
