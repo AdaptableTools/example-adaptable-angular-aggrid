@@ -78,7 +78,7 @@ export class AppComponent {
   public adaptableOptions: AdaptableOptions = {
     primaryKey: 'tradeId',
     userName: 'demo user',
-    adaptableId: 'angular demo' + Date.now(),
+    adaptableId: 'AdapTable Angular Demo',
     plugins: [charts(), finance()],
     userInterfaceOptions: {
       showAdaptableToolPanel: true,
@@ -575,9 +575,23 @@ export class AppComponent {
               Filterable: true,
             },
             ColumnExpression:
-              "[notional] < 3000000? 'Low' : [notional] < 6000000 ? 'Medium' : 'High' ",
+              "[notional] < 300000? 'Low' : [notional] < 600000 ? 'Medium' : 'High' ",
             ColumnId: 'size',
             FriendlyName: 'Size',
+          },
+        ],
+      },
+      Alert: {
+        MaxAlertsInStore: 50,
+        AlertDefinitions: [
+          {
+            AlertProperties: {
+              LogToConsole: false,
+            },
+            Expression: "[currency] = 'USD'",
+            MessageType: 'Warning',
+            Predicate: { PredicateId: 'Equals', Inputs: ['10000000'] },
+            Scope: { ColumnIds: ['notional'] },
           },
         ],
       },

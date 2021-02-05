@@ -11,9 +11,9 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable-angular-aggrid": "8.0.5",
-    "@adaptabletools/adaptable-plugin-charts": "8.0.5",
-    "@adaptabletools/adaptable-plugin-finance": "8.0.5",
+    "@adaptabletools/adaptable-angular-aggrid": "8.0.8",
+    "@adaptabletools/adaptable-plugin-charts": "8.0.8",
+    "@adaptabletools/adaptable-plugin-finance": "8.0.8",
     "@ag-grid-community/all-modules": "25.0.1",
     "@ag-grid-community/angular": "25.0.1",
     "@ag-grid-enterprise/all-modules": "25.0.1",

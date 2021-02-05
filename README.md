@@ -77,12 +77,22 @@ It sorts by USD, GBP, EUR and then the rest of the column values alphabetically.
  
 ### Theme
 The demo has been set up to use the [dark theme](https://docs.adaptabletools.com/docs/key-topics/theming-and-styling) - though this can be changed in the Theme Daashboard Toolbar or the ToolPanel.
+
+### Alert
+The demo includes one [Alert](https://docs.adaptabletools.com/docs/adaptable-functions/alert-function) (which will get triggered by the ticking data).
+
+It has the following characteristics:
+
+- Is of type 'Warning' - so that it shows in Amber
+- Is triggred if the Notional column value equals 10,000,000 (a [Predicate](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate))
+- Also requires the Currency column to have the value of 'USD' (an [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression))
  
+
 ### Percent Bar 
 One [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-functions/percent-bar-function) has been configured for the Notional Column.  It has 3 Ranges
-- Less than 25M is red
-- Between 25 and 50M is orange
-- Greater than 50M is green
+- Less than 2.5M is red
+- Between 2.5 and 5M is orange
+- Greater than 5M is green
 
 ### Calculated Column
 3 [Calculated Columns](https://docs.adaptabletools.com/docs/adaptable-functions/calculated-column-function) have been provided:
@@ -145,7 +155,7 @@ We have also set up the search text to search for 'Gold' at start-up
 
 ## User Interface
 
-To do - add ToolPanel, Menus
+The demo makes use of some User Interface capabilities provided by AdapTable:
 ### Dashboard
 The AdapTable [Dashboard](https://docs.adaptabletools.com/docs/user-interface/dashboard) has been configured as follows:
 

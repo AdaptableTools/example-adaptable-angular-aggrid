@@ -99,14 +99,18 @@ export class DummyTradeBuilder {
 
   protected getNotionals(): number[] {
     var notionals = [
+      500000,
       1000000,
+      1500000,
       2000000,
       2500000,
       3000000,
+      4000000,
       5000000,
       6000000,
       7500000,
       8000000,
+      9000000,
       10000000,
     ];
     return notionals;
