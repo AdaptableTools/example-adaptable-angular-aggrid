@@ -4,7 +4,7 @@ import {
   ComponentFactoryResolver,
   ComponentRef,
   InjectionToken,
-  Injector
+  Injector,
 } from '@angular/core';
 import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
 import { HttpClient } from '@angular/common/http';
@@ -12,7 +12,7 @@ import {
   GridApi,
   GridOptions,
   Module,
-  ColDef
+  ColDef,
 } from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 import {
@@ -25,7 +25,7 @@ import {
   MenuInfo,
   PredicateDefHandlerParams,
   ToolbarButtonClickedEventArgs,
-  ToolbarVisibilityChangedEventArgs
+  ToolbarVisibilityChangedEventArgs,
 } from '@adaptabletools/adaptable-angular-aggrid';
 import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
@@ -76,8 +76,8 @@ export const CONTAINER_DATA = new InjectionToken<{}>('CONTAINER_DATA');
           line-height: 1.5;
         }
       }
-    `
-  ]
+    `,
+  ],
 })
 export class AppComponent {
   public gridApi: GridApi;
@@ -93,26 +93,26 @@ export class AppComponent {
     adaptableId: 'AdapTable Angular Demo',
     plugins: [charts(), finance()],
     userInterfaceOptions: {
-      showAdaptableToolPanel: true
+      showAdaptableToolPanel: true,
     },
     customPredicateDefs: [
       {
         id: 'high',
         label: 'High',
         columnScope: {
-          ColumnIds: ['tradeId']
+          ColumnIds: ['tradeId'],
         },
         functionScope: ['filter', 'alert', 'validation', 'conditionalstyle'],
         handler(params: PredicateDefHandlerParams) {
           let notional: number = params.node.data.notional;
           return notional > 8000000 ? true : false;
-        }
+        },
       },
       {
         id: 'benelux',
         label: 'Benelux',
         columnScope: {
-          ColumnIds: ['Country']
+          ColumnIds: ['Country'],
         },
         functionScope: ['filter'],
         handler(params: PredicateDefHandlerParams) {
@@ -121,37 +121,42 @@ export class AppComponent {
             params.value == 'Belgium' ||
             params.value == 'Holland'
           );
-        }
+        },
       },
       {
         id: 'post_takeover',
         label: 'Post Takeover',
         columnScope: {
-          DataTypes: ['Date']
+          DataTypes: ['Date'],
         },
         functionScope: ['filter'],
         handler(params: PredicateDefHandlerParams) {
           let takeOverDate = new Date('2020-09-21');
           return (params.value as Date) > takeOverDate;
-        }
-      }
+        },
+      },
     ],
     userFunctions: [
       {
         type: 'ActionColumnRenderFunction',
         name: 'renderStatusFunction',
         handler(params: ActionColumnRenderParams) {
-          return params.rowData.status == 'Pending'
-            ? '<button >Reject</button>'
-            : '<button style="font-style:italic">Cancel</button>';
-        }
+          if (params && params.rowData && params.rowData.staus) {
+            return params.rowData.status == 'Pending'
+              ? '<button >Reject</button>'
+              : '<button style="font-style:italic">Cancel</button>';
+          }
+        },
       },
       {
         type: 'ActionColumnShouldRenderPredicate',
         name: 'renderStatusPredicate',
         handler(params) {
+          if (!params || !params.rowData || !params.rowData.status) {
+            return false;
+          }
           return params.rowData.status != 'Completed';
-        }
+        },
       },
       {
         type: 'UserMenuItemClickedFunction',
@@ -163,7 +168,7 @@ export class AppComponent {
             menuInfo.PrimaryKeyValue,
             true
           );
-        }
+        },
       },
       {
         type: 'UserMenuItemShowPredicate',
@@ -173,19 +178,19 @@ export class AppComponent {
             return false;
           }
           return menuInfo.RowNode.data.status == 'Pending';
-        }
-      }
+        },
+      },
     ],
     auditOptions: {
       auditUserStateChanges: {
-        auditToConsole: true
+        auditToConsole: true,
       },
       auditCellEdits: {
-        auditToConsole: true
+        auditToConsole: true,
       },
       auditFunctionsApplied: {
-        auditToConsole: true
-      }
+        auditToConsole: true,
+      },
     },
     predefinedConfig: {
       Dashboard: {
@@ -193,20 +198,20 @@ export class AppComponent {
         Tabs: [
           {
             Name: 'Grid',
-            Toolbars: ['Layout', 'Alert', 'CellSummary', 'Export', 'Theme']
+            Toolbars: ['Layout', 'Alert', 'CellSummary', 'Export', 'Theme'],
           },
           {
             Name: 'Search',
-            Toolbars: ['Query']
+            Toolbars: ['Query'],
           },
           {
             Name: 'Edit',
-            Toolbars: ['SmartEdit', 'BulkUpdate']
+            Toolbars: ['SmartEdit', 'BulkUpdate'],
           },
           {
             Name: 'Custom',
-            Toolbars: ['Trades', 'Details']
-          }
+            Toolbars: ['Trades', 'Details'],
+          },
         ],
         CustomToolbars: [
           // Show a Title and Configure Button
@@ -220,16 +225,16 @@ export class AppComponent {
                 Caption: 'Add Trade',
                 ButtonStyle: {
                   Variant: 'raised',
-                  Tone: 'accent'
-                }
-              }
-            ]
+                  Tone: 'accent',
+                },
+              },
+            ],
           },
           {
             Name: 'Details',
-            Title: 'Details'
-          }
-        ]
+            Title: 'Details',
+          },
+        ],
       },
       Layout: {
         CurrentLayout: 'Basic',
@@ -256,17 +261,17 @@ export class AppComponent {
               'tradeDate',
               'settlementDate',
               'diffDays',
-              'comments'
+              'comments',
             ],
             ColumnSorts: [
               {
                 ColumnId: 'tradeId',
-                SortOrder: 'Desc'
-              }
+                SortOrder: 'Desc',
+              },
             ],
             ColumnWidthMap: {
-              diffDays: 100
-            }
+              diffDays: 100,
+            },
           },
           {
             Name: 'Sorted',
@@ -276,18 +281,18 @@ export class AppComponent {
               'changeOnYear',
               'counterparty',
               'history',
-              'settlementDate'
+              'settlementDate',
             ],
             ColumnSorts: [
               {
                 ColumnId: 'currency',
-                SortOrder: 'Asc'
+                SortOrder: 'Asc',
               },
               {
                 ColumnId: 'counterparty',
-                SortOrder: 'Desc'
-              }
-            ]
+                SortOrder: 'Desc',
+              },
+            ],
           },
           {
             Name: 'Row Grouped',
@@ -300,9 +305,9 @@ export class AppComponent {
               'ask',
               'bestAsk',
               'notional',
-              'status'
+              'status',
             ],
-            RowGroupedColumns: ['country', 'currency']
+            RowGroupedColumns: ['country', 'currency'],
           },
           {
             Name: 'Pivot',
@@ -313,93 +318,93 @@ export class AppComponent {
             AggregationColumns: {
               bid: 'avg',
               ask: 'sum',
-              price: true
-            }
-          }
-        ]
+              price: true,
+            },
+          },
+        ],
       },
       ConditionalStyle: {
         ConditionalStyles: [
           {
             Scope: {
-              All: true
+              All: true,
             },
             Style: {
               BackColor: 'lightGray ',
-              ForeColor: 'brown'
+              ForeColor: 'brown',
             },
             Expression: '[status]!="Pending"',
-            ExcludeGroupedRows: true
+            ExcludeGroupedRows: true,
           },
           {
             Scope: {
-              DataTypes: ['Number']
+              DataTypes: ['Number'],
             },
             Style: {
-              ForeColor: 'Green'
+              ForeColor: 'Green',
             },
             Predicate: {
-              PredicateId: 'Positive'
-            }
+              PredicateId: 'Positive',
+            },
           },
           {
             Scope: {
-              DataTypes: ['Number']
+              DataTypes: ['Number'],
             },
             Style: {
-              ForeColor: 'Red'
+              ForeColor: 'Red',
             },
             Predicate: {
-              PredicateId: 'Negative'
-            }
+              PredicateId: 'Negative',
+            },
           },
           {
             Scope: {
-              ColumnIds: ['country']
+              ColumnIds: ['country'],
             },
             Style: {
               FontWeight: 'Bold',
-              FontStyle: 'Italic'
+              FontStyle: 'Italic',
             },
             Predicate: {
               PredicateId: 'Is',
-              Inputs: ['United States']
-            }
-          }
-        ]
+              Inputs: ['United States'],
+            },
+          },
+        ],
       },
       FormatColumn: {
         FormatColumns: [
           {
             Scope: {
-              DataTypes: ['Date']
+              DataTypes: ['Date'],
             },
             DisplayFormat: {
               Formatter: 'DateFormatter',
               Options: {
-                Pattern: 'dd/MM/yyyy'
-              }
-            }
-          },
-          {
-            Scope: {
-              DataTypes: ['Number']
+                Pattern: 'dd/MM/yyyy',
+              },
             },
-            CellAlignment: 'Right'
           },
           {
             Scope: {
-              ColumnIds: ['ask', 'bid', 'price', 'bestAsk']
+              DataTypes: ['Number'],
+            },
+            CellAlignment: 'Right',
+          },
+          {
+            Scope: {
+              ColumnIds: ['ask', 'bid', 'price', 'bestAsk'],
             },
             CellAlignment: 'Right',
             DisplayFormat: {
               Formatter: 'NumberFormatter',
               Options: {
-                FractionDigits: 3
-              }
-            }
-          }
-        ]
+                FractionDigits: 3,
+              },
+            },
+          },
+        ],
       },
       FreeTextColumn: {
         FreeTextColumns: [
@@ -408,16 +413,16 @@ export class AppComponent {
             FreeTextStoredValues: [
               {
                 PrimaryKey: 996,
-                FreeText: 'Need to check'
+                FreeText: 'Need to check',
               },
               {
                 PrimaryKey: 983,
-                FreeText: 'Make sure notional is correct'
-              }
+                FreeText: 'Make sure notional is correct',
+              },
             ],
-            FriendlyName: 'Comments'
-          }
-        ]
+            FriendlyName: 'Comments',
+          },
+        ],
       },
       Query: {
         CurrentQuery: '',
@@ -426,9 +431,9 @@ export class AppComponent {
             Uuid: 'pending_dollar_trades',
             Name: 'Pending Dollar Trades',
             Expression:
-              "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')"
-          }
-        ]
+              "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')",
+          },
+        ],
       },
       Export: {
         Reports: [
@@ -449,13 +454,13 @@ export class AppComponent {
                 'price',
                 'rating',
                 'settlementDate',
-                'status'
-              ]
+                'status',
+              ],
             },
             Expression:
-              "[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7"
-          }
-        ]
+              "[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7",
+          },
+        ],
       },
       Schedule: {
         ReportSchedules: [
@@ -466,14 +471,14 @@ export class AppComponent {
               Hour: 12,
               Minute: 23,
               OneOffDate: null,
-              DaysOfWeek: [5]
+              DaysOfWeek: [5],
             },
-            ScheduleType: 'Report'
-          }
-        ]
+            ScheduleType: 'Report',
+          },
+        ],
       },
       Theme: {
-        CurrentTheme: 'dark'
+        CurrentTheme: 'dark',
       },
       ActionColumn: {
         ActionColumns: [
@@ -482,9 +487,9 @@ export class AppComponent {
             FriendlyName: 'Action',
             ButtonText: 'Reject',
             ShouldRenderPredicate: 'renderStatusPredicate',
-            RenderFunction: 'renderStatusFunction'
-          }
-        ]
+            RenderFunction: 'renderStatusFunction',
+          },
+        ],
       },
       FlashingCell: {
         FlashingCells: [
@@ -493,23 +498,23 @@ export class AppComponent {
             DownColor: '#FF6666',
             FlashingCellDuration: 250,
             IsLive: true,
-            UpColor: '#90ee90'
+            UpColor: '#90ee90',
           },
           {
             ColumnId: 'ask',
             DownColor: '#FF6666',
             FlashingCellDuration: 250,
             IsLive: true,
-            UpColor: '#90ee90'
+            UpColor: '#90ee90',
           },
           {
             ColumnId: 'price',
             DownColor: '#FF6666',
             FlashingCellDuration: 250,
             IsLive: true,
-            UpColor: '#90ee90'
-          }
-        ]
+            UpColor: '#90ee90',
+          },
+        ],
       },
       PercentBar: {
         PercentBars: [
@@ -518,10 +523,10 @@ export class AppComponent {
             Ranges: [
               { Min: 1, Max: 2500000, Color: '#a52a2a' },
               { Min: 2500001, Max: 6000000, Color: '#ffa500' },
-              { Min: 6000001, Max: 11000000, Color: '#006400' }
-            ]
-          }
-        ]
+              { Min: 6000001, Max: 11000000, Color: '#006400' },
+            ],
+          },
+        ],
       },
       GradientColumn: {
         GradientColumns: [
@@ -529,32 +534,32 @@ export class AppComponent {
             ColumnId: 'bidOfferSpread',
             PositiveValue: 0.5,
             PositiveColor: 'purple',
-            BaseValue: 0
-          }
-        ]
+            BaseValue: 0,
+          },
+        ],
       },
       SparklineColumn: {
         SparklineColumns: [
           {
             ColumnId: 'history',
-            SparklineType: 'Line'
-          }
-        ]
+            SparklineType: 'Line',
+          },
+        ],
       },
       CustomSort: {
         CustomSorts: [
           {
             ColumnId: 'currency',
-            SortedValues: ['USD', 'GBP', 'EUR']
-          }
-        ]
+            SortedValues: ['USD', 'GBP', 'EUR'],
+          },
+        ],
       },
       QuickSearch: {
         QuickSearchText: 'Gold',
         Style: {
           BackColor: '#ffff00',
-          ForeColor: '#808080'
-        }
+          ForeColor: '#808080',
+        },
       },
       CalculatedColumn: {
         CalculatedColumns: [
@@ -563,66 +568,66 @@ export class AppComponent {
               Aggregatable: true,
               DataType: 'Number',
               Pivotable: true,
-              Filterable: true
+              Filterable: true,
             },
             ColumnExpression:
               'MIN([ask] ,[markitAsk], [bloombergAsk],[indicativeAsk]) ',
             ColumnId: 'bestAsk',
-            FriendlyName: 'Best Ask'
+            FriendlyName: 'Best Ask',
           },
           {
             CalculatedColumnSettings: {
               Aggregatable: true,
               DataType: 'Number',
-              Filterable: true
+              Filterable: true,
             },
             ColumnExpression: 'DIFF_DAYS([settlementDate],[tradeDate]) ',
             ColumnId: 'diffDays',
-            FriendlyName: 'Diff Days'
+            FriendlyName: 'Diff Days',
           },
           {
             CalculatedColumnSettings: {
               Pivotable: true,
               DataType: 'String',
-              Filterable: true
+              Filterable: true,
             },
             ColumnExpression:
               "[notional] < 300000? 'Low' : [notional] < 600000 ? 'Medium' : 'High' ",
             ColumnId: 'size',
-            FriendlyName: 'Size'
-          }
-        ]
+            FriendlyName: 'Size',
+          },
+        ],
       },
       Alert: {
         MaxAlertsInStore: 50,
         AlertDefinitions: [
           {
             AlertProperties: {
-              LogToConsole: false
+              LogToConsole: false,
             },
             Expression: "[currency] = 'USD'",
             MessageType: 'Warning',
             Predicate: { PredicateId: 'Equals', Inputs: ['10000000'] },
-            Scope: { ColumnIds: ['notional'] }
-          }
-        ]
+            Scope: { ColumnIds: ['notional'] },
+          },
+        ],
       },
       UserInterface: {
         EditLookUpItems: [
           {
             Scope: {
-              ColumnIds: ['status']
+              ColumnIds: ['status'],
             },
-            LookUpValues: ['Pending', 'Completed', 'Rejected']
-          }
+            LookUpValues: ['Pending', 'Completed', 'Rejected'],
+          },
         ],
         ContextMenuItems: [
           {
             Label: 'Reject Trade',
             UserMenuItemClickedFunction: 'rejectTrade',
-            UserMenuItemShowPredicate: 'isTradePending'
-          }
-        ]
+            UserMenuItemShowPredicate: 'isTradePending',
+          },
+        ],
       },
       Shortcut: {
         Shortcuts: [
@@ -630,23 +635,23 @@ export class AppComponent {
             ColumnType: 'Number',
             ShortcutKey: 'M',
             ShortcutResult: 1000000,
-            ShortcutOperation: 'Multiply'
-          }
-        ]
+            ShortcutOperation: 'Multiply',
+          },
+        ],
       },
       CellValidation: {
         CellValidations: [
           {
             Scope: {
-              ColumnIds: ['notional', 'bidOfferSpread']
+              ColumnIds: ['notional', 'bidOfferSpread'],
             },
             Predicate: {
-              PredicateId: 'Negative'
-            }
-          }
-        ]
-      }
-    }
+              PredicateId: 'Negative',
+            },
+          },
+        ],
+      },
+    },
   };
   resolver: ComponentFactoryResolver;
   injector: Injector;
@@ -669,7 +674,7 @@ export class AppComponent {
         headerName: 'Trade Id',
         field: 'tradeId',
         editable: true,
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Notional',
@@ -678,47 +683,47 @@ export class AppComponent {
         editable: true,
         cellClass: 'number-cell',
         type: 'abColDefNumber',
-        aggFunc: 'sum'
+        aggFunc: 'sum',
       },
       {
         headerName: 'Counterparty',
         field: 'counterparty',
         editable: true,
         enableRowGroup: true,
-        type: 'abColDefString'
+        type: 'abColDefString',
       },
       {
         headerName: 'Change',
         field: 'changeOnYear',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Currency',
         field: 'currency',
         editable: true,
         enableRowGroup: true,
-        type: 'abColDefString'
+        type: 'abColDefString',
       },
       {
         headerName: 'B/O Spread',
         field: 'bidOfferSpread',
         enableValue: true,
         editable: true,
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Price',
         field: 'price',
         enableValue: true,
         enableRowGroup: true,
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Country',
         field: 'country',
         editable: true,
         enableRowGroup: true,
-        type: 'abColDefString'
+        type: 'abColDefString',
       },
       ,
       {
@@ -730,70 +735,70 @@ export class AppComponent {
         enablePivot: true,
         aggFunc: 'sum',
         type: 'abColDefString',
-        resizable: true
+        resizable: true,
       },
       {
         headerName: 'Trade Date',
         field: 'tradeDate',
-        type: 'abColDefDate'
+        type: 'abColDefDate',
       },
       {
         headerName: 'Settlement Date',
         field: 'settlementDate',
-        type: 'abColDefDate'
+        type: 'abColDefDate',
       },
       {
         headerName: 'Ask',
         field: 'ask',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Bid',
         field: 'bid',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Ind Ask',
         field: 'indicativeAsk',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Ind Bid',
         field: 'indicativeBid',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Markit Ask',
         field: 'markitAsk',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Markit Bid',
         field: 'markitBid',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Bbg Ask',
         field: 'bloombergAsk',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Bbg Bid',
         field: 'bloombergBid',
-        type: 'abColDefNumber'
+        type: 'abColDefNumber',
       },
       {
         headerName: 'Rating',
         field: 'rating',
         editable: true,
-        type: 'abColDefString'
+        type: 'abColDefString',
       },
       {
         headerName: 'History',
         field: 'history',
         type: 'abColDefNumberArray',
-        resizable: true
-      }
+        resizable: true,
+      },
     ].map((c: ColDef) => {
       c.filter = true;
       c.floatingFilter = true;
@@ -810,15 +815,15 @@ export class AppComponent {
       statusBar: {
         statusPanels: [
           { statusPanel: 'agTotalRowCountComponent', align: 'left' },
-          { statusPanel: 'agFilteredRowCountComponent' }
-        ]
+          { statusPanel: 'agFilteredRowCountComponent' },
+        ],
       },
       components: {
-        AdaptableToolPanel: AdaptableToolPanelAgGridComponent
+        AdaptableToolPanel: AdaptableToolPanelAgGridComponent,
       },
       columnDefs: this.columnDefs,
       rowData: [],
-      onGridReady: this.onGridReady
+      onGridReady: this.onGridReady,
     };
   }
 
@@ -908,7 +913,7 @@ export class AppComponent {
     this.toolbarReference?.changeDetectorRef.detectChanges();
   }
 
-  onGridReady = params => {
+  onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
