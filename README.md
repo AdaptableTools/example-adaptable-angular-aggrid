@@ -147,16 +147,28 @@ We have also set up the search text to search for 'Gold' at start-up
 
 To do - add ToolPanel, Menus
 #### Dashboard
-The [Dashboard]()
-Visible Buttons - Calculated Columns, Layout and Grid Info
-3 Tabs each with different Toolbars: Grid, Search, Edit
-1 Custom Toolbar - Trades - in the Grid tab.
-This Custom Toolbar has a single button called ‘Add Trade’ which when clicked will add a trade to the dataset (all done through AdapTable api).
+The AdapTable [Dashboard](https://docs.adaptabletools.com/docs/user-interface/dashboard) has been configured as follows:
 
-Context Menu
-One context menu item created called ‘Reject Trade’
-Uses predicate to decide if visible - only if Status is Pending
-Function will change the Status to Rejected 
+- Visible Buttons - Calculated Columns, Layout and Grid Info
+
+- 3 Tabs each with different Toolbars: 
+  - Grid - with Toolbars: 'Layout', 'Alert', 'CellSummary', 'Export', 'Theme'
+  - Search - with Toolbars: 'Query'
+  - Edit - with Toolbars: 'SmartEdit', 'BulkUpdate'
+  - Custom - with 2 Custom Toolbars: 'Trades', 'Details'
+
+The Trades Custom Toolbar has a Button called ‘Add Trade’ which when clicked will add a trade to the dataset (done via the AdapTable api).
+
+The Details Custom Toolbar has custom content which is rendered dynamically when the Tab is visible.
+
+#### Tool Panel
+The demo has been configured to include the [AdapTable Tool Panel](https://docs.adaptabletools.com/docs/user-interface/tool-panel) available at the right hand side of the Grid
+
+#### Context Menu
+A custom [Context Menu](https://docs.adaptabletools.com/docs/user-interface/context-menu) item created called ‘Reject Trade’ has been created.  It uses 2 functions:
+
+- a predicate to decide if it should be shown - here only if Status column value is 'Pending'
+- JavaScript function to be invoked when item is clicked - will change the Status to 'Rejected' 
 ### Custom Predicates
 In addition to the many [Predicates](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate) that AdapTable ships, developers are able to provide their own [Custom Predicates](https://docs.adaptabletools.com/docs/adaptable-options/custom-predicate-defs-options).
 

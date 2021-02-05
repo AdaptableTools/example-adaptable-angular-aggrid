@@ -445,6 +445,21 @@ export class AppComponent {
           },
         ],
       },
+      Schedule: {
+        ReportSchedules: [
+          {
+            ExportDestination: 'CSV',
+            ReportName: 'Trades Due This Week',
+            Schedule: {
+              Hour: 12,
+              Minute: 23,
+              OneOffDate: null,
+              DaysOfWeek: [5],
+            },
+            ScheduleType: 'Report',
+          },
+        ],
+      },
       Theme: {
         CurrentTheme: 'dark',
       },
