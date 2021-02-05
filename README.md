@@ -22,14 +22,14 @@ Each 'Trade' has a Status ('Pending', 'Completed' or 'Rejected') allowing us to 
 Every 20 miliseconds one of these Trades will randomly 'tick' - whereby 6 columns in the row will change values.
 
 
-### Predefined Config
+## Predefined Config
 AdapTable allows developers to provide [Predefined Config](https://docs.adaptabletools.com/docs/predefined-config/predefined-config-overview) in their application.  
 
 These are the objects (e.g. Searches, Layouts, Reports, Conditional Styles) that end-users will be able to access from Day 1 (and depending on their [Entitlements](https://docs.adaptabletools.com/docs/key-topics/entitlements), they can add, edit or delete them).
 
 This demo contains a huge amount of Predefiend Config to illustrate many of the features availabe in AdapTable.  It includes:
 
-#### Layout
+### Layout
 In this demo we have created 4 [Layouts](https://docs.adaptabletools.com/docs/adaptable-functions/layout-function)
 - *Basic* - shows column visibility and order including Calculated Columns and Action Columns (see below)
     
@@ -43,26 +43,26 @@ In this demo we have created 4 [Layouts](https://docs.adaptabletools.com/docs/ad
 
 - *Pivot* - shows AdapTable in pivot view with aggregations and pivoted columns
 
-#### Conditional Style
+### Conditional Style
 There are 4 [Conditional Styles](https://docs.adaptabletools.com/docs/adaptable-functions/conditional-style-function) provided:
 - Row Style of gray background with brown forecolor where Status is 'Rejected'
 - All numeric columns are green forecolor where value is positive
 - All numeric columns are red forecolor where value is negative
 - 'Country' column shows font bold and italics where value is 'United States'
 
-#### Format Column
+### Format Column
 There are 3 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-functions/format-column-function) provided:
 - **Date columns** - will use Format: ‘dd/MM/yyyy’
 - **Number Ccolumns** - will align to right
 - **Ask, Bid, Price, BestAsk** columns - will have 3 decimal places
 
-#### Query
+### Query
 There is one [Shared Query](https://docs.adaptabletools.com/docs/adaptable-functions/query-function) called 'Pending Dollar Trades'.
 
 Its [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression) is: "
 ```[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')"```
  
-#### Export
+### Export
 The demo contains one Custom Report - 'Trades Due this Week' - which has:
 - Bespoke column list
 - Uses an Expression to get the rows:
@@ -70,21 +70,21 @@ The demo contains one Custom Report - 'Trades Due this Week' - which has:
 
 > Note: we have scheduled this report to run each day at 17:30
 
-#### Custom Sort
+### Custom Sort
 There is one [Custom Sort](https://docs.adaptabletools.com/docs/adaptable-functions/custom-sort-function) on the 'Currency' column.
 
 It sorts by USD, GBP, EUR and then the rest of the column values alphabetically.
  
-#### Theme
+### Theme
 The demo has been set up to use the [dark theme](https://docs.adaptabletools.com/docs/key-topics/theming-and-styling) - though this can be changed in the Theme Daashboard Toolbar or the ToolPanel.
  
-#### Percent Bar 
+### Percent Bar 
 One [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-functions/percent-bar-function) has been configured for the Notional Column.  It has 3 Ranges
 - Less than 25M is red
 - Between 25 and 50M is orange
 - Greater than 50M is green
 
-#### Calculated Column
+### Calculated Column
 3 [Calculated Columns](https://docs.adaptabletools.com/docs/adaptable-functions/calculated-column-function) have been provided:
 
 - ‘Best Ask’ - displays the min of 4 columns - ask, BloombergAsk, MarkitAsk and IndicativeAsk
@@ -95,39 +95,39 @@ One [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-functions/perce
 
     >Note: as data ticks in the Grid, the notional Percent Bar updates and so does this calculated column
  
-#### FreeText Column
+### FreeText Column
 There is one [FreeTextColumn](https://docs.adaptabletools.com/docs/adaptable-functions/freetext-column-function) called 'Comments'.
 
 This has 2 comments pre-populated (rows 983, 996).
-#### Gradient Column
+### Gradient Column
 One [Gradient Column](https://docs.adaptabletools.com/docs/adaptable-functions/gradient-column-function) has been created on the 'Bid Offer Spread' column in a rather vulgar purple
  
-#### Sparkline Column
+### Sparkline Column
 One [Sparkline Column](https://docs.adaptabletools.com/docs/plugins/chart/sparkline-column-function) has been created for the  'History' column - viewable in the 'Sorted' Layout
 
 > Note: This requires the use of the [Charts Plugin](https://docs.adaptabletools.com/docs/plugins/chart/chart-plugin)
  
-#### Action Column
+### Action Column
 An [Action Column](https://docs.adaptabletools.com/docs/adaptable-functions/action-column-function) called 'Action' has been provided.  It uses 3 functions provided:
 - A render predicate so that it does not display if Status is 'Completed'
 - A render function so the button displays differently whether Status is 'Pending' or 'Rejected'
 - A clicked funciton which will change the Status of the Trade (based on current Status)
 
 
-#### Flashing Cell
+### Flashing Cell
 Three Columns have [Flashing Cell](https://docs.adaptabletools.com/docs/adaptable-functions/flashing-cell-function) applied: 'Bid', 'Ask', 'Price'
 
 All use bespoke colours.
 
 
-#### Shortcut
+### Shortcut
 One [Shortcut](https://docs.adaptabletools.com/docs/adaptable-functions/shortcut-function) has been created on Numeric columns.
 
 It will multiply the existing cell value by 1,000,000 when the 'M' is clicked
 
 > Try it by typing 5M into a Notional column cell
  
-#### Cell Validation
+ Cell Validation
 A [Cell Validation Rule](https://docs.adaptabletools.com/docs/adaptable-functions/cell-validation-function) has been provided for the 'Bid Offer Spread' and 'Notional' columns.
 
 It will constrain any new value to be positive.
@@ -135,18 +135,18 @@ It will constrain any new value to be positive.
 > Note: If running in OpenFin or Glue42 this will work also when exporting to Excel and editing there
 
 
-#### EditLookUpItem
+### EditLookUpItem
 One [Edit Lookup Item](https://docs.adaptabletools.com/docs/predefined-config/user-interface-config#editlookupitems) has been created for Status column to enable quick and safe editing.
  
-#### Quick Search
+### Quick Search
 The Quick Search style has been changed to display hightlighted cells as gray text on dark yellow background.
 
 We have also set up the search text to search for 'Gold' at start-up
 
-### User Interface
+## User Interface
 
 To do - add ToolPanel, Menus
-#### Dashboard
+### Dashboard
 The AdapTable [Dashboard](https://docs.adaptabletools.com/docs/user-interface/dashboard) has been configured as follows:
 
 - Visible Buttons - Calculated Columns, Layout and Grid Info
@@ -161,15 +161,15 @@ The Trades Custom Toolbar has a Button called ‘Add Trade’ which when clicked
 
 The Details Custom Toolbar has custom content which is rendered dynamically when the Tab is visible.
 
-#### Tool Panel
+### Tool Panel
 The demo has been configured to include the [AdapTable Tool Panel](https://docs.adaptabletools.com/docs/user-interface/tool-panel) available at the right hand side of the Grid
 
-#### Context Menu
+### Context Menu
 A custom [Context Menu](https://docs.adaptabletools.com/docs/user-interface/context-menu) item created called ‘Reject Trade’ has been created.  It uses 2 functions:
 
 - a predicate to decide if it should be shown - here only if Status column value is 'Pending'
 - JavaScript function to be invoked when item is clicked - will change the Status to 'Rejected' 
-### Custom Predicates
+## Custom Predicates
 In addition to the many [Predicates](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate) that AdapTable ships, developers are able to provide their own [Custom Predicates](https://docs.adaptabletools.com/docs/adaptable-options/custom-predicate-defs-options).
 
 This demo contains 3:
@@ -178,12 +178,12 @@ This demo contains 3:
 - **Benelux** - appears in Country column and filters where value is Holland, Belgium or Luxembourg
 - **Post Takeover** - appears in any Date Column and filters where value is after a fictitious takeover date of 21/09/2021
 
-### Audit
+## Audit
 AdapTable has a very powerful [Audit Log](https://docs.adaptabletools.com/docs/key-topics/audit-log).  Developers can configure what in AdapTable will be audited where it will be streamed (there are a number of different available estinations).
 
 For ease of convenience, this demo Audit Log has been configured to send Cell Edits, User State Changes and AdapTable Function selection audit messaes to the Console so they can be easily viewed.
 
-### Server-Side Functionality
+## Server-Side Functionality
 Everything in this demo takes place enitrely on the client in order to reduce the complexity.
 
 However it is possible to run AdapTable in Server Mode where all the Queries and Filters can be built by end-users in the UI but evaluated on the Server.  See the [Server Functionality Guide](https://docs.adaptabletools.com/docs/key-topics/server-functionality) for more details.
