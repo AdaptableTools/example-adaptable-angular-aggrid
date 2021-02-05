@@ -2,7 +2,7 @@
 
 This example app shows a demo instance of AdapTable using the [Angular Wrapper](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-overview).
 
-
+<img src="./demopic.png"  >
 
 ### Versions and Dependencies
 The demo is built using these key packages:
