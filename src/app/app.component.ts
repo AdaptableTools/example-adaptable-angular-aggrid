@@ -90,7 +90,7 @@ export class AppComponent {
   public adaptableOptions: AdaptableOptions = {
     primaryKey: 'tradeId',
     userName: 'demo user',
-    adaptableId: 'angular demo' + Date.now(),
+    adaptableId: 'AdapTable Angular Demo',
     plugins: [charts(), finance()],
     userInterfaceOptions: {
       showAdaptableToolPanel: true
@@ -457,6 +457,21 @@ export class AppComponent {
           }
         ]
       },
+      Schedule: {
+        ReportSchedules: [
+          {
+            ExportDestination: 'CSV',
+            ReportName: 'Trades Due This Week',
+            Schedule: {
+              Hour: 12,
+              Minute: 23,
+              OneOffDate: null,
+              DaysOfWeek: [5]
+            },
+            ScheduleType: 'Report'
+          }
+        ]
+      },
       Theme: {
         CurrentTheme: 'dark'
       },
@@ -476,21 +491,21 @@ export class AppComponent {
           {
             ColumnId: 'bid',
             DownColor: '#FF6666',
-            FlashingCellDuration: 500,
+            FlashingCellDuration: 250,
             IsLive: true,
             UpColor: '#90ee90'
           },
           {
             ColumnId: 'ask',
             DownColor: '#FF6666',
-            FlashingCellDuration: 500,
+            FlashingCellDuration: 250,
             IsLive: true,
             UpColor: '#90ee90'
           },
           {
             ColumnId: 'price',
             DownColor: '#FF6666',
-            FlashingCellDuration: 500,
+            FlashingCellDuration: 250,
             IsLive: true,
             UpColor: '#90ee90'
           }
@@ -572,9 +587,23 @@ export class AppComponent {
               Filterable: true
             },
             ColumnExpression:
-              "[notional] < 3000000? 'Low' : [notional] < 6000000 ? 'Medium' : 'High' ",
+              "[notional] < 300000? 'Low' : [notional] < 600000 ? 'Medium' : 'High' ",
             ColumnId: 'size',
             FriendlyName: 'Size'
+          }
+        ]
+      },
+      Alert: {
+        MaxAlertsInStore: 50,
+        AlertDefinitions: [
+          {
+            AlertProperties: {
+              LogToConsole: false
+            },
+            Expression: "[currency] = 'USD'",
+            MessageType: 'Warning',
+            Predicate: { PredicateId: 'Equals', Inputs: ['10000000'] },
+            Scope: { ColumnIds: ['notional'] }
           }
         ]
       },
