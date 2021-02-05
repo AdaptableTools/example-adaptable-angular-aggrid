@@ -520,6 +520,13 @@ export class AppComponent {
           },
         ],
       },
+      QuickSearch: {
+        QuickSearchText: 'Gold',
+        Style: {
+          BackColor: '#ffff00',
+          ForeColor: '#808080',
+        },
+      },
       CalculatedColumn: {
         CalculatedColumns: [
           {

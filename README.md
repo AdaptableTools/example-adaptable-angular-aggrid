@@ -63,7 +63,7 @@ Its [Expression](https://docs.adaptabletools.com/docs/common-objects/common-obje
 ```[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')"```
  
 #### Export
-The demo contains one Custom Reeport - 'Trades Due this Week' - which has:
+The demo contains one Custom Report - 'Trades Due this Week' - which has:
 - Bespoke column list
 - Uses an Expression to get the rows:
   ```"[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7"```
@@ -78,11 +78,13 @@ It sorts by USD, GBP, EUR and then the rest of the column values alphabetically.
 #### Theme
 The demo has been set up to use the [dark theme](https://docs.adaptabletools.com/docs/key-topics/theming-and-styling) - though this can be changed in the Theme Daashboard Toolbar or the ToolPanel.
  
-Percent Bar 
-One created on Notional Column - has 3 Ranges
-< 25M - Red
-25-50M - Orange
->50M - Green
+#### Percent Bar 
+One [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-functions/percent-bar-function) has been configured for the Notional Column.  It has 3 Ranges
+- Less than 25M is red
+- Between 25 and 50M is orange
+- Greater than 50M is green
+
+
 Calculated Column - 3 created
 ‘Best Ask’ - gets the min of 4 ask columns - ask, BloombergAsk, MarkitAsk and IndicativeAsk
 ‘Diff Days’ - shows the diff in days between Trade Date and Settlement Date
@@ -111,7 +113,8 @@ Note: in OpenFin this will work also when exporting to Excel and editing there
 EditLookUpItem
 One created on Status column to make it easy to change
  
-
+Quick Search
+Gray text on dark yellow, Gold
 
 ### User Interface
 
