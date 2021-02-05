@@ -84,37 +84,64 @@ One [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-functions/perce
 - Between 25 and 50M is orange
 - Greater than 50M is green
 
+#### Calculated Column
+3 [Calculated Columns](https://docs.adaptabletools.com/docs/adaptable-functions/calculated-column-function) have been provided:
 
-Calculated Column - 3 created
-‘Best Ask’ - gets the min of 4 ask columns - ask, BloombergAsk, MarkitAsk and IndicativeAsk
-‘Diff Days’ - shows the diff in days between Trade Date and Settlement Date
-’Size’ - returns a string based on the size of the Notional Column (note that as data ticks the notional percent bar updates and so does this calculated column)
+- ‘Best Ask’ - displays the min of 4 columns - ask, BloombergAsk, MarkitAsk and IndicativeAsk
+
+- ‘Diff Days’ - shows the diff in days between Trade Date and Settlement Date
+
+- ’Size’ - returns a string based on the size of the Notional Column (using conditional logic)
+
+    >Note: as data ticks in the Grid, the notional Percent Bar updates and so does this calculated column
  
-Gradient Column
-One created on Bid Offer Spread Column
+#### FreeText Column
+There is one [FreeTextColumn](https://docs.adaptabletools.com/docs/adaptable-functions/freetext-column-function) called 'Comments'.
+
+This has 2 comments pre-populated (rows 983, 996).
+#### Gradient Column
+One [Gradient Column](https://docs.adaptabletools.com/docs/adaptable-functions/gradient-column-function) has been created on the 'Bid Offer Spread' column in a rather vulgar purple
  
-Sparkline Column
-One created in History column - see the Sorted Layout
+#### Sparkline Column
+One [Sparkline Column](https://docs.adaptabletools.com/docs/plugins/chart/sparkline-column-function) has been created for the  'History' column - viewable in the 'Sorted' Layout
+
+> Note: This requires the use of the [Charts Plugin](https://docs.adaptabletools.com/docs/plugins/chart/chart-plugin)
  
-Action Column - called ‘Action’
-Uses function not to render if Status is Completed
-Renders differently based on whether Status is Pending or Rejected
-When clicked wil change the status of the Trade (based on current Status)
-Flashing Cell - 3 set (all bespoke colours)
-Bid 
-Ask
-Price
-Shortcut
-One created on Numeric columns where typing M will multiply by 1M (try in Notional)
+#### Action Column
+An [Action Column](https://docs.adaptabletools.com/docs/adaptable-functions/action-column-function) called 'Action' has been provided.  It uses 3 functions provided:
+- A render predicate so that it does not display if Status is 'Completed'
+- A render function so the button displays differently whether Status is 'Pending' or 'Rejected'
+- A clicked funciton which will change the Status of the Trade (based on current Status)
+
+
+#### Flashing Cell
+Three Columns have [Flashing Cell](https://docs.adaptabletools.com/docs/adaptable-functions/flashing-cell-function) applied: 'Bid', 'Ask', 'Price'
+
+All use bespoke colours.
+
+
+#### Shortcut
+One [Shortcut](https://docs.adaptabletools.com/docs/adaptable-functions/shortcut-function) has been created on Numeric columns.
+
+It will multiply the existing cell value by 1,000,000 when the 'M' is clicked
+
+> Try it by typing 5M into a Notional column cell
  
-Cell Validation
-One created in Bid Offer Spread and Notional columns - must be positive 
-Note: in OpenFin this will work also when exporting to Excel and editing there
-EditLookUpItem
-One created on Status column to make it easy to change
+#### Cell Validation
+A [Cell Validation Rule](https://docs.adaptabletools.com/docs/adaptable-functions/cell-validation-function) has been provided for the 'Bid Offer Spread' and 'Notional' columns.
+
+It will constrain any new value to be positive.
+
+> Note: If running in OpenFin or Glue42 this will work also when exporting to Excel and editing there
+
+
+#### EditLookUpItem
+One [Edit Lookup Item](https://docs.adaptabletools.com/docs/predefined-config/user-interface-config#editlookupitems) has been created for Status column to enable quick and safe editing.
  
-Quick Search
-Gray text on dark yellow, Gold
+#### Quick Search
+The Quick Search style has been changed to display hightlighted cells as gray text on dark yellow background.
+
+We have also set up the search text to search for 'Gold' at start-up
 
 ### User Interface
 

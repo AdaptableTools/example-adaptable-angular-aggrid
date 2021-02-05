@@ -215,6 +215,7 @@ export class AppComponent {
           },
           {
             Name: 'Details',
+            Title: 'Details',
           },
         ],
       },
@@ -800,15 +801,12 @@ export class AppComponent {
           toolbarVisibilityChangedEventArgs.data[0].id.toolbar === 'Details'
         ) {
           let rowcount = gridOptions.api.getDisplayedRowCount();
-          let mySpan: any = '<span>RowCount:' + rowcount + '</span>';
+          let customContent: any =
+            '<input type="button" value="Custom Content" onClick=alert("CustomContent") />';
           let test: any = adaptableApi.dashboardApi.getCustomToolbarContentsDiv(
             'Details'
           );
-          test.innerHTML = mySpan;
-          //  ReactDOM.render(
-          //  mySpan,
-          //   adaptableApi.dashboardApi.getCustomToolbarContentsDiv('Test')
-          // );
+          test.innerHTML = customContent;
         }
       }
     );
