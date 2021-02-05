@@ -171,7 +171,7 @@ The AdapTable [Dashboard](https://docs.adaptabletools.com/docs/user-interface/da
 
 The Trades Custom Toolbar has a Button called ‘Add Trade’ which when clicked will add a trade to the dataset (done via the AdapTable api).
 
-The Details Custom Toolbar has custom content which is rendered dynamically when the Tab is visible.
+The Details Custom Toolbar has custom content which is rendered dynamically in an Angular-friendly when the Tab is visible.  There is a button which is given the AdapTable Api in order to create a Column Filter on the fly.
 
 ### Tool Panel
 The demo has been configured to include the [AdapTable Tool Panel](https://docs.adaptabletools.com/docs/user-interface/tool-panel) available at the right hand side of the Grid
