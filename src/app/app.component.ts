@@ -141,7 +141,7 @@ export class AppComponent {
         type: 'ActionColumnRenderFunction',
         name: 'renderStatusFunction',
         handler(params: ActionColumnRenderParams) {
-          if (params && params.rowData && params.rowData.staus) {
+          if (params && params.rowData && params.rowData.status) {
             return params.rowData.status == 'Pending'
               ? '<button >Reject</button>'
               : '<button style="font-style:italic">Cancel</button>';
