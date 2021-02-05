@@ -142,31 +142,22 @@ export class DummyTradeBuilder {
 
   protected getCountries(): string[] {
     var countries = [
-      'Argentina',
       'Australia',
       'Belgium',
       'Brazil',
       'Canada',
       'China',
-      'Denmark',
-      'Egypt',
       'France',
       'Germany',
       'Holland',
-      'Hungary',
       'India',
-      'Ireland',
       'Italy',
-      'Israel',
-      'Indonesia',
       'Japan',
-      //  'Kenya',
       'Luxembourg',
-      //   'Portugal',
-      //    'Qatar',
       'Russia',
       'Spain',
-      //      'Thailand',
+      'United Kingdom',
+      'United States',
     ];
     return countries;
   }

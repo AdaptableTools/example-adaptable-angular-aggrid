@@ -31,15 +31,21 @@ This demo contains a huge amount of Predefiend Config to illustrate many of the 
 
 #### Layout
 In this demo we have created 4 [Layouts](https://docs.adaptabletools.com/docs/adaptable-functions/layout-function)
-- Basic - shows column visibility and order including Calculated Columns and Action Columns (see below)
-- Sorted - shows column sorts including Custom Sorts (see below)
-- Row Grouped - shows a layout with 2 Grouped Row Columns
-- Pivot - shows a Layout in pivot view with aggregations and pivoted columns
+- *Basic* - shows column visibility and order including Calculated Columns and Action Columns (see below)
+    > Note: This Layout includes 3 Calculated Columns and a FreeText Column
+- *Sorted* - shows column sorts including Custom Sorts (see below)
+  > Note: This Layout includes a Sparkline Column
+- *Row Grouped* - shows 2 Grouped Row Columns
+- *Pivot* - shows AdapTable in pivot view with aggregations and pivoted columns
 
-Conditional Style - created 3
-Row Style - where Status is pending (gray)
-Number Columns - where positive (Green)
-Number Columns - where negative (Red)
+#### Conditional Style
+There are 3 [Conditional Styles](https://docs.adaptabletools.com/docs/adaptable-functions/conditional-style-function) provided:
+- Row Style of gray background with brown forecolor where Status is 'Rejected'
+- All Number Columns are green forecolor where value is positive
+- All Number Columns are red forecolor where value is positive
+- 'Country' column shows font bold and italics where value is 'United States'
+
+
 Format Columns - 3 set
 Date Columns - will use Format: ‘dd/MM/yyyy’
 Number Columns - will align to right

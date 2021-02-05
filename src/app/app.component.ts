@@ -77,7 +77,7 @@ export class AppComponent {
   public adaptableOptions: AdaptableOptions = {
     primaryKey: 'tradeId',
     userName: 'demo user',
-    adaptableId: 'angular demo',
+    adaptableId: 'angular demo' + Date.now(),
     plugins: [charts(), finance()],
     userInterfaceOptions: {
       showAdaptableToolPanel: true,
@@ -242,6 +242,7 @@ export class AppComponent {
               'tradeDate',
               'settlementDate',
               'diffDays',
+              'comments',
             ],
             ColumnSorts: [
               {
@@ -249,6 +250,9 @@ export class AppComponent {
                 SortOrder: 'Desc',
               },
             ],
+            ColumnWidthMap: {
+              diffDays: 100,
+            },
           },
           {
             Name: 'Sorted',
@@ -335,6 +339,19 @@ export class AppComponent {
               PredicateId: 'Negative',
             },
           },
+          {
+            Scope: {
+              ColumnIds: ['country'],
+            },
+            Style: {
+              FontWeight: 'Bold',
+              FontStyle: 'Italic',
+            },
+            Predicate: {
+              PredicateId: 'Is',
+              Inputs: ['United States'],
+            },
+          },
         ],
       },
       FormatColumn: {
@@ -367,6 +384,24 @@ export class AppComponent {
                 FractionDigits: 3,
               },
             },
+          },
+        ],
+      },
+      FreeTextColumn: {
+        FreeTextColumns: [
+          {
+            ColumnId: 'comments',
+            FreeTextStoredValues: [
+              {
+                PrimaryKey: 996,
+                FreeText: 'Need to check',
+              },
+              {
+                PrimaryKey: 983,
+                FreeText: 'Make sure notional is correct',
+              },
+            ],
+            FriendlyName: 'Comments',
           },
         ],
       },
