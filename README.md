@@ -163,16 +163,16 @@ The AdapTable [Dashboard](https://docs.adaptabletools.com/docs/user-interface/da
 
 - Visible Buttons - Calculated Columns, Layout and Grid Info
 
-- 3 Tabs each with different Toolbars: 
-  - Grid - with Toolbars: 'Layout', 'Alert', 'CellSummary', 'Export', 'Theme'
-  - Search - with Toolbars: 'Query'
-  - Edit - with Toolbars: 'SmartEdit', 'BulkUpdate'
-  - Custom - with 2 Custom Toolbars: 'Trades', 'Details'
+- 4 Tabs each with different Toolbars: 
+  - **Grid** - with Toolbars: 'Layout', 'Alert', 'CellSummary', 'Export', 'Theme'
+  - **Search** - with Toolbars: 'Query'
+  - **Edit** - with Toolbars: 'SmartEdit', 'BulkUpdate'
+  - **Custom** - with 2 Custom Toolbars: 'Trades', 'Details'
 
 - 2 Custom Toolbars (both appear in 'Custom' Tab): 
     - **Trades** has a Toolbar Button - ‘Add Trade’ - which when clicked will add a trade to the dataset (done via the AdapTable api).
 
-    - Details renders custom content dynamically in an Angular-friendly when the Tab becomes visible and is given the AdapTable Api instance.  The 'Show Active Trades' button when clicked will create a Column Filter for Status column.
+    - **Details** renders custom content dynamically in an Angular-friendly manner when the Tab becomes visible and is given the AdapTable Api instance.  The 'Show Active Trades' button when clicked will create a Column Filter for Status column.
 
 ### Tool Panel
 The demo has been configured to include the [AdapTable Tool Panel](https://docs.adaptabletools.com/docs/user-interface/tool-panel) available at the right hand side of the Grid
