@@ -39,7 +39,7 @@ export class DummyTradeBuilder {
     const tradeCurrency = this.getRandomItem(this.getCurrencies());
     const trade: ITrade = {
       tradeId: i,
-      history: [...new Array(this.generateRandomInt(5, 20))].map((_) =>
+      history: [...new Array(this.generateRandomInt(5, 20))].map(_ =>
         this.generateRandomInt(1, 30)
       ),
       notional: this.getRandomItem(this.getNotionals()),

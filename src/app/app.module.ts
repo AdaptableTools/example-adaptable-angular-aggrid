@@ -14,9 +14,9 @@ import { ToolbarComponent } from './toolbar.component';
     FormsModule,
     AdaptableAngularAgGridModule,
     HttpClientModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
   ],
   declarations: [AppComponent, ToolbarComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

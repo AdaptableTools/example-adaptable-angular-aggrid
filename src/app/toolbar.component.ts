@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
     >
       Show Active Trades
     </button>
-  `
+  `,
 })
 export class ToolbarComponent {
   count: number;
@@ -27,8 +27,8 @@ export class ToolbarComponent {
     this.api.filterApi.setColumnFilter([
       {
         ColumnId: 'status',
-        Predicate: { PredicateId: 'Is', Inputs: ['Pending'] }
-      }
+        Predicate: { PredicateId: 'Is', Inputs: ['Pending'] },
+      },
     ]);
   }
 }
