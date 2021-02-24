@@ -31,13 +31,13 @@ export interface ITrade {
 
 export class DummyTradeBuilder {
   public createTrade(i: number): ITrade {
-    var price = this.getMeaningfulDouble();
-    var bidOfferSpread = this.getRandomItem(this.getBidOfferSpreads());
-    var ask = price + bidOfferSpread / 2;
-    var bid = price - bidOfferSpread / 2;
-    var tradeDate = this.generateRandomDateAndTime(-500, 10);
-    let tradeCurrency = this.getRandomItem(this.getCurrencies());
-    var trade: ITrade = {
+    const price = this.getMeaningfulDouble();
+    const bidOfferSpread = this.getRandomItem(this.getBidOfferSpreads());
+    const ask = price + bidOfferSpread / 2;
+    const bid = price - bidOfferSpread / 2;
+    const tradeDate = this.generateRandomDateAndTime(-500, 10);
+    const tradeCurrency = this.getRandomItem(this.getCurrencies());
+    const trade: ITrade = {
       tradeId: i,
       history: [...new Array(this.generateRandomInt(5, 20))].map((_) =>
         this.generateRandomInt(1, 30)
@@ -47,14 +47,14 @@ export class DummyTradeBuilder {
       currency: tradeCurrency,
       country: this.getRandomItem(this.getCountries()),
       changeOnYear: this.getMeaningfulPositiveNegativeDouble(),
-      price: price,
-      bid: bid,
-      ask: ask,
-      bidOfferSpread: bidOfferSpread,
+      price,
+      bid,
+      ask,
+      bidOfferSpread,
       status: this.getStatus(),
       isLive: this.generateRandomBool(),
       rating: this.getRandomItem(this.getRatings()),
-      tradeDate: tradeDate,
+      tradeDate,
       settlementDate: this.addDays(tradeDate, this.generateRandomInt(3, 20)),
       bloombergAsk: this.roundTo4Dp(ask + this.generateRandomDouble()),
       bloombergBid: this.roundTo4Dp(bid - this.generateRandomDouble()),
@@ -78,14 +78,14 @@ export class DummyTradeBuilder {
   }
 
   protected generateCounterparty(): string {
-    var counterparties = this.getCounterparties();
+    const counterparties = this.getCounterparties();
     return (counterparties[
       this.generateRandomInt(0, counterparties.length - 1)
     ] as any) as string;
   }
 
   protected generateCurrency(): string {
-    var currencies = this.getCurrencies();
+    const currencies = this.getCurrencies();
     return currencies[this.generateRandomInt(0, currencies.length - 1)];
   }
 
@@ -98,7 +98,7 @@ export class DummyTradeBuilder {
   }
 
   protected getNotionals(): number[] {
-    var notionals = [
+    const notionals = [
       500000,
       1000000,
       1500000,
@@ -116,11 +116,11 @@ export class DummyTradeBuilder {
     return notionals;
   }
   protected getBidOfferSpreads(): number[] {
-    var counterparties = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.5];
+    const counterparties = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.5];
     return counterparties;
   }
   protected getCounterparties(): (string | null | undefined)[] {
-    var counterparties = [
+    const counterparties = [
       'Goldman Sachs',
       'Societe Generale',
       'Bank of America',
@@ -140,12 +140,12 @@ export class DummyTradeBuilder {
   }
 
   protected getCurrencies(): string[] {
-    var currencies = ['EUR', 'USD', 'GBP', 'CHF', 'CAD', 'AUD', 'ZAR'];
+    const currencies = ['EUR', 'USD', 'GBP', 'CHF', 'CAD', 'AUD', 'ZAR'];
     return currencies;
   }
 
   protected getCountries(): string[] {
-    var countries = [
+    const countries = [
       'Australia',
       'Belgium',
       'Brazil',
@@ -197,7 +197,7 @@ export class DummyTradeBuilder {
   }
 
   protected generateRandomBool(): boolean {
-    var amount = this.generateRandomInt(0, 1);
+    const amount = this.generateRandomInt(0, 1);
     return amount === 0;
   }
 
@@ -206,9 +206,9 @@ export class DummyTradeBuilder {
   }
 
   protected generateRandomDateAndTime(minDays: number, maxDays: number): Date {
-    var currentDate = new Date(); // Fix it
-    var start = this.addDays(currentDate, minDays);
-    var end = this.addDays(currentDate, maxDays);
+    const currentDate = new Date(); // Fix it
+    const start = this.addDays(currentDate, minDays);
+    const end = this.addDays(currentDate, maxDays);
     return new Date(
       start.getTime() + Math.random() * (end.getTime() - start.getTime())
     );
@@ -250,8 +250,8 @@ export class DummyTradeBuilder {
   ) {
     if (gridOptions != null && gridOptions.api != null) {
       setInterval(() => {
-        let index: string = this.generateRandomInt(1, upperLevel).toString();
-        let rowNode: RowNode = gridOptions.api!.getRowNode(index);
+        const index: string = this.generateRandomInt(1, upperLevel).toString();
+        const rowNode: RowNode = gridOptions.api!.getRowNode(index);
         if (rowNode) {
           // NOTE:  You need to make a COPY of the data that you are changing...
           const trade: ITrade = { ...rowNode.data };
@@ -274,7 +274,7 @@ export class DummyTradeBuilder {
             //    trade.notional = this.generateRandomInt(1, 50);
             trade.changeOnYear = this.getMeaningfulDouble();
 
-            let config: DataUpdateConfig = {
+            const config: DataUpdateConfig = {
               runAsync: true,
               // callback: test,
             };

@@ -3,8 +3,10 @@ import {
   Component,
   ComponentFactoryResolver,
   ComponentRef,
+  DoCheck,
   InjectionToken,
   Injector,
+  OnChanges,
 } from '@angular/core';
 import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
 import { HttpClient } from '@angular/common/http';
@@ -32,27 +34,27 @@ import finance from '@adaptabletools/adaptable-plugin-finance';
 import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 import { ToolbarComponent } from './toolbar.component';
 
-var dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
-var adapTableApi: AdaptableApi;
-var tradeCount = 1000;
+const dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
+let adapTableApi: AdaptableApi;
+const tradeCount = 1000;
 
 export const CONTAINER_DATA = new InjectionToken<{}>('CONTAINER_DATA');
 
 @Component({
-  selector: 'adaptable-root',
+  selector: 'app-adaptable-root',
   template: `
     <adaptable-angular-aggrid
       [adaptableOptions]="adaptableOptions"
-      (adaptableReady)="adaptableReady($event)"
-      [gridOptions]="gridOptions"
       [modules]="agGridModules"
+      [gridOptions]="gridOptions"
+      (adaptableReady)="adaptableReady($event)"
     >
     </adaptable-angular-aggrid>
     <ag-grid-angular
       [gridOptions]="gridOptions"
       [modules]="agGridModules"
-      style="flex: 1"
       [rowData]="rowData"
+      style="flex: 1"
       class="ag-theme-balham"
     >
     </ag-grid-angular>
@@ -63,23 +65,23 @@ export const CONTAINER_DATA = new InjectionToken<{}>('CONTAINER_DATA');
         height: 100vh;
         display: flex;
         flex-flow: column;
-        body {
-          font-family: 'Lato', BlinkMacSystemFont, -apple-system, 'Segoe UI',
-            'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-            'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !important;
+      }
+      body {
+        font-family: 'Lato', BlinkMacSystemFont, -apple-system, 'Segoe UI',
+          'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+          'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !important;
 
-          font-size: 16px;
+        font-size: 16px;
 
-          -webkit-font-smoothing: antialiased;
-          color: #333;
-          font-weight: 400;
-          line-height: 1.5;
-        }
+        -webkit-font-smoothing: antialiased;
+        color: #333;
+        font-weight: 400;
+        line-height: 1.5;
       }
     `,
   ],
 })
-export class AppComponent {
+export class AppComponent implements DoCheck {
   public gridApi: GridApi;
   public agGridModules: Module[] = AllEnterpriseModules;
   public gridColumnApi;
@@ -104,7 +106,7 @@ export class AppComponent {
         },
         functionScope: ['filter', 'alert', 'validation', 'conditionalstyle'],
         handler(params: PredicateDefHandlerParams) {
-          let notional: number = params.node.data.notional;
+          const notional: number = params.node.data.notional;
           return notional > 8000000 ? true : false;
         },
       },
@@ -117,9 +119,9 @@ export class AppComponent {
         functionScope: ['filter'],
         handler(params: PredicateDefHandlerParams) {
           return (
-            params.value == 'Luxembourg' ||
-            params.value == 'Belgium' ||
-            params.value == 'Holland'
+            params.value === 'Luxembourg' ||
+            params.value === 'Belgium' ||
+            params.value === 'Holland'
           );
         },
       },
@@ -131,7 +133,7 @@ export class AppComponent {
         },
         functionScope: ['filter'],
         handler(params: PredicateDefHandlerParams) {
-          let takeOverDate = new Date('2020-09-21');
+          const takeOverDate = new Date('2020-09-21');
           return (params.value as Date) > takeOverDate;
         },
       },
@@ -142,7 +144,7 @@ export class AppComponent {
         name: 'renderStatusFunction',
         handler(params: ActionColumnRenderParams) {
           if (params && params.rowData && params.rowData.status) {
-            return params.rowData.status == 'Pending'
+            return params.rowData.status === 'Pending'
               ? '<button >Reject</button>'
               : '<button style="font-style:italic">Cancel</button>';
           }
@@ -155,7 +157,7 @@ export class AppComponent {
           if (!params || !params.rowData || !params.rowData.status) {
             return false;
           }
-          return params.rowData.status != 'Completed';
+          return params.rowData.status !== 'Completed';
         },
       },
       {
@@ -177,7 +179,7 @@ export class AppComponent {
           if (!menuInfo.RowNode || !menuInfo.RowNode.data) {
             return false;
           }
-          return menuInfo.RowNode.data.status == 'Pending';
+          return menuInfo.RowNode.data.status === 'Pending';
         },
       },
     ],
@@ -725,7 +727,6 @@ export class AppComponent {
         enableRowGroup: true,
         type: 'abColDefString',
       },
-      ,
       {
         headerName: 'Status',
         field: 'status',
@@ -829,7 +830,7 @@ export class AppComponent {
 
   adaptableReady = ({ adaptableApi, vendorGrid }) => {
     adapTableApi = adaptableApi;
-    let gridOptions: GridOptions = vendorGrid as GridOptions;
+    const gridOptions: GridOptions = vendorGrid as GridOptions;
 
     adaptableApi.eventApi.on('AdaptableReady', () => {
       dummyTradeBuilder.startTickingDataagGridTrade(
@@ -843,7 +844,7 @@ export class AppComponent {
     adapTableApi.eventApi.on(
       'ToolbarButtonClicked',
       (toolbarButtonClickedEventArgs: ToolbarButtonClickedEventArgs) => {
-        let trade: ITrade = dummyTradeBuilder.createTrade(
+        const trade: ITrade = dummyTradeBuilder.createTrade(
           this.gridApi.getDisplayedRowCount() + 1
         );
         adaptableApi.gridApi.addGridData([trade]);
@@ -858,7 +859,7 @@ export class AppComponent {
         if (
           toolbarVisibilityChangedEventArgs.data[0].id.toolbar === 'Details'
         ) {
-          let domNode: any = adaptableApi.dashboardApi.getCustomToolbarContentsDiv(
+          const domNode: any = adaptableApi.dashboardApi.getCustomToolbarContentsDiv(
             'Details'
           );
 
@@ -867,14 +868,14 @@ export class AppComponent {
           }
 
           // Create a Portal based on the given component type
-          let componentPortal = new ComponentPortal(
+          const componentPortal = new ComponentPortal(
             ToolbarComponent,
             undefined,
             this.injector
           );
 
           // Create a PortalHost with the specified location as its anchor element
-          let bodyPortalHost = new DomPortalOutlet(
+          const bodyPortalHost = new DomPortalOutlet(
             domNode,
             this.resolver,
             this.appRef,
@@ -894,12 +895,12 @@ export class AppComponent {
     adapTableApi.eventApi.on(
       'ActionColumnClicked',
       (actionColumnEventArgs: ActionColumnClickedEventArgs) => {
-        let actionColumnClickedInfo: ActionColumnClickedInfo =
+        const actionColumnClickedInfo: ActionColumnClickedInfo =
           actionColumnEventArgs.data[0].id;
-        let rowData: any = actionColumnClickedInfo.rowData;
+        const rowData: any = actionColumnClickedInfo.rowData;
         const column = actionColumnEventArgs.data[0].id.actionColumn;
-        let newStatus: string =
-          rowData.status == 'Rejected' ? 'Pending' : 'Rejected';
+        const newStatus: string =
+          rowData.status === 'Rejected' ? 'Pending' : 'Rejected';
         adaptableApi.gridApi.setCellValue(
           'status',
           newStatus,
@@ -909,16 +910,17 @@ export class AppComponent {
       }
     );
   };
+
   ngDoCheck() {
     this.toolbarReference?.changeDetectorRef.detectChanges();
   }
 
-  onGridReady = (params) => {
+  onGridReady = params => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
     setTimeout(() => {
-      let trades: ITrade[] = [];
+      const trades: ITrade[] = [];
       for (let i = 1; i <= tradeCount; i++) {
         trades.push(dummyTradeBuilder.createTrade(i));
       }
