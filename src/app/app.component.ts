@@ -6,15 +6,15 @@ import {
   DoCheck,
   InjectionToken,
   Injector,
-  OnChanges,
+  Type,
 } from '@angular/core';
-import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { HttpClient } from '@angular/common/http';
 import {
+  ColDef,
   GridApi,
   GridOptions,
   Module,
-  ColDef,
 } from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 import {
@@ -33,12 +33,12 @@ import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
 import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 import { ToolbarComponent } from './toolbar.component';
+import { ADAPTABLE_API } from './app.tokens';
+import { Subscription } from 'rxjs';
 
 const dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
 let adapTableApi: AdaptableApi;
 const tradeCount = 1000;
-
-export const CONTAINER_DATA = new InjectionToken<{}>('CONTAINER_DATA');
 
 @Component({
   selector: 'app-adaptable-root',
@@ -81,7 +81,7 @@ export const CONTAINER_DATA = new InjectionToken<{}>('CONTAINER_DATA');
     `,
   ],
 })
-export class AppComponent implements DoCheck {
+export class AppComponent {
   public gridApi: GridApi;
   public agGridModules: Module[] = AllEnterpriseModules;
   public gridColumnApi;
@@ -655,21 +655,16 @@ export class AppComponent implements DoCheck {
       },
     },
   };
-  resolver: ComponentFactoryResolver;
-  injector: Injector;
 
   toolbarReference: ComponentRef<ToolbarComponent>;
 
   constructor(
-    r: ComponentFactoryResolver,
-    i: Injector,
+    private resolver: ComponentFactoryResolver,
+    private injector: Injector,
     private http: HttpClient,
     private appRef: ApplicationRef
   ) {
     this.http = http;
-    this.appRef = appRef;
-    this.resolver = r;
-    this.injector = i;
 
     this.columnDefs = [
       {
@@ -828,9 +823,15 @@ export class AppComponent implements DoCheck {
     };
   }
 
-  adaptableReady = ({ adaptableApi, vendorGrid }) => {
+  adaptableReady = ({
+    adaptableApi,
+    vendorGrid,
+  }: {
+    adaptableApi: AdaptableApi;
+    vendorGrid: GridOptions;
+  }) => {
     adapTableApi = adaptableApi;
-    const gridOptions: GridOptions = vendorGrid as GridOptions;
+    const gridOptions = vendorGrid;
 
     adaptableApi.eventApi.on('AdaptableReady', () => {
       dummyTradeBuilder.startTickingDataagGridTrade(
@@ -851,6 +852,9 @@ export class AppComponent implements DoCheck {
       }
     );
 
+    let toolbarComponentRef: ComponentRef<ToolbarComponent>;
+    let toolbarComponentSubscription: Subscription;
+
     adaptableApi.eventApi.on(
       'ToolbarVisibilityChanged',
       (
@@ -859,35 +863,34 @@ export class AppComponent implements DoCheck {
         if (
           toolbarVisibilityChangedEventArgs.data[0].id.toolbar === 'Details'
         ) {
-          const domNode: any = adaptableApi.dashboardApi.getCustomToolbarContentsDiv(
+          const containerDomNode = adaptableApi.dashboardApi.getCustomToolbarContentsDiv(
             'Details'
           );
 
-          if (domNode.children[0]) {
-            return;
+          // event is fired everytime, regardless if visible/hidden
+          // so we have to check if the toolbarContainer is visible or not
+          if (!!containerDomNode) {
+            // create toolbar
+            toolbarComponentRef = this.createComponent(
+              ToolbarComponent,
+              containerDomNode,
+              toolbarVisibilityChangedEventArgs.data[0].id.adaptableApi
+            );
+
+            // pass input
+            toolbarComponentRef.instance.filterValue = 'Pending';
+
+            // react to changes
+            toolbarComponentSubscription = toolbarComponentRef.instance.filterChange.subscribe(
+              (currentFilter: 'Pending' | 'Rejected') =>
+                (toolbarComponentRef.instance.filterValue =
+                  currentFilter === 'Pending' ? 'Rejected' : 'Pending')
+            );
+          } else {
+            // destroy toolbar & subscriptions to avoid memory leaks
+            toolbarComponentRef?.destroy();
+            toolbarComponentSubscription?.unsubscribe();
           }
-
-          // Create a Portal based on the given component type
-          const componentPortal = new ComponentPortal(
-            ToolbarComponent,
-            undefined,
-            this.injector
-          );
-
-          // Create a PortalHost with the specified location as its anchor element
-          const bodyPortalHost = new DomPortalOutlet(
-            domNode,
-            this.resolver,
-            this.appRef,
-            this.injector
-          );
-          this.toolbarReference = bodyPortalHost.attach(
-            componentPortal
-          ) as ComponentRef<ToolbarComponent>;
-
-          this.toolbarReference.instance.setAdaptableApi(adapTableApi);
-
-          return;
         }
       }
     );
@@ -911,10 +914,6 @@ export class AppComponent implements DoCheck {
     );
   };
 
-  ngDoCheck() {
-    this.toolbarReference?.changeDetectorRef.detectChanges();
-  }
-
   onGridReady = params => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -928,4 +927,36 @@ export class AppComponent implements DoCheck {
       this.gridColumnApi.autoSizeAllColumns();
     }, 500);
   };
+
+  private createComponent<T>(
+    componentType: Type<T>,
+    container: HTMLElement,
+    api: AdaptableApi
+  ): ComponentRef<T> {
+    // extend stadard DI context with AdaptableApi
+    const toolbarInjector = Injector.create({
+      providers: [
+        {
+          provide: ADAPTABLE_API,
+          useValue: api,
+        },
+      ],
+      parent: this.injector,
+    });
+
+    // create dynamically the component
+    const componentFactory = this.resolver.resolveComponentFactory(
+      componentType
+    );
+    const componentRef = componentFactory.create(
+      toolbarInjector,
+      [],
+      container
+    );
+
+    // attach newly created component to Angular change detection
+    this.appRef.attachView(componentRef.hostView);
+
+    return componentRef;
+  }
 }
