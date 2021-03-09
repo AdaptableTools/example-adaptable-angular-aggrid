@@ -18,7 +18,7 @@
     "@ag-grid-community/angular": "25.1.0",
     "@ag-grid-enterprise/all-modules": "25.1.0",
     "@angular/animations": "~10.2.4",
-    "@angular/cdk": "^11.1.2",
+    "@angular/cdk": "~10.2.7",
     "@angular/common": "~10.2.4",
     "@angular/compiler": "~10.2.4",
     "@angular/core": "~10.2.4",
