@@ -1,10 +1,206 @@
-# AdapTable Angular example with two custom themes
+# AdapTable Angular 10 Example App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) **Version 9.0.0.**
+This example app shows a demo instance of AdapTable using the [Angular Wrapper](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-overview).
 
-This is the minimium Angular version required for using Adaptable 7.0 and higher.
 
-It proves how you can use the `@adaptabletools/adaptable-angular-aggrid` component for angular, with custom system themes.
+<img src="./demo.png"  >
+
+### Versions and Dependencies
+The demo is built using these key packages:
+
+- [Angular CLI](https://github.com/angular/angular-cli) version 10
+- [Adaptable](https://docs.adaptabletools.com/) version 8
+- [ag-Grid](https://www.ag-grid.com/ag-grid-changelog/?fixVersion=25.0.0) version 25
+
+> 9 is the minimium Angular version required for using Adaptable 7.0 and higher.
+
+### Dummy Ticking Data
+The data displayed in the demo is dummy, meaningless data.  
+
+The demo is designed to display the features available in AdapTable rather than be a live system.
+It displays 1000 fictitious 'Trades' that contain a combination of string, numeric, date and boolean columns.
+
+Each 'Trade' has a Status ('Pending', 'Completed' or 'Rejected') allowing us to demo the editing and conditional styling capabilities of AdapTable.
+
+Every 20 miliseconds one of these Trades will randomly 'tick' - whereby 6 columns in the row will change values.
+
+
+## Predefined Config
+AdapTable allows developers to provide [Predefined Config](https://docs.adaptabletools.com/docs/predefined-config/predefined-config-overview) in their application.  
+
+These are the objects (e.g. Searches, Layouts, Reports, Conditional Styles) that end-users will be able to access from Day 1 (and depending on their [Entitlements](https://docs.adaptabletools.com/docs/key-topics/entitlements), they can add, edit or delete them).
+
+This demo contains a huge amount of Predefiend Config to illustrate many of the features availabe in AdapTable.  It includes:
+
+### Layout
+In this demo we have created 4 [Layouts](https://docs.adaptabletools.com/docs/adaptable-functions/layout-function)
+- *Basic* - shows column visibility and order including Calculated Columns and Action Columns (see below)
+    
+    > Note: This Layout includes 3 Calculated Columns and a FreeText Column
+
+- *Sorted* - shows column sorts including Custom Sorts (see below)
+  
+  > Note: This Layout includes a Sparkline Column
+
+- *Row Grouped* - shows 2 Grouped Row Columns
+
+- *Pivot* - shows AdapTable in pivot view with aggregations and pivoted columns
+
+### Conditional Style
+There are 4 [Conditional Styles](https://docs.adaptabletools.com/docs/adaptable-functions/conditional-style-function) provided:
+- Row Style of gray background with brown forecolor where Status is 'Rejected'
+- All numeric columns are green forecolor where value is positive
+- All numeric columns are red forecolor where value is negative
+- 'Country' column shows font bold and italics where value is 'United States'
+
+### Format Column
+There are 3 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-functions/format-column-function) provided:
+- **Date columns** - will use Format: ‘dd/MM/yyyy’
+- **Number Ccolumns** - will align to right
+- **Ask, Bid, Price, BestAsk** columns - will have 3 decimal places
+
+### Query
+There is one [Shared Query](https://docs.adaptabletools.com/docs/adaptable-functions/query-function) called 'Pending Dollar Trades'.
+
+Its [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression) is: "
+```[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')"```
+ 
+### Export
+The demo contains one Custom Report - 'Trades Due this Week' - which has:
+- Bespoke column list
+- Uses an Expression to get the rows:
+  ```"[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7"```
+
+> Note: we have scheduled this report to run each day at 17:30
+
+### Custom Sort
+There is one [Custom Sort](https://docs.adaptabletools.com/docs/adaptable-functions/custom-sort-function) on the 'Currency' column.
+
+It sorts by USD, GBP, EUR and then the rest of the column values alphabetically.
+ 
+### Theme
+The demo has been set up to use the [dark theme](https://docs.adaptabletools.com/docs/key-topics/theming-and-styling) - though this can be changed in the Theme Daashboard Toolbar or the ToolPanel.
+
+### Alert
+The demo includes one [Alert](https://docs.adaptabletools.com/docs/adaptable-functions/alert-function) (which will get triggered by the ticking data).
+
+It has the following characteristics:
+
+- Is of type 'Warning' - so that it shows in Amber
+- Is triggred if the Notional column value equals 10,000,000 (a [Predicate](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate))
+- Also requires the Currency column to have the value of 'USD' (an [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression))
+ 
+
+### Percent Bar 
+One [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-functions/percent-bar-function) has been configured for the Notional Column.  It has 3 Ranges
+- Less than 2.5M is red
+- Between 2.5 and 5M is orange
+- Greater than 5M is green
+
+### Calculated Column
+3 [Calculated Columns](https://docs.adaptabletools.com/docs/adaptable-functions/calculated-column-function) have been provided:
+
+- ‘Best Ask’ - displays the min of 4 columns - ask, BloombergAsk, MarkitAsk and IndicativeAsk
+
+- ‘Diff Days’ - shows the diff in days between Trade Date and Settlement Date
+
+- ’Size’ - returns a string based on the size of the Notional Column (using conditional logic)
+
+    >Note: as data ticks in the Grid, the notional Percent Bar updates and so does this calculated column
+ 
+### FreeText Column
+There is one [FreeTextColumn](https://docs.adaptabletools.com/docs/adaptable-functions/freetext-column-function) called 'Comments'.
+
+This has 2 comments pre-populated (rows 983, 996).
+### Gradient Column
+One [Gradient Column](https://docs.adaptabletools.com/docs/adaptable-functions/gradient-column-function) has been created on the 'Bid Offer Spread' column in a rather vulgar purple
+ 
+### Sparkline Column
+One [Sparkline Column](https://docs.adaptabletools.com/docs/plugins/chart/sparkline-column-function) has been created for the  'History' column - viewable in the 'Sorted' Layout
+
+> Note: This requires the use of the [Charts Plugin](https://docs.adaptabletools.com/docs/plugins/chart/chart-plugin)
+ 
+### Action Column
+An [Action Column](https://docs.adaptabletools.com/docs/adaptable-functions/action-column-function) called 'Action' has been provided.  It uses 3 functions provided:
+- A render predicate so that it does not display if Status is 'Completed'
+- A render function so the button displays differently whether Status is 'Pending' or 'Rejected'
+- A clicked funciton which will change the Status of the Trade (based on current Status)
+
+
+### Flashing Cell
+Three Columns have [Flashing Cell](https://docs.adaptabletools.com/docs/adaptable-functions/flashing-cell-function) applied: 'Bid', 'Ask', 'Price'
+
+All use bespoke colours.
+
+
+### Shortcut
+One [Shortcut](https://docs.adaptabletools.com/docs/adaptable-functions/shortcut-function) has been created on Numeric columns.
+
+It will multiply the existing cell value by 1,000,000 when the 'M' is clicked
+
+> Try it by typing 5M into a Notional column cell
+ 
+ Cell Validation
+A [Cell Validation Rule](https://docs.adaptabletools.com/docs/adaptable-functions/cell-validation-function) has been provided for the 'Bid Offer Spread' and 'Notional' columns.
+
+It will constrain any new value to be positive.
+
+> Note: If running in OpenFin or Glue42 this will work also when exporting to Excel and editing there
+
+
+### EditLookUpItem
+One [Edit Lookup Item](https://docs.adaptabletools.com/docs/predefined-config/user-interface-config#editlookupitems) has been created for Status column to enable quick and safe editing.
+ 
+### Quick Search
+The Quick Search style has been changed to display hightlighted cells as gray text on dark yellow background.
+
+We have also set up the search text to search for 'Gold' at start-up
+
+## User Interface
+
+The demo makes use of some User Interface capabilities provided by AdapTable:
+### Dashboard
+The AdapTable [Dashboard](https://docs.adaptabletools.com/docs/user-interface/dashboard) has been configured as follows:
+
+- Visible Buttons - Calculated Columns, Layout and Grid Info
+
+- 4 Tabs each with different Toolbars: 
+  - **Grid** - with Toolbars: 'Layout', 'Alert', 'CellSummary', 'Export', 'Theme'
+  - **Search** - with Toolbars: 'Query'
+  - **Edit** - with Toolbars: 'SmartEdit', 'BulkUpdate'
+  - **Custom** - with 2 Custom Toolbars: 'Trades', 'Details'
+
+- 2 Custom Toolbars (both appear in 'Custom' Tab): 
+    - **Trades** has a Toolbar Button - ‘Add Trade’ - which when clicked will add a trade to the dataset (done via the AdapTable api).
+
+    - **Details** renders custom content dynamically in an Angular-friendly manner when the Tab becomes visible and is given the AdapTable Api instance.  The 'Show Active Trades' button when clicked will create a Column Filter for Status column.
+
+### Tool Panel
+The demo has been configured to include the [AdapTable Tool Panel](https://docs.adaptabletools.com/docs/user-interface/tool-panel) available at the right hand side of the Grid
+
+### Context Menu
+A custom [Context Menu](https://docs.adaptabletools.com/docs/user-interface/context-menu) item created called ‘Reject Trade’ has been created.  It uses 2 functions:
+
+- a predicate to decide if it should be shown - here only if Status column value is 'Pending'
+- JavaScript function to be invoked when item is clicked - will change the Status to 'Rejected' 
+## Custom Predicates
+In addition to the many [Predicates](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate) that AdapTable ships, developers are able to provide their own [Custom Predicates](https://docs.adaptabletools.com/docs/adaptable-options/custom-predicate-defs-options).
+
+This demo contains 3:
+
+- **High** - appears in TradeId column and filters where Notional > 8000000
+- **Benelux** - appears in Country column and filters where value is Holland, Belgium or Luxembourg
+- **Post Takeover** - appears in any Date Column and filters where value is after a fictitious takeover date of 21/09/2021
+
+## Audit
+AdapTable has a very powerful [Audit Log](https://docs.adaptabletools.com/docs/key-topics/audit-log).  Developers can configure what in AdapTable will be audited where it will be streamed (there are a number of different available estinations).
+
+For ease of convenience, this demo Audit Log has been configured to send Cell Edits, User State Changes and AdapTable Function selection audit messaes to the Console so they can be easily viewed.
+
+## Server-Side Functionality
+Everything in this demo takes place enitrely on the client in order to reduce the complexity.
+
+However it is possible to run AdapTable in Server Mode where all the Queries and Filters can be built by end-users in the UI but evaluated on the Server.  See the [Server Functionality Guide](https://docs.adaptabletools.com/docs/key-topics/server-functionality) for more details.
 
 ## Installation
 
@@ -14,11 +210,11 @@ NOTE: In order to be able to run `npm install`, you need to be logged into our p
 
 Run `npm install` (or `yarn`), depending on what tool you're using.
 
-## Development server
+## Development Server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Code Scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
@@ -26,17 +222,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Running Tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Angular CLI help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Licences
 A licence for AdapTable provides access to all product features as well as quarterly updates and enhancements through the lifetime of the licence, comprehensive support, and access to all 3rd party libraries.
@@ -54,6 +244,8 @@ To see AdapTable in action visit our [Demo Site](https://demo.adaptabletools.com
 ## Help
 
 Developers can learn how to access AdapTable programmatically at [AdapTable Documentation](https://docs.adaptabletools.com).
+
+For help on the Angular CLI use `ng help` or consult the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## More Information
 
