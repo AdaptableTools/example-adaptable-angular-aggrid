@@ -1,14 +1,4 @@
-import {
-  ApplicationRef,
-  Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  DoCheck,
-  InjectionToken,
-  Injector,
-  Type,
-} from '@angular/core';
-import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   ColDef,
@@ -27,14 +17,13 @@ import {
   MenuInfo,
   PredicateDefHandlerParams,
   ToolbarButtonClickedEventArgs,
-  ToolbarVisibilityChangedEventArgs,
 } from '@adaptabletools/adaptable-angular-aggrid';
 import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
 import { DummyTradeBuilder, ITrade } from 'src/Itrade';
-import { ToolbarComponent } from './toolbar.component';
-import { ADAPTABLE_API } from './app.tokens';
-import { Subscription } from 'rxjs';
+import { ButtonToggleComponent } from './custom-toolbars/button-toggle.component';
+import { SlideToggleComponent } from './custom-toolbars/slide-toggle.component';
+import { MaterialMenuComponent } from './custom-toolbars/material-menu.component';
 
 const dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
 let adapTableApi: AdaptableApi;
@@ -93,6 +82,7 @@ export class AppComponent {
     primaryKey: 'tradeId',
     userName: 'demo user',
     adaptableId: 'AdapTable Angular Demo',
+    adaptableStateKey: `${Date.now()}`,
     plugins: [charts(), finance()],
     userInterfaceOptions: {
       showAdaptableToolPanel: true,
@@ -212,7 +202,7 @@ export class AppComponent {
           },
           {
             Name: 'Custom',
-            Toolbars: ['Trades', 'Details'],
+            Toolbars: ['Trades', 'LayoutToggle', 'SlideToggle', 'LayoutMenu'],
           },
         ],
         CustomToolbars: [
@@ -232,13 +222,26 @@ export class AppComponent {
               },
             ],
           },
+          // for implementation details, see the 'frameworkCompontents' option below
           {
-            Name: 'Details',
-            Title: 'Details',
+            Name: 'LayoutToggle',
+            Title: 'Layout toggle',
+            FrameworkComponent: 'layoutButtonToggle',
+          },
+          {
+            Name: 'SlideToggle',
+            Title: 'Slide toggle',
+            FrameworkComponent: 'slideToggle',
+          },
+          {
+            Name: 'LayoutMenu',
+            Title: ' Layout menu',
+            FrameworkComponent: 'layoutMenu',
           },
         ],
       },
       Layout: {
+        Revision: Date.now(),
         CurrentLayout: 'Basic',
         Layouts: [
           {
@@ -654,16 +657,53 @@ export class AppComponent {
         ],
       },
     },
+    frameworkComponents: [
+      {
+        name: 'layoutButtonToggle',
+        // simple wrapper around Angular Material ButtonToggle component
+        // the implementation (and interaction with the AdaptableApi is encapsulated in the component
+        type: ButtonToggleComponent,
+      },
+      {
+        name: 'slideToggle',
+        // custom Angular component for a slide component
+        // additional configuration is passed through the onSetup() function
+        type: SlideToggleComponent,
+        onSetup: (): Partial<SlideToggleComponent> => {
+          const self = this;
+          return {
+            onChange(toggleValue: boolean) {
+              self.isLayoutShortcutMenuDisabled = !toggleValue;
+            },
+          };
+        },
+      },
+      {
+        name: 'layoutMenu',
+        // custom component providing an Angular Material menu in a custom toolbar menu :)
+        // the implementation is generic, the I/O params are set through the onSetup() function
+        type: MaterialMenuComponent,
+        onSetup: (params): Partial<MaterialMenuComponent> => {
+          const self = this;
+          return {
+            menuItems: params.api.layoutApi
+              .getAllLayout()
+              .map(layout => layout.Name),
+            isDisabled(): boolean {
+              return self.isLayoutShortcutMenuDisabled;
+            },
+            onItemClick(layoutName: string, adaptableApi: AdaptableApi) {
+              adaptableApi.layoutApi.setLayout(layoutName);
+            },
+          };
+        },
+      },
+    ],
   };
 
-  toolbarReference: ComponentRef<ToolbarComponent>;
+  isLayoutShortcutMenuDisabled = true;
 
-  constructor(
-    private resolver: ComponentFactoryResolver,
-    private injector: Injector,
-    private http: HttpClient,
-    private appRef: ApplicationRef
-  ) {
+  constructor(private http: HttpClient) {
     this.http = http;
 
     this.columnDefs = [
@@ -852,49 +892,6 @@ export class AppComponent {
       }
     );
 
-    let toolbarComponentRef: ComponentRef<ToolbarComponent>;
-    let toolbarComponentSubscription: Subscription;
-
-    adaptableApi.eventApi.on(
-      'ToolbarVisibilityChanged',
-      (
-        toolbarVisibilityChangedEventArgs: ToolbarVisibilityChangedEventArgs
-      ) => {
-        if (
-          toolbarVisibilityChangedEventArgs.data[0].id.toolbar === 'Details'
-        ) {
-          const containerDomNode = adaptableApi.dashboardApi.getCustomToolbarContentsDiv(
-            'Details'
-          );
-
-          // event is fired everytime, regardless if visible/hidden
-          // so we have to check if the toolbarContainer is visible or not
-          if (!!containerDomNode) {
-            // create toolbar
-            toolbarComponentRef = this.createComponent(
-              ToolbarComponent,
-              containerDomNode,
-              toolbarVisibilityChangedEventArgs.data[0].id.adaptableApi
-            );
-
-            // pass input
-            toolbarComponentRef.instance.filterValue = 'Pending';
-
-            // react to changes
-            toolbarComponentSubscription = toolbarComponentRef.instance.filterChange.subscribe(
-              (currentFilter: 'Pending' | 'Rejected') =>
-                (toolbarComponentRef.instance.filterValue =
-                  currentFilter === 'Pending' ? 'Rejected' : 'Pending')
-            );
-          } else {
-            // destroy toolbar & subscriptions to avoid memory leaks
-            toolbarComponentRef?.destroy();
-            toolbarComponentSubscription?.unsubscribe();
-          }
-        }
-      }
-    );
-
     adapTableApi.eventApi.on(
       'ActionColumnClicked',
       (actionColumnEventArgs: ActionColumnClickedEventArgs) => {
@@ -927,36 +924,4 @@ export class AppComponent {
       this.gridColumnApi.autoSizeAllColumns();
     }, 500);
   };
-
-  private createComponent<T>(
-    componentType: Type<T>,
-    container: HTMLElement,
-    api: AdaptableApi
-  ): ComponentRef<T> {
-    // extend stadard DI context with AdaptableApi
-    const toolbarInjector = Injector.create({
-      providers: [
-        {
-          provide: ADAPTABLE_API,
-          useValue: api,
-        },
-      ],
-      parent: this.injector,
-    });
-
-    // create dynamically the component
-    const componentFactory = this.resolver.resolveComponentFactory(
-      componentType
-    );
-    const componentRef = componentFactory.create(
-      toolbarInjector,
-      [],
-      container
-    );
-
-    // attach newly created component to Angular change detection
-    this.appRef.attachView(componentRef.hostView);
-
-    return componentRef;
-  }
 }
