@@ -18,7 +18,9 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
         class="switch-label"
         [attr.data-on]="onText"
         [attr.data-off]="offText"
-        [style.background]="'var(--ab-color-secondary)'"
+        [style.background]="
+          active ? 'var(--ab-color-secondary)' : 'var(--ab-color-primary)'
+        "
       ></span>
       <span class="switch-handle"></span>
     </label>

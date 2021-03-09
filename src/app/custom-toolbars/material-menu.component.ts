@@ -13,7 +13,7 @@ import {
       [disabled]="isDisabled()"
       class="ab-SimpleButton ab-SimpleButton--font-weight=normal ab-SimpleButton--variant-raised ab-SimpleButton--tone-accent"
     >
-      Layout Shortcut Menu
+      Layout Menu Shortcut
     </button>
     <mat-menu #menu="matMenu">
       <button
