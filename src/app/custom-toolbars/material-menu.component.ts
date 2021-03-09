@@ -39,10 +39,10 @@ export class MaterialMenuComponent {
   constructor(@Inject(ADAPTABLE_API) private adaptableApi: AdaptableApi) {}
 
   protected onClick(item: string) {
-    this.onItemClick(item, this.adaptableApi);
+    this.onItemClick(item);
   }
 
-  onItemClick(item: string, adaptableApi: AdaptableApi) {
+  onItemClick(item: string) {
     // overwritten in configuration
   }
 

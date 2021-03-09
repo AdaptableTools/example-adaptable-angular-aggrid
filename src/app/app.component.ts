@@ -661,7 +661,7 @@ export class AppComponent {
       {
         name: 'layoutButtonToggle',
         // simple wrapper around Angular Material ButtonToggle component
-        // the implementation (and interaction with the AdaptableApi is encapsulated in the component
+        // the implementation (and interaction with the AdaptableApi) is encapsulated in the component
         type: ButtonToggleComponent,
       },
       {
@@ -670,11 +670,10 @@ export class AppComponent {
         // additional configuration is passed through the onSetup() function
         type: SlideToggleComponent,
         onSetup: (): Partial<SlideToggleComponent> => {
-          const self = this;
           return {
-            // basically this toolbar interacts with another custom toolbar(layouMenu), activating/deactivating it
-            onChange(toggleValue: boolean) {
-              self.isLayoutShortcutMenuDisabled = !toggleValue;
+            // basically this toolbar interacts with another custom toolbar(layoutMenu), activating/deactivating it
+            onChange: toggleValue => {
+              this.isLayoutShortcutMenuDisabled = !toggleValue;
             },
           };
         },
@@ -685,18 +684,17 @@ export class AppComponent {
         // the implementation is generic, the I/O params are set through the onSetup() function
         type: MaterialMenuComponent,
         onSetup: (params): Partial<MaterialMenuComponent> => {
-          const self = this;
           return {
-            // the component interacts with the adaptableApi provided in the given params
+            // the component interacts with the adaptableApi provided in the framework component params
             menuItems: params.api.layoutApi
               .getAllLayout()
               .map(layout => layout.Name),
-            onItemClick(layoutName: string, adaptableApi: AdaptableApi) {
-              adaptableApi.layoutApi.setLayout(layoutName);
+            onItemClick: layoutName => {
+              params.api.layoutApi.setLayout(layoutName);
             },
             // the disabled state is updated by another custom toolbar (slideToggle)
-            isDisabled(): boolean {
-              return self.isLayoutShortcutMenuDisabled;
+            isDisabled: () => {
+              return this.isLayoutShortcutMenuDisabled;
             },
           };
         },
