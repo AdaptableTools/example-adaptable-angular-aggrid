@@ -672,6 +672,7 @@ export class AppComponent {
         onSetup: (): Partial<SlideToggleComponent> => {
           const self = this;
           return {
+            // basically this toolbar interacts with another custom toolbar(layouMenu), activating/deactivating it
             onChange(toggleValue: boolean) {
               self.isLayoutShortcutMenuDisabled = !toggleValue;
             },
@@ -686,14 +687,16 @@ export class AppComponent {
         onSetup: (params): Partial<MaterialMenuComponent> => {
           const self = this;
           return {
+            // the component interacts with the adaptableApi provided in the given params
             menuItems: params.api.layoutApi
               .getAllLayout()
               .map(layout => layout.Name),
-            isDisabled(): boolean {
-              return self.isLayoutShortcutMenuDisabled;
-            },
             onItemClick(layoutName: string, adaptableApi: AdaptableApi) {
               adaptableApi.layoutApi.setLayout(layoutName);
+            },
+            // the disabled state is updated by another custom toolbar (slideToggle)
+            isDisabled(): boolean {
+              return self.isLayoutShortcutMenuDisabled;
             },
           };
         },
