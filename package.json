@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --prod",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,7 +12,6 @@
   "private": true,
   "dependencies": {
     "@adaptabletools/adaptable-angular-aggrid": "9.0.0-canary.3",
-    "@adaptabletools/adaptable-plugin-charts": "9.0.0-canary.3",
     "@adaptabletools/adaptable-plugin-finance": "9.0.0-canary.3",
     "@ag-grid-community/all-modules": "25.1.0",
     "@ag-grid-community/angular": "25.1.0",

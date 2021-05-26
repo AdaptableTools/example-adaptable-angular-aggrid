@@ -16,7 +16,6 @@ import {
   MenuContext,
   PredicateDefHandlerParams,
 } from '@adaptabletools/adaptable-angular-aggrid';
-import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
 import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 import { ButtonToggleComponent } from './custom-toolbars/button-toggle.component';
@@ -30,17 +29,12 @@ const tradeCount = 1000;
 @Component({
   selector: 'app-adaptable-root',
   template: `
-    <adaptable-angular-aggrid
-      [adaptableOptions]="adaptableOptions"
-      [modules]="agGridModules"
-      [gridOptions]="gridOptions"
-      (adaptableReady)="adaptableReady($event)"
-    >
-    </adaptable-angular-aggrid>
     <ag-grid-angular
+      [adaptableOptions]="adaptableOptions"
       [gridOptions]="gridOptions"
       [modules]="agGridModules"
       [rowData]="rowData"
+      (adaptableReady)="adaptableReady($event)"
       style="flex: 1"
       class="ag-theme-balham"
     >
@@ -76,13 +70,12 @@ export class AppComponent {
   public rowData: any[] = null;
   public gridOptions: GridOptions;
 
-
   public adaptableOptions: AdaptableOptions = {
     primaryKey: 'tradeId',
     userName: 'demo user',
     adaptableId: 'AdapTable Angular Demo',
     adaptableStateKey: `${Date.now()}`,
-    plugins: [charts(), finance()],
+    plugins: [finance()],
     userInterfaceOptions: {
       showAdaptableToolPanel: true,
       editLookUpItems: [
@@ -110,7 +103,7 @@ export class AppComponent {
             if (!menuContext?.rowNode?.data?.status) {
               return false;
             }
-            return menuContext.rowNode.data.status == 'Pending';
+            return menuContext.rowNode.data.status === 'Pending';
           },
         },
       ],
@@ -167,7 +160,7 @@ export class AppComponent {
           if (!context?.rowNode?.data?.status) {
             return false;
           }
-          return context.rowNode.data.status != 'Completed';
+          return context.rowNode.data.status !== 'Completed';
         },
       },
       {
@@ -177,9 +170,9 @@ export class AppComponent {
           button: AdaptableButton,
           context: ActionColumnButtonContext
         ) => {
-          let rowData: any = context.rowNode.data;
-          let newStatus: string =
-            rowData.status == 'Rejected' ? 'Pending' : 'Rejected';
+          const rowData: any = context.rowNode.data;
+          const newStatus: string =
+            rowData.status === 'Rejected' ? 'Pending' : 'Rejected';
           adapTableApi.gridApi.setCellValue(
             'status',
             newStatus,
@@ -195,7 +188,7 @@ export class AppComponent {
           button: AdaptableButton,
           context: ActionColumnButtonContext
         ) => {
-          let trade: ITrade = dummyTradeBuilder.createTrade(
+          const trade: ITrade = dummyTradeBuilder.createTrade(
             this.gridApi.getDisplayedRowCount() + 1
           );
           adapTableApi.gridApi.addGridData([trade]);
@@ -563,7 +556,7 @@ export class AppComponent {
               : '<button style="font-style:italic">Cancel</button>';
           }
         },
-           
+
           //  RenderFunction: 'renderStatusFunction',
           },
           */
@@ -921,8 +914,6 @@ export class AppComponent {
         tradeCount
       );
     });
-
-   
   };
 
   onGridReady = params => {
