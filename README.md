@@ -9,7 +9,7 @@ This example app shows a demo instance of AdapTable using the [Angular Wrapper](
 The demo is built using these key packages:
 
 - [Angular CLI](https://github.com/angular/angular-cli) version 10
-- [Adaptable](https://docs.adaptabletools.com/) version 8
+- [Adaptable](https://docs.adaptabletools.com/) version 9
 - [ag-Grid](https://www.ag-grid.com/ag-grid-changelog/?fixVersion=25.0.0) version 25
 
 > 9 is the minimium Angular version required for using Adaptable 7.0 and higher.
@@ -168,12 +168,18 @@ The AdapTable [Dashboard](https://docs.adaptabletools.com/docs/user-interface/da
   - **Grid** - with Toolbars: 'Layout', 'Alert', 'CellSummary', 'Export', 'Theme'
   - **Search** - with Toolbars: 'Query'
   - **Edit** - with Toolbars: 'SmartEdit', 'BulkUpdate'
-  - **Custom** - with 2 Custom Toolbars: 'Trades', 'Details'
+  - **Custom** - with 4 Custom Toolbars: 'Trades', 'LayoutToggle', 'SlideToggle', 'LayoutMenu'
 
-- 2 Custom Toolbars (both appear in 'Custom' Tab): 
+- 4 Custom Toolbars (both appear in 'Custom' Tab): 
     - **Trades** has a Toolbar Button - ‘Add Trade’ - which when clicked will add a trade to the dataset (done via the AdapTable api).
 
-    - **Details** renders custom content dynamically in an Angular-friendly manner when the Tab becomes visible and is given the AdapTable Api instance.  The 'Show Active Trades' button when clicked will create a Column Filter for Status column.
+    - **LayoutToggle** is an Angular component which wraps an Angular Material ButtonToggle component and toggles between the different Layouts defined in AdaptableState. The entire implementation (and interaction with the AdaptableApi) is encapsulated&isolated in the component
+    
+    - **SlideToggle** is a custom Angular component which interacts with another CustomToolbar ('LayoutMenu'), enabling/disabling it
+
+    - **LayoutMenu** is an Angular component which wraps and Angular Material Menu; the component implementation is generic and all the I/O params are provided dynamically
+
+- More detailed information regarding Angular Custom Toolbars are provided in the [Angular Wrapper Documentation](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-custom-toolbars)
 
 ### Tool Panel
 The demo has been configured to include the [AdapTable Tool Panel](https://docs.adaptabletools.com/docs/user-interface/tool-panel) available at the right hand side of the Grid

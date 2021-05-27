@@ -36,7 +36,7 @@ import {
 export class MaterialMenuComponent {
   menuItems: string[] = [];
 
-  constructor(@Inject(ADAPTABLE_API) private adaptableApi: AdaptableApi) {}
+  constructor() {}
 
   protected onClick(item: string) {
     this.onItemClick(item);
