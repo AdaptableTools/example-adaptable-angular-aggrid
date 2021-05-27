@@ -17,6 +17,7 @@ import {
   PredicateDefHandlerParams,
 } from '@adaptabletools/adaptable-angular-aggrid';
 import finance from '@adaptabletools/adaptable-plugin-finance';
+import charts from '@adaptabletools/adaptable-plugin-charts';
 import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 import { ButtonToggleComponent } from './custom-toolbars/button-toggle.component';
 import { SlideToggleComponent } from './custom-toolbars/slide-toggle.component';
@@ -75,7 +76,7 @@ export class AppComponent {
     userName: 'demo user',
     adaptableId: 'AdapTable Angular Demo',
     adaptableStateKey: `${Date.now()}`,
-    plugins: [finance()],
+    plugins: [charts(), finance()],
     userInterfaceOptions: {
       showAdaptableToolPanel: true,
       editLookUpItems: [
