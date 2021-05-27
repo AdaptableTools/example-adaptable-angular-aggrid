@@ -8,18 +8,16 @@ import {
 } from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 import {
-  ActionColumnClickedEventArgs,
-  ActionColumnClickedInfo,
-  ActionColumnRenderParams,
+  ActionColumnButtonContext,
   AdaptableApi,
+  AdaptableButton,
   AdaptableOptions,
   AdaptableToolPanelAgGridComponent,
-  MenuInfo,
+  MenuContext,
   PredicateDefHandlerParams,
-  ToolbarButtonClickedEventArgs,
 } from '@adaptabletools/adaptable-angular-aggrid';
-import charts from '@adaptabletools/adaptable-plugin-charts';
 import finance from '@adaptabletools/adaptable-plugin-finance';
+import charts from '@adaptabletools/adaptable-plugin-charts';
 import { DummyTradeBuilder, ITrade } from 'src/Itrade';
 import { ButtonToggleComponent } from './custom-toolbars/button-toggle.component';
 import { SlideToggleComponent } from './custom-toolbars/slide-toggle.component';
@@ -32,17 +30,12 @@ const tradeCount = 1000;
 @Component({
   selector: 'app-adaptable-root',
   template: `
-    <adaptable-angular-aggrid
-      [adaptableOptions]="adaptableOptions"
-      [modules]="agGridModules"
-      [gridOptions]="gridOptions"
-      (adaptableReady)="adaptableReady($event)"
-    >
-    </adaptable-angular-aggrid>
     <ag-grid-angular
+      [adaptableOptions]="adaptableOptions"
       [gridOptions]="gridOptions"
       [modules]="agGridModules"
       [rowData]="rowData"
+      (adaptableReady)="adaptableReady($event)"
       style="flex: 1"
       class="ag-theme-balham"
     >
@@ -86,6 +79,35 @@ export class AppComponent {
     plugins: [charts(), finance()],
     userInterfaceOptions: {
       showAdaptableToolPanel: true,
+      editLookUpItems: [
+        {
+          scope: {
+            ColumnIds: ['status'],
+          },
+          values: ['Pending', 'Completed', 'Rejected'],
+        },
+      ],
+    },
+    menuOptions: {
+      contextMenuItems: [
+        {
+          label: 'Reject Trade',
+          onClick: (menuContext: MenuContext) => {
+            adapTableApi.gridApi.setCellValue(
+              'status',
+              'Rejected',
+              menuContext.primaryKeyValue,
+              true
+            );
+          },
+          shouldRender: (menuContext: MenuContext) => {
+            if (!menuContext?.rowNode?.data?.status) {
+              return false;
+            }
+            return menuContext.rowNode.data.status === 'Pending';
+          },
+        },
+      ],
     },
     customPredicateDefs: [
       {
@@ -94,7 +116,7 @@ export class AppComponent {
         columnScope: {
           ColumnIds: ['tradeId'],
         },
-        functionScope: ['filter', 'alert', 'validation', 'conditionalstyle'],
+        functionScope: ['filter', 'alert', 'conditionalstyle'],
         handler(params: PredicateDefHandlerParams) {
           const notional: number = params.node.data.notional;
           return notional > 8000000 ? true : false;
@@ -130,60 +152,54 @@ export class AppComponent {
     ],
     userFunctions: [
       {
-        type: 'ActionColumnRenderFunction',
-        name: 'renderStatusFunction',
-        handler(params: ActionColumnRenderParams) {
-          if (params && params.rowData && params.rowData.status) {
-            return params.rowData.status === 'Pending'
-              ? '<button >Reject</button>'
-              : '<button style="font-style:italic">Cancel</button>';
-          }
-        },
-      },
-      {
-        type: 'ActionColumnShouldRenderPredicate',
+        type: 'ButtonRenderPredicate',
         name: 'renderStatusPredicate',
-        handler(params) {
-          if (!params || !params.rowData || !params.rowData.status) {
+        handler: (
+          button: AdaptableButton,
+          context: ActionColumnButtonContext
+        ) => {
+          if (!context?.rowNode?.data?.status) {
             return false;
           }
-          return params.rowData.status !== 'Completed';
+          return context.rowNode.data.status !== 'Completed';
         },
       },
       {
-        type: 'UserMenuItemClickedFunction',
-        name: 'rejectTrade',
-        handler(menuInfo: MenuInfo) {
+        type: 'ButtonClickedFunction',
+        name: 'statusActionButtonClicked',
+        handler: (
+          button: AdaptableButton,
+          context: ActionColumnButtonContext
+        ) => {
+          const rowData: any = context.rowNode.data;
+          const newStatus: string =
+            rowData.status === 'Rejected' ? 'Pending' : 'Rejected';
           adapTableApi.gridApi.setCellValue(
             'status',
-            'Rejected',
-            menuInfo.PrimaryKeyValue,
+            newStatus,
+            context.primaryKeyValue,
             true
           );
         },
       },
       {
-        type: 'UserMenuItemShowPredicate',
-        name: 'isTradePending',
-        handler(menuInfo) {
-          if (!menuInfo.RowNode || !menuInfo.RowNode.data) {
-            return false;
-          }
-          return menuInfo.RowNode.data.status === 'Pending';
+        type: 'ButtonClickedFunction',
+        name: 'addTradeButtonClicked',
+        handler: (
+          button: AdaptableButton,
+          context: ActionColumnButtonContext
+        ) => {
+          const trade: ITrade = dummyTradeBuilder.createTrade(
+            this.gridApi.getDisplayedRowCount() + 1
+          );
+          adapTableApi.gridApi.addGridData([trade]);
         },
       },
     ],
-    auditOptions: {
-      auditUserStateChanges: {
-        auditToConsole: true,
-      },
-      auditCellEdits: {
-        auditToConsole: true,
-      },
-      auditFunctionsApplied: {
-        auditToConsole: true,
-      },
+    alertOptions: {
+      maxAlertsInStore: 50,
     },
+
     predefinedConfig: {
       Dashboard: {
         VisibleButtons: ['Layout', 'CalculatedColumn', 'GridInfo'],
@@ -211,14 +227,14 @@ export class AppComponent {
             Name: 'Trades',
             Title: 'Trades',
             ShowConfigureButton: false,
-            ToolbarButtons: [
+            CustomToolbarButtons: [
               {
-                Name: 'addTradeButton',
-                Caption: 'Add Trade',
+                Label: 'Add Trade',
                 ButtonStyle: {
                   Variant: 'raised',
                   Tone: 'accent',
                 },
+                ButtonClickedFunction: 'addTradeButtonClicked',
               },
             ],
           },
@@ -338,7 +354,9 @@ export class AppComponent {
               BackColor: 'lightGray ',
               ForeColor: 'brown',
             },
-            Expression: '[status]!="Pending"',
+            Rule: {
+              BooleanExpression: '[status]!="Pending"',
+            },
             ExcludeGroupedRows: true,
           },
           {
@@ -348,8 +366,10 @@ export class AppComponent {
             Style: {
               ForeColor: 'Green',
             },
-            Predicate: {
-              PredicateId: 'Positive',
+            Rule: {
+              Predicate: {
+                PredicateId: 'Positive',
+              },
             },
           },
           {
@@ -359,8 +379,10 @@ export class AppComponent {
             Style: {
               ForeColor: 'Red',
             },
-            Predicate: {
-              PredicateId: 'Negative',
+            Rule: {
+              Predicate: {
+                PredicateId: 'Negative',
+              },
             },
           },
           {
@@ -371,9 +393,11 @@ export class AppComponent {
               FontWeight: 'Bold',
               FontStyle: 'Italic',
             },
-            Predicate: {
-              PredicateId: 'Is',
-              Inputs: ['United States'],
+            Rule: {
+              Predicate: {
+                PredicateId: 'Is',
+                Inputs: ['United States'],
+              },
             },
           },
         ],
@@ -409,6 +433,30 @@ export class AppComponent {
               },
             },
           },
+          {
+            Scope: {
+              ColumnIds: ['notional'],
+            },
+            NumericColumnStyle: {
+              PercentBarStyle: {
+                CellRanges: [
+                  { Min: 1, Max: 2500000, Color: '#a52a2a' },
+                  { Min: 2500001, Max: 6000000, Color: '#ffa500' },
+                  { Min: 6000001, Max: 11000000, Color: '#006400' },
+                ],
+              },
+            },
+          },
+          {
+            Scope: {
+              ColumnIds: ['bidOfferSpread'],
+            },
+            NumericColumnStyle: {
+              GradientStyle: {
+                CellRanges: [{ Min: 0, Max: 0.5, Color: 'purple' }],
+              },
+            },
+          },
         ],
       },
       FreeTextColumn: {
@@ -433,9 +481,8 @@ export class AppComponent {
         CurrentQuery: '',
         SharedQueries: [
           {
-            Uuid: 'pending_dollar_trades',
             Name: 'Pending Dollar Trades',
-            Expression:
+            BooleanExpression:
               "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')",
           },
         ],
@@ -462,8 +509,10 @@ export class AppComponent {
                 'status',
               ],
             },
-            Expression:
-              "[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7",
+            Query: {
+              BooleanExpression:
+                "[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7",
+            },
           },
         ],
       },
@@ -490,57 +539,28 @@ export class AppComponent {
           {
             ColumnId: 'statusActionColumn',
             FriendlyName: 'Action',
-            ButtonText: 'Reject',
-            ShouldRenderPredicate: 'renderStatusPredicate',
-            RenderFunction: 'renderStatusFunction',
+            ActionColumnButton: {
+              Label: 'Reject',
+              ButtonClickedFunction: 'statusActionButtonClicked',
+              ButtonRenderPredicate: 'renderStatusPredicate',
+            },
           },
-        ],
-      },
-      FlashingCell: {
-        FlashingCells: [
-          {
-            ColumnId: 'bid',
-            DownColor: '#FF6666',
-            FlashingCellDuration: 250,
-            IsLive: true,
-            UpColor: '#90ee90',
+
+          /*
+            We used to have this user function too but have no lost it i.e. a way to render different action buttons differently.  not sure if we need to bring back?
+             type: 'ActionColumnRenderFunction',
+        name: 'renderStatusFunction',
+        handler(params: ActionColumnRenderParams) {
+          if (params && params.rowData && params.rowData.status) {
+            return params.rowData.status == 'Pending'
+              ? '<button >Reject</button>'
+              : '<button style="font-style:italic">Cancel</button>';
+          }
+        },
+
+          //  RenderFunction: 'renderStatusFunction',
           },
-          {
-            ColumnId: 'ask',
-            DownColor: '#FF6666',
-            FlashingCellDuration: 250,
-            IsLive: true,
-            UpColor: '#90ee90',
-          },
-          {
-            ColumnId: 'price',
-            DownColor: '#FF6666',
-            FlashingCellDuration: 250,
-            IsLive: true,
-            UpColor: '#90ee90',
-          },
-        ],
-      },
-      PercentBar: {
-        PercentBars: [
-          {
-            ColumnId: 'notional',
-            Ranges: [
-              { Min: 1, Max: 2500000, Color: '#a52a2a' },
-              { Min: 2500001, Max: 6000000, Color: '#ffa500' },
-              { Min: 6000001, Max: 11000000, Color: '#006400' },
-            ],
-          },
-        ],
-      },
-      GradientColumn: {
-        GradientColumns: [
-          {
-            ColumnId: 'bidOfferSpread',
-            PositiveValue: 0.5,
-            PositiveColor: 'purple',
-            BaseValue: 0,
-          },
+          */
         ],
       },
       SparklineColumn: {
@@ -575,8 +595,10 @@ export class AppComponent {
               Pivotable: true,
               Filterable: true,
             },
-            ColumnExpression:
-              'MIN([ask] ,[markitAsk], [bloombergAsk],[indicativeAsk]) ',
+            Query: {
+              ScalarExpression:
+                'MIN([ask] ,[markitAsk], [bloombergAsk],[indicativeAsk]) ',
+            },
             ColumnId: 'bestAsk',
             FriendlyName: 'Best Ask',
           },
@@ -586,7 +608,10 @@ export class AppComponent {
               DataType: 'Number',
               Filterable: true,
             },
-            ColumnExpression: 'DIFF_DAYS([settlementDate],[tradeDate]) ',
+            Query: {
+              ScalarExpression: 'DIFF_DAYS([settlementDate],[tradeDate]) ',
+            },
+
             ColumnId: 'diffDays',
             FriendlyName: 'Diff Days',
           },
@@ -596,44 +621,64 @@ export class AppComponent {
               DataType: 'String',
               Filterable: true,
             },
-            ColumnExpression:
-              "[notional] < 300000? 'Low' : [notional] < 600000 ? 'Medium' : 'High' ",
+            Query: {
+              ScalarExpression:
+                "[notional] < 300000? 'Low' : [notional] < 600000 ? 'Medium' : 'High' ",
+            },
             ColumnId: 'size',
             FriendlyName: 'Size',
           },
         ],
       },
       Alert: {
-        MaxAlertsInStore: 50,
+        FlashingAlertDefinitions: [
+          {
+            Scope: {
+              ColumnIds: ['bid', 'ask', 'price'],
+            },
+            Rule: {
+              Predicate: {
+                PredicateId: 'Any',
+              },
+            },
+            FlashDuration: 250,
+            UpChangeStyle: {
+              BackColor: '#90ee90',
+            },
+            DownChangeStyle: {
+              BackColor: '#FF6666',
+            },
+          },
+        ],
+
         AlertDefinitions: [
           {
             AlertProperties: {
               LogToConsole: false,
             },
-            Expression: "[currency] = 'USD'",
             MessageType: 'Warning',
-            Predicate: { PredicateId: 'Equals', Inputs: ['10000000'] },
+            Rule: {
+              Predicate: { PredicateId: 'Equals', Inputs: ['10000000'] },
+            },
             Scope: { ColumnIds: ['notional'] },
           },
-        ],
-      },
-      UserInterface: {
-        EditLookUpItems: [
           {
             Scope: {
-              ColumnIds: ['status'],
+              ColumnIds: ['notional', 'bidOfferSpread'],
             },
-            LookUpValues: ['Pending', 'Completed', 'Rejected'],
-          },
-        ],
-        ContextMenuItems: [
-          {
-            Label: 'Reject Trade',
-            UserMenuItemClickedFunction: 'rejectTrade',
-            UserMenuItemShowPredicate: 'isTradePending',
+            AlertProperties: {
+              PreventEdit: true,
+            },
+            MessageType: 'Error',
+            Rule: {
+              Predicate: {
+                PredicateId: 'Negative',
+              },
+            },
           },
         ],
       },
+
       Shortcut: {
         Shortcuts: [
           {
@@ -641,18 +686,6 @@ export class AppComponent {
             ShortcutKey: 'M',
             ShortcutResult: 1000000,
             ShortcutOperation: 'Multiply',
-          },
-        ],
-      },
-      CellValidation: {
-        CellValidations: [
-          {
-            Scope: {
-              ColumnIds: ['notional', 'bidOfferSpread'],
-            },
-            Predicate: {
-              PredicateId: 'Negative',
-            },
           },
         ],
       },
@@ -882,34 +915,6 @@ export class AppComponent {
         tradeCount
       );
     });
-
-    adapTableApi.eventApi.on(
-      'ToolbarButtonClicked',
-      (toolbarButtonClickedEventArgs: ToolbarButtonClickedEventArgs) => {
-        const trade: ITrade = dummyTradeBuilder.createTrade(
-          this.gridApi.getDisplayedRowCount() + 1
-        );
-        adaptableApi.gridApi.addGridData([trade]);
-      }
-    );
-
-    adapTableApi.eventApi.on(
-      'ActionColumnClicked',
-      (actionColumnEventArgs: ActionColumnClickedEventArgs) => {
-        const actionColumnClickedInfo: ActionColumnClickedInfo =
-          actionColumnEventArgs.data[0].id;
-        const rowData: any = actionColumnClickedInfo.rowData;
-        const column = actionColumnEventArgs.data[0].id.actionColumn;
-        const newStatus: string =
-          rowData.status === 'Rejected' ? 'Pending' : 'Rejected';
-        adaptableApi.gridApi.setCellValue(
-          'status',
-          newStatus,
-          actionColumnClickedInfo.primaryKeyValue,
-          true
-        );
-      }
-    );
   };
 
   onGridReady = params => {
