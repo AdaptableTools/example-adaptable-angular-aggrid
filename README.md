@@ -53,10 +53,21 @@ There are 4 [Conditional Styles](https://docs.adaptabletools.com/docs/adaptable-
 - 'Country' column shows font bold and italics where value is 'United States'
 
 ### Format Column
-There are 3 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module) provided:
+There are 5 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module) provided.
+
+3 use Number or Date Formatters:
 - **Date columns** - will use Format: ‘dd/MM/yyyy’
 - **Number Ccolumns** - will align to right
 - **Ask, Bid, Price, BestAsk** columns - will have 3 decimal places
+
+2 use Numeric Styles
+- Notional Column has a **[Percent Bar]https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#percent-bar)** with 3 Ranges
+ 
+ - Less than 2.5M is red
+ - Between 2.5 and 5M is orange
+ - Greater than 5M is green
+
+- The 'Bid Offer Spread' column has a **[Gradient Style](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#gradient** (in a rather vulgar purple)
 
 ### Query
 There is one [Shared Query](https://docs.adaptabletools.com/docs/adaptable-modules/query-module) called 'Pending Dollar Trades'.
@@ -88,13 +99,6 @@ It has the following characteristics:
 - Is of type 'Warning' - so that it shows in Amber
 - Is triggred if the Notional column value equals 10,000,000 (a [Predicate](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate))
 - Also requires the Currency column to have the value of 'USD' (an [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression))
- 
-
-### Percent Bar 
-One [Percent Bar]https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#percent-bar) has been configured for the Notional Column.  It has 3 Ranges
-- Less than 2.5M is red
-- Between 2.5 and 5M is orange
-- Greater than 5M is green
 
 ### Calculated Column
 3 [Calculated Columns]https://docs.adaptabletools.com/docs/adaptable-modules/calculated-column-module) have been provided:
@@ -111,8 +115,7 @@ One [Percent Bar]https://docs.adaptabletools.com/docs/adaptable-modules/format-c
 There is one [FreeTextColumn](https://docs.adaptabletools.com/docs/adaptable-modules/freetext-column-module) called 'Comments'.
 
 This has 2 comments pre-populated (rows 983, 996).
-### Gradient Style
-One [Gradient Style](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#gradient) has been created on the 'Bid Offer Spread' column in a rather vulgar purple
+
  
 ### Sparkline Column
 One [Sparkline Column](https://docs.adaptabletools.com/docs/plugins/chart/sparkline-column-function) has been created for the  'History' column - viewable in the 'Sorted' Layout
