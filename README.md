@@ -100,6 +100,13 @@ The demo includes 3 [Alerts](https://docs.adaptabletools.com/docs/adaptable-modu
   - Is triggred if the Notional column value equals 10,000,000 (a [Predicate](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate))
   - Also requires the Currency column to have the value of 'USD' (an [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression))
 
+- **Flashing Alert** - The 'Bid', 'Ask', 'Price' Columns all have [Flashing Alerts](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#flashing-alerts) applied (using bespoke colours).
+
+- **Validation Alert** - The 'Bid Offer Spread' and 'Notional' columns have a [Validation Alert](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#alert-as-validation) which will constrain any new value to be positive.
+
+  > Note: If running in OpenFin or Glue42 this will work also when exporting to Excel and editing there
+
+
 ### Calculated Column
 3 [Calculated Columns]https://docs.adaptabletools.com/docs/adaptable-modules/calculated-column-module) have been provided:
 
@@ -127,25 +134,13 @@ An [Action Column](https://docs.adaptabletools.com/docs/adaptable-modules/action
 - A clicked funciton which will change the Status of the Trade (based on current Status)
 
 
-### Flashing Alerts
-Three Columns have [Flashing Alerts](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#flashing-alerts) applied: 'Bid', 'Ask', 'Price'
-
-All use bespoke colours.
-
-
 ### Shortcut
 One [Shortcut](https://docs.adaptabletools.com/docs/adaptable-modules/shortcut-module) has been created on Numeric columns.
 
 It will multiply the existing cell value by 1,000,000 when the 'M' is clicked
 
 > Try it by typing 5M into a Notional column cell
- 
- Validation Alert 
-A [Validation Alert](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#alert-as-validation) has been provided for the 'Bid Offer Spread' and 'Notional' columns.
 
-It will constrain any new value to be positive.
-
-> Note: If running in OpenFin or Glue42 this will work also when exporting to Excel and editing there
 
 
 ### EditLookUpItem
