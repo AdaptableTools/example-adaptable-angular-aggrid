@@ -1,4 +1,4 @@
-# AdapTable Angular 10 Example App
+# AdapTable Angular Example App
 
 This example app shows a demo instance of AdapTable using the [Angular Wrapper](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-overview).
 
