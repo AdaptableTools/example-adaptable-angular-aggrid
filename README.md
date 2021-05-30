@@ -61,13 +61,13 @@ There are 5 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-modu
 - **Ask, Bid, Price, BestAsk** columns - will have 3 decimal places
 
 2 use Numeric Styles
-- Notional Column has a **[Percent Bar](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#percent-bar)** with 3 Ranges
+- Notional Column has a [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#percent-bar) with 3 Ranges
  
   - Less than 2.5M is red
   - Between 2.5 and 5M is orange
   - Greater than 5M is green
 
-- The 'Bid Offer Spread' column has a **[Gradient Style](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#gradient)** (in a rather vulgar purple)
+- The 'Bid Offer Spread' column has a [Gradient Style](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#gradient) (in a rather vulgar purple)
 
 ### Query
 There is one [Shared Query](https://docs.adaptabletools.com/docs/adaptable-modules/query-module) called 'Pending Dollar Trades'.
@@ -92,21 +92,19 @@ It sorts by USD, GBP, EUR and then the rest of the column values alphabetically.
 The demo has been set up to use the [dark theme](https://docs.adaptabletools.com/docs/key-topics/theming-and-styling) - though this can be changed in the Theme Daashboard Toolbar or the ToolPanel.
 
 ### Alert
-The demo includes one [Alert](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module) (which will get triggered by the ticking data).
+The demo includes 3 [Alerts](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module):
 
-It has the following characteristics:
+- **Standard Alert** (which will get triggered by the ticking data).  This Alert has the following characteristics:
 
-- Is of type 'Warning' - so that it shows in Amber
-- Is triggred if the Notional column value equals 10,000,000 (a [Predicate](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate))
-- Also requires the Currency column to have the value of 'USD' (an [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression))
+  - Is of type 'Warning' - so that it shows in Amber
+  - Is triggred if the Notional column value equals 10,000,000 (a [Predicate](https://docs.adaptabletools.com/docs/common-objects/common-objects-predicate))
+  - Also requires the Currency column to have the value of 'USD' (an [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression))
 
 ### Calculated Column
 3 [Calculated Columns]https://docs.adaptabletools.com/docs/adaptable-modules/calculated-column-module) have been provided:
 
 - ‘Best Ask’ - displays the min of 4 columns - ask, BloombergAsk, MarkitAsk and IndicativeAsk
-
 - ‘Diff Days’ - shows the diff in days between Trade Date and Settlement Date
-
 - ’Size’ - returns a string based on the size of the Notional Column (using conditional logic)
 
     >Note: as data ticks in the Grid, the notional Percent Bar updates and so does this calculated column
