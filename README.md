@@ -102,7 +102,7 @@ The demo includes 3 [Alerts](https://docs.adaptabletools.com/docs/adaptable-modu
 
 - **Flashing Alert** - The 'Bid', 'Ask', 'Price' Columns all have [Flashing Alerts](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#flashing-alerts) applied (using bespoke colours).
 
-- **Validation Alert** - The 'Bid Offer Spread' and 'Notional' columns have a [Validation Alert](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#alert-as-validation) which will constrain any new value to be positive.
+- **Validation Alert** - The 'Bid Offer Spread' and 'Notional' columns have a [Validation Alert](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#alert-as-validation) which constrains new values to be positive.
 
   > Note: If running in OpenFin or Glue42 this will work also when exporting to Excel and editing there
 
