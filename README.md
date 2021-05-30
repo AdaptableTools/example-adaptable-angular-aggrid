@@ -63,9 +63,9 @@ There are 5 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-modu
 2 use Numeric Styles
 - Notional Column has a **[Percent Bar]https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#percent-bar)** with 3 Ranges
  
- - Less than 2.5M is red
- - Between 2.5 and 5M is orange
- - Greater than 5M is green
+  - Less than 2.5M is red
+  - Between 2.5 and 5M is orange
+  - Greater than 5M is green
 
 - The 'Bid Offer Spread' column has a **[Gradient Style](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#gradient** (in a rather vulgar purple)
 
