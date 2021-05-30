@@ -2,7 +2,6 @@
 
 This example app shows a demo instance of AdapTable using the [Angular Wrapper](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-overview).
 
-
 <img src="./demo.png"  >
 
 ### Versions and Dependencies
@@ -12,7 +11,7 @@ The demo is built using these key packages:
 - [Adaptable](https://docs.adaptabletools.com/) version 9
 - [ag-Grid](https://www.ag-grid.com/ag-grid-changelog/?fixVersion=25.0.0) version 25
 
-> 9 is the minimium Angular version required for using Adaptable 7.0 and higher.
+> 10 is the minimium Angular version required for using Adaptable 9.0 and higher.
 
 ### Dummy Ticking Data
 The data displayed in the demo is dummy, meaningless data.  
