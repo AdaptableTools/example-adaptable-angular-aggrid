@@ -27,12 +27,12 @@ Every 20 miliseconds one of these Trades will randomly 'tick' - whereby 6 column
 ## Predefined Config
 AdapTable allows developers to provide [Predefined Config](https://docs.adaptabletools.com/docs/predefined-config/predefined-config-overview) in their application.  
 
-These are the objects (e.g. Searches, Layouts, Reports, Conditional Styles) that end-users will be able to access from Day 1 (and depending on their [Entitlements](https://docs.adaptabletools.com/docs/key-topics/entitlements), they can add, edit or delete them).
+These are the objects (e.g. Searches, Layouts, Reports, Conditional Styles) that end-users will be able to access from Day 1 (and depending on their [Entitlements](https://docs.adaptabletools.com/docs/adaptable-options/entitlements-options), they can add, edit or delete them).
 
-This demo contains a huge amount of Predefiend Config to illustrate many of the features availabe in AdapTable.  It includes:
+This demo contains a huge amount of Predefined Config to illustrate many of the features availabe in AdapTable.  It includes:
 
 ### Layout
-In this demo we have created 4 [Layouts](https://docs.adaptabletools.com/docs/adaptable-functions/layout-function)
+In this demo we have created 4 [Layouts](https://docs.adaptabletools.com/docs/adaptable-modules/layout-module)
 - *Basic* - shows column visibility and order including Calculated Columns and Action Columns (see below)
     
     > Note: This Layout includes 3 Calculated Columns and a FreeText Column
@@ -46,20 +46,20 @@ In this demo we have created 4 [Layouts](https://docs.adaptabletools.com/docs/ad
 - *Pivot* - shows AdapTable in pivot view with aggregations and pivoted columns
 
 ### Conditional Style
-There are 4 [Conditional Styles](https://docs.adaptabletools.com/docs/adaptable-functions/conditional-style-function) provided:
+There are 4 [Conditional Styles](https://docs.adaptabletools.com/docs/adaptable-modules/conditional-style-module) provided:
 - Row Style of gray background with brown forecolor where Status is 'Rejected'
 - All numeric columns are green forecolor where value is positive
 - All numeric columns are red forecolor where value is negative
 - 'Country' column shows font bold and italics where value is 'United States'
 
 ### Format Column
-There are 3 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-functions/format-column-function) provided:
+There are 3 [Format Columns](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module) provided:
 - **Date columns** - will use Format: ‘dd/MM/yyyy’
 - **Number Ccolumns** - will align to right
 - **Ask, Bid, Price, BestAsk** columns - will have 3 decimal places
 
 ### Query
-There is one [Shared Query](https://docs.adaptabletools.com/docs/adaptable-functions/query-function) called 'Pending Dollar Trades'.
+There is one [Shared Query](https://docs.adaptabletools.com/docs/adaptable-modules/query-module) called 'Pending Dollar Trades'.
 
 Its [Expression](https://docs.adaptabletools.com/docs/common-objects/common-objects-expression) is: "
 ```[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')"```
@@ -73,7 +73,7 @@ The demo contains one Custom Report - 'Trades Due this Week' - which has:
 > Note: we have scheduled this report to run each day at 17:30
 
 ### Custom Sort
-There is one [Custom Sort](https://docs.adaptabletools.com/docs/adaptable-functions/custom-sort-function) on the 'Currency' column.
+There is one [Custom Sort](https://docs.adaptabletools.com/docs/adaptable-modules/custom-sort-module) on the 'Currency' column.
 
 It sorts by USD, GBP, EUR and then the rest of the column values alphabetically.
  
@@ -81,7 +81,7 @@ It sorts by USD, GBP, EUR and then the rest of the column values alphabetically.
 The demo has been set up to use the [dark theme](https://docs.adaptabletools.com/docs/key-topics/theming-and-styling) - though this can be changed in the Theme Daashboard Toolbar or the ToolPanel.
 
 ### Alert
-The demo includes one [Alert](https://docs.adaptabletools.com/docs/adaptable-functions/alert-function) (which will get triggered by the ticking data).
+The demo includes one [Alert](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module) (which will get triggered by the ticking data).
 
 It has the following characteristics:
 
@@ -91,13 +91,13 @@ It has the following characteristics:
  
 
 ### Percent Bar 
-One [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-functions/percent-bar-function) has been configured for the Notional Column.  It has 3 Ranges
+One [Percent Bar]https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#percent-bar) has been configured for the Notional Column.  It has 3 Ranges
 - Less than 2.5M is red
 - Between 2.5 and 5M is orange
 - Greater than 5M is green
 
 ### Calculated Column
-3 [Calculated Columns](https://docs.adaptabletools.com/docs/adaptable-functions/calculated-column-function) have been provided:
+3 [Calculated Columns]https://docs.adaptabletools.com/docs/adaptable-modules/calculated-column-module) have been provided:
 
 - ‘Best Ask’ - displays the min of 4 columns - ask, BloombergAsk, MarkitAsk and IndicativeAsk
 
@@ -108,11 +108,11 @@ One [Percent Bar](https://docs.adaptabletools.com/docs/adaptable-functions/perce
     >Note: as data ticks in the Grid, the notional Percent Bar updates and so does this calculated column
  
 ### FreeText Column
-There is one [FreeTextColumn](https://docs.adaptabletools.com/docs/adaptable-functions/freetext-column-function) called 'Comments'.
+There is one [FreeTextColumn](https://docs.adaptabletools.com/docs/adaptable-modules/freetext-column-module) called 'Comments'.
 
 This has 2 comments pre-populated (rows 983, 996).
-### Gradient Column
-One [Gradient Column](https://docs.adaptabletools.com/docs/adaptable-functions/gradient-column-function) has been created on the 'Bid Offer Spread' column in a rather vulgar purple
+### Gradient Style
+One [Gradient Style](https://docs.adaptabletools.com/docs/adaptable-modules/format-column-module#gradient) has been created on the 'Bid Offer Spread' column in a rather vulgar purple
  
 ### Sparkline Column
 One [Sparkline Column](https://docs.adaptabletools.com/docs/plugins/chart/sparkline-column-function) has been created for the  'History' column - viewable in the 'Sorted' Layout
@@ -120,27 +120,27 @@ One [Sparkline Column](https://docs.adaptabletools.com/docs/plugins/chart/sparkl
 > Note: This requires the use of the [Charts Plugin](https://docs.adaptabletools.com/docs/plugins/chart/chart-plugin)
  
 ### Action Column
-An [Action Column](https://docs.adaptabletools.com/docs/adaptable-functions/action-column-function) called 'Action' has been provided.  It uses 3 functions provided:
+An [Action Column](https://docs.adaptabletools.com/docs/adaptable-modules/action-column-module) called 'Action' has been provided.  It uses 3 functions provided:
 - A render predicate so that it does not display if Status is 'Completed'
 - A render function so the button displays differently whether Status is 'Pending' or 'Rejected'
 - A clicked funciton which will change the Status of the Trade (based on current Status)
 
 
-### Flashing Cell
-Three Columns have [Flashing Cell](https://docs.adaptabletools.com/docs/adaptable-functions/flashing-cell-function) applied: 'Bid', 'Ask', 'Price'
+### Flashing Alerts
+Three Columns have [Flashing Alerts](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#flashing-alerts) applied: 'Bid', 'Ask', 'Price'
 
 All use bespoke colours.
 
 
 ### Shortcut
-One [Shortcut](https://docs.adaptabletools.com/docs/adaptable-functions/shortcut-function) has been created on Numeric columns.
+One [Shortcut](https://docs.adaptabletools.com/docs/adaptable-modules/shortcut-module) has been created on Numeric columns.
 
 It will multiply the existing cell value by 1,000,000 when the 'M' is clicked
 
 > Try it by typing 5M into a Notional column cell
  
- Cell Validation
-A [Cell Validation Rule](https://docs.adaptabletools.com/docs/adaptable-functions/cell-validation-function) has been provided for the 'Bid Offer Spread' and 'Notional' columns.
+ Validation Alert 
+A [Validation Alert](https://docs.adaptabletools.com/docs/adaptable-modules/alert-module#alert-as-validation) has been provided for the 'Bid Offer Spread' and 'Notional' columns.
 
 It will constrain any new value to be positive.
 
