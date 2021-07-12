@@ -87,6 +87,35 @@ export class AppComponent {
           values: ['Pending', 'Completed', 'Rejected'],
         },
       ],
+      actionColumns: [
+        {
+          columnId: 'statusActionColumn',
+          friendlyName: 'Action',
+          actionColumnButton: {
+            label: 'Reject',
+            hidden: (
+              button: AdaptableButton,
+              context: ActionColumnButtonContext
+            ) => {
+              return context?.rowNode?.data?.status === 'Completed';
+            },
+            onClick: (
+              button: AdaptableButton,
+              context: ActionColumnButtonContext
+            ) => {
+              const rowData: any = context.rowNode.data;
+              const newStatus: string =
+                rowData.status === 'Rejected' ? 'Pending' : 'Rejected';
+              adapTableApi.gridApi.setCellValue(
+                'status',
+                newStatus,
+                context.primaryKeyValue,
+                true
+              );
+            },
+          },
+        },
+      ],
     },
     menuOptions: {
       contextMenuItems: [
@@ -100,11 +129,8 @@ export class AppComponent {
               true
             );
           },
-          shouldRender: (menuContext: MenuContext) => {
-            if (!menuContext?.rowNode?.data?.status) {
-              return false;
-            }
-            return menuContext.rowNode.data.status === 'Pending';
+          hidden: (menuContext: MenuContext) => {
+            return menuContext?.rowNode?.data?.status !== 'Pending';
           },
         },
       ],
@@ -116,7 +142,7 @@ export class AppComponent {
         columnScope: {
           ColumnIds: ['tradeId'],
         },
-        functionScope: ['filter', 'alert', 'conditionalstyle'],
+        moduleScope: ['filter', 'alert', 'conditionalstyle'],
         handler(params: PredicateDefHandlerParams) {
           const notional: number = params.node.data.notional;
           return notional > 8000000 ? true : false;
@@ -128,7 +154,7 @@ export class AppComponent {
         columnScope: {
           ColumnIds: ['Country'],
         },
-        functionScope: ['filter'],
+        moduleScope: ['filter'],
         handler(params: PredicateDefHandlerParams) {
           return (
             params.value === 'Luxembourg' ||
@@ -143,66 +169,64 @@ export class AppComponent {
         columnScope: {
           DataTypes: ['Date'],
         },
-        functionScope: ['filter'],
+        moduleScope: ['filter'],
         handler(params: PredicateDefHandlerParams) {
           const takeOverDate = new Date('2020-09-21');
           return (params.value as Date) > takeOverDate;
         },
       },
     ],
-    userFunctions: [
-      {
-        type: 'ButtonRenderPredicate',
-        name: 'renderStatusPredicate',
-        handler: (
-          button: AdaptableButton,
-          context: ActionColumnButtonContext
-        ) => {
-          if (!context?.rowNode?.data?.status) {
-            return false;
-          }
-          return context.rowNode.data.status !== 'Completed';
-        },
-      },
-      {
-        type: 'ButtonClickedFunction',
-        name: 'statusActionButtonClicked',
-        handler: (
-          button: AdaptableButton,
-          context: ActionColumnButtonContext
-        ) => {
-          const rowData: any = context.rowNode.data;
-          const newStatus: string =
-            rowData.status === 'Rejected' ? 'Pending' : 'Rejected';
-          adapTableApi.gridApi.setCellValue(
-            'status',
-            newStatus,
-            context.primaryKeyValue,
-            true
-          );
-        },
-      },
-      {
-        type: 'ButtonClickedFunction',
-        name: 'addTradeButtonClicked',
-        handler: (
-          button: AdaptableButton,
-          context: ActionColumnButtonContext
-        ) => {
-          const trade: ITrade = dummyTradeBuilder.createTrade(
-            this.gridApi.getDisplayedRowCount() + 1
-          );
-          adapTableApi.gridApi.addGridData([trade]);
-        },
-      },
-    ],
     alertOptions: {
       maxAlertsInStore: 50,
+    },
+    dashboardOptions: {
+      customToolbars: [
+        // Show a Title and Configure Button
+        {
+          name: 'Trades',
+          title: 'Trades',
+          showConfigureButton: false,
+          toolbarButtons: [
+            {
+              label: 'Add Trade',
+              buttonStyle: {
+                variant: 'raised',
+                tone: 'accent',
+              },
+              onClick: (
+                button: AdaptableButton,
+                context: ActionColumnButtonContext
+              ) => {
+                const trade: ITrade = dummyTradeBuilder.createTrade(
+                  this.gridApi.getDisplayedRowCount() + 1
+                );
+                adapTableApi.gridApi.addGridData([trade]);
+              },
+            },
+          ],
+        },
+        // for implementation details, see the 'frameworkComponents' option below
+        {
+          name: 'LayoutToggle',
+          title: 'Layout toggle',
+          frameworkComponent: 'layoutButtonToggle',
+        },
+        {
+          name: 'SlideToggle',
+          title: 'Slide toggle',
+          frameworkComponent: 'slideToggle',
+        },
+        {
+          name: 'LayoutMenu',
+          title: 'Layout menu',
+          frameworkComponent: 'layoutMenu',
+        },
+      ],
     },
 
     predefinedConfig: {
       Dashboard: {
-        VisibleButtons: ['Layout', 'CalculatedColumn', 'GridInfo'],
+        ModuleButtons: ['Layout', 'CalculatedColumn', 'GridInfo'],
         Tabs: [
           {
             Name: 'Grid',
@@ -221,40 +245,6 @@ export class AppComponent {
             Toolbars: ['Trades', 'LayoutToggle', 'SlideToggle', 'LayoutMenu'],
           },
         ],
-        CustomToolbars: [
-          // Show a Title and Configure Button
-          {
-            Name: 'Trades',
-            Title: 'Trades',
-            ShowConfigureButton: false,
-            CustomToolbarButtons: [
-              {
-                Label: 'Add Trade',
-                ButtonStyle: {
-                  Variant: 'raised',
-                  Tone: 'accent',
-                },
-                ButtonClickedFunction: 'addTradeButtonClicked',
-              },
-            ],
-          },
-          // for implementation details, see the 'frameworkCompontents' option below
-          {
-            Name: 'LayoutToggle',
-            Title: 'Layout toggle',
-            FrameworkComponent: 'layoutButtonToggle',
-          },
-          {
-            Name: 'SlideToggle',
-            Title: 'Slide toggle',
-            FrameworkComponent: 'slideToggle',
-          },
-          {
-            Name: 'LayoutMenu',
-            Title: ' Layout menu',
-            FrameworkComponent: 'layoutMenu',
-          },
-        ],
       },
       Layout: {
         Revision: Date.now(),
@@ -265,6 +255,7 @@ export class AppComponent {
             Columns: [
               'tradeId',
               'currency',
+              'history',
               'changeOnYear',
               'counterparty',
               'bid',
@@ -437,7 +428,7 @@ export class AppComponent {
             Scope: {
               ColumnIds: ['notional'],
             },
-            NumericColumnStyle: {
+            ColumnStyle: {
               PercentBarStyle: {
                 CellRanges: [
                   { Min: 1, Max: 2500000, Color: '#a52a2a' },
@@ -451,7 +442,7 @@ export class AppComponent {
             Scope: {
               ColumnIds: ['bidOfferSpread'],
             },
-            NumericColumnStyle: {
+            ColumnStyle: {
               GradientStyle: {
                 CellRanges: [{ Min: 0, Max: 0.5, Color: 'purple' }],
               },
@@ -479,7 +470,7 @@ export class AppComponent {
       },
       Query: {
         CurrentQuery: '',
-        SharedQueries: [
+        NamedQueries: [
           {
             Name: 'Pending Dollar Trades',
             BooleanExpression:
@@ -534,43 +525,15 @@ export class AppComponent {
       Theme: {
         CurrentTheme: 'dark',
       },
-      ActionColumn: {
-        ActionColumns: [
-          {
-            ColumnId: 'statusActionColumn',
-            FriendlyName: 'Action',
-            ActionColumnButton: {
-              Label: 'Reject',
-              ButtonClickedFunction: 'statusActionButtonClicked',
-              ButtonRenderPredicate: 'renderStatusPredicate',
-            },
-          },
-
-          /*
-            We used to have this user function too but have no lost it i.e. a way to render different action buttons differently.  not sure if we need to bring back?
-             type: 'ActionColumnRenderFunction',
-        name: 'renderStatusFunction',
-        handler(params: ActionColumnRenderParams) {
-          if (params && params.rowData && params.rowData.status) {
-            return params.rowData.status == 'Pending'
-              ? '<button >Reject</button>'
-              : '<button style="font-style:italic">Cancel</button>';
-          }
-        },
-
-          //  RenderFunction: 'renderStatusFunction',
-          },
-          */
-        ],
-      },
-      SparklineColumn: {
-        SparklineColumns: [
-          {
-            ColumnId: 'history',
-            SparklineType: 'Line',
-          },
-        ],
-      },
+      // FIXME AFL activate after chart fix
+      // SparklineColumn: {
+      //   SparklineColumns: [
+      //     {
+      //       ColumnId: 'history',
+      //       SparklineType: 'Line',
+      //     },
+      //   ],
+      // },
       CustomSort: {
         CustomSorts: [
           {
@@ -682,9 +645,9 @@ export class AppComponent {
       Shortcut: {
         Shortcuts: [
           {
-            ColumnType: 'Number',
+            Scope: { All: true },
             ShortcutKey: 'M',
-            ShortcutResult: 1000000,
+            ShortcutValue: 1000000,
             ShortcutOperation: 'Multiply',
           },
         ],
