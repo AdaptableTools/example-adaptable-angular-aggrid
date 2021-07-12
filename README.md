@@ -8,7 +8,7 @@ This example app shows a demo instance of AdapTable using the [Angular Wrapper](
 The demo is built using these key packages:
 
 - [Angular CLI](https://github.com/angular/angular-cli) version 10
-- [Adaptable](https://docs.adaptabletools.com/) version 9
+- [Adaptable](https://docs.adaptabletools.com/) version 9 (AdapTable Rx)
 - [ag-Grid](https://www.ag-grid.com/ag-grid-changelog/?fixVersion=25.0.0) version 25
 
 > 10 is the minimium Angular version required for using Adaptable 9.0 and higher.
@@ -25,7 +25,7 @@ Every 20 miliseconds one of these Trades will randomly 'tick' - whereby 6 column
 
 
 ## Predefined Config
-AdapTable allows developers to provide [Predefined Config](https://docs.adaptabletools.com/docs/predefined-config/predefined-config-overview) in their application.  
+AdapTable allows developers to provide [Predefined Config](https://docs.adaptabletools.com/docs/predefined-config/predefined-config-overview) in their application. 
 
 These are the objects (e.g. Searches, Layouts, Reports, Conditional Styles) that end-users will be able to access from Day 1 (and depending on their [Entitlements](https://docs.adaptabletools.com/docs/adaptable-options/entitlements-options), they can add, edit or delete them).
 
