@@ -128,10 +128,10 @@ One [Sparkline Column](https://docs.adaptabletools.com/docs/plugins/chart/sparkl
 > Note: This requires the use of the [Charts Plugin](https://docs.adaptabletools.com/docs/plugins/chart/chart-plugin)
  
 ### Action Column
-An [Action Column](https://docs.adaptabletools.com/docs/adaptable-modules/action-column-module) called 'Action' has been provided.  It uses 3 functions provided:
-- A render predicate so that it does not display if Status is 'Completed'
-- A render function so the button displays differently whether Status is 'Pending' or 'Rejected'
-- A clicked funciton which will change the Status of the Trade (based on current Status)
+An [Action Column](https://docs.adaptabletools.com/docs/adaptable-options/user-interface-options#action-columns) called 'Action' has been provided with these rules:
+- It does not display if Status is 'Completed'
+- The button displays differently whether Status is 'Pending' or 'Rejected'
+- When clicked it changes the Status of the Trade (based on current Status)
 
 
 ### Shortcut
@@ -140,7 +140,6 @@ One [Shortcut](https://docs.adaptabletools.com/docs/adaptable-modules/shortcut-m
 It will multiply the existing cell value by 1,000,000 when the 'M' is clicked
 
 > Try it by typing 5M into a Notional column cell
-
 
 
 ### EditLookUpItem
@@ -194,9 +193,9 @@ This demo contains 3:
 - **Post Takeover** - appears in any Date Column and filters where value is after a fictitious takeover date of 21/09/2021
 
 ## Audit
-AdapTable has a very powerful [Audit Log](https://docs.adaptabletools.com/docs/key-topics/audit-log).  Developers can configure what in AdapTable will be audited where it will be streamed (there are a number of different available estinations).
+AdapTable has a very powerful [State Changed Event](https://docs.adaptabletools.com/docs/adaptable-events/adaptable-state-changed-event).  Developers can configure what in AdapTable will be audited where it will be streamed (there are a number of different available estinations).
 
-For ease of convenience, this demo Audit Log has been configured to send Cell Edits, User State Changes and AdapTable Function selection audit messaes to the Console so they can be easily viewed.
+For ease of convenience, this demo Audit Log has been configured to send Cell Edits and User State Changes audit messaes to the Console so they can be easily viewed.
 
 ## Server-Side Functionality
 Everything in this demo takes place enitrely on the client in order to reduce the complexity.
