@@ -71,6 +71,8 @@ export class AppComponent {
   public rowData: any[] = null;
   public gridOptions: GridOptions;
 
+  isLayoutShortcutMenuDisabled = true;
+
   public adaptableOptions: AdaptableOptions = {
     primaryKey: 'tradeId',
     userName: 'demo user',
@@ -209,17 +211,55 @@ export class AppComponent {
         {
           name: 'LayoutToggle',
           title: 'Layout toggle',
-          frameworkComponent: 'layoutButtonToggle',
+          frameworkComponent: {
+            // simple wrapper around Angular Material ButtonToggle component
+            // the implementation (and interaction with the AdaptableApi) is encapsulated in the component
+            type: ButtonToggleComponent,
+          },
         },
         {
           name: 'SlideToggle',
           title: 'Slide toggle',
-          frameworkComponent: 'slideToggle',
+          frameworkComponent: {
+            // custom Angular component for a slide component
+            // additional configuration is passed through the onSetup() function
+            type: SlideToggleComponent,
+            onSetup: (): Partial<SlideToggleComponent> => {
+              return {
+                // basically this toolbar interacts with another custom toolbar(layoutMenu), activating/deactivating it
+                onChange: toggleValue => {
+                  this.isLayoutShortcutMenuDisabled = !toggleValue;
+                },
+              };
+            },
+          },
         },
         {
           name: 'LayoutMenu',
           title: 'Layout menu',
-          frameworkComponent: 'layoutMenu',
+          frameworkComponent: {
+            // custom component providing an Angular Material menu in a custom toolbar menu :)
+            // the implementation is generic, the I/O params are set through the onSetup() function
+            type: MaterialMenuComponent,
+            onSetup: ({
+              adaptableApi,
+              customToolbar,
+            }): Partial<MaterialMenuComponent> => {
+              return {
+                // the component interacts with the adaptableApi provided in the framework component params
+                menuItems: adaptableApi.layoutApi
+                  .getAllLayout()
+                  .map(layout => layout.Name),
+                onItemClick: layoutName => {
+                  adaptableApi.layoutApi.setLayout(layoutName);
+                },
+                // the disabled state is updated by another custom toolbar (slideToggle)
+                isDisabled: () => {
+                  return this.isLayoutShortcutMenuDisabled;
+                },
+              };
+            },
+          },
         },
       ],
     },
@@ -525,15 +565,14 @@ export class AppComponent {
       Theme: {
         CurrentTheme: 'dark',
       },
-      // FIXME AFL activate after chart fix
-      // SparklineColumn: {
-      //   SparklineColumns: [
-      //     {
-      //       ColumnId: 'history',
-      //       SparklineType: 'Line',
-      //     },
-      //   ],
-      // },
+      SparklineColumn: {
+        SparklineColumns: [
+          {
+            ColumnId: 'history',
+            SparklineType: 'Line',
+          },
+        ],
+      },
       CustomSort: {
         CustomSorts: [
           {
@@ -653,52 +692,7 @@ export class AppComponent {
         ],
       },
     },
-    frameworkComponents: [
-      {
-        name: 'layoutButtonToggle',
-        // simple wrapper around Angular Material ButtonToggle component
-        // the implementation (and interaction with the AdaptableApi) is encapsulated in the component
-        type: ButtonToggleComponent,
-      },
-      {
-        name: 'slideToggle',
-        // custom Angular component for a slide component
-        // additional configuration is passed through the onSetup() function
-        type: SlideToggleComponent,
-        onSetup: (): Partial<SlideToggleComponent> => {
-          return {
-            // basically this toolbar interacts with another custom toolbar(layoutMenu), activating/deactivating it
-            onChange: toggleValue => {
-              this.isLayoutShortcutMenuDisabled = !toggleValue;
-            },
-          };
-        },
-      },
-      {
-        name: 'layoutMenu',
-        // custom component providing an Angular Material menu in a custom toolbar menu :)
-        // the implementation is generic, the I/O params are set through the onSetup() function
-        type: MaterialMenuComponent,
-        onSetup: (params): Partial<MaterialMenuComponent> => {
-          return {
-            // the component interacts with the adaptableApi provided in the framework component params
-            menuItems: params.api.layoutApi
-              .getAllLayout()
-              .map(layout => layout.Name),
-            onItemClick: layoutName => {
-              params.api.layoutApi.setLayout(layoutName);
-            },
-            // the disabled state is updated by another custom toolbar (slideToggle)
-            isDisabled: () => {
-              return this.isLayoutShortcutMenuDisabled;
-            },
-          };
-        },
-      },
-    ],
   };
-
-  isLayoutShortcutMenuDisabled = true;
 
   constructor(private http: HttpClient) {
     this.http = http;
