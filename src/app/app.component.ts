@@ -388,7 +388,6 @@ export class AppComponent {
             Rule: {
               BooleanExpression: '[status]!="Pending"',
             },
-            ExcludeGroupedRows: true,
           },
           {
             Scope: {
