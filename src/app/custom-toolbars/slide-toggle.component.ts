@@ -2,7 +2,7 @@ import {
   ADAPTABLE_API,
   AdaptableApi,
 } from '@adaptabletools/adaptable-angular-aggrid';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-slide-toggle',
