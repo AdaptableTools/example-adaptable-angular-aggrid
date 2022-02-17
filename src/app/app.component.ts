@@ -82,6 +82,9 @@ export class AppComponent {
     // licenseKey: <add_provided_license_key>,
     adaptableId: 'AdapTable Angular Demo',
     plugins: [finance()],
+    alertOptions: {
+      maxAlertsInStore: 50,
+    },
     userInterfaceOptions: {
       editLookUpItems: [
         {
@@ -180,9 +183,6 @@ export class AppComponent {
         },
       },
     ],
-    notificationsOptions: {
-      maxAlertsInStore: 50,
-    },
     dashboardOptions: {
       customToolbars: [
         // Show a Title and Configure Button
@@ -576,6 +576,7 @@ export class AppComponent {
         FreeTextColumns: [
           {
             ColumnId: 'comments',
+            DataType: 'String',
             FreeTextStoredValues: [
               {
                 PrimaryKey: 996,
@@ -706,8 +707,8 @@ export class AppComponent {
           },
         ],
       },
-      Alert: {
-        FlashingAlertDefinitions: [
+      FlashingCell: {
+        FlashingCellDefinitions: [
           {
             Scope: {
               ColumnIds: ['bid', 'ask', 'price'],
@@ -726,7 +727,9 @@ export class AppComponent {
             },
           },
         ],
+      },
 
+      Alert: {
         AlertDefinitions: [
           {
             AlertProperties: {
