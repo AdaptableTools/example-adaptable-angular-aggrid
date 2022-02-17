@@ -1,6 +1,6 @@
 # AdapTable Angular Example App
 
-This example app shows a demo instance of AdapTable using the [Angular Wrapper](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-overview).
+This example app shows a demo instance of [AdapTable Angular](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-overview).
 
 <img src="./demo.png"  >
 
@@ -172,7 +172,7 @@ The AdapTable [Dashboard](https://docs.adaptabletools.com/docs/user-interface/da
 
     - **LayoutMenu** is an Angular component which wraps and Angular Material Menu; the component implementation is generic and all the I/O params are provided dynamically
 
-- More detailed information regarding Angular Custom Toolbars are provided in the [Angular Wrapper Documentation](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-custom-toolbars)
+- More detailed information regarding Angular Custom Toolbars are provided in the [AdapTable Angular Documentation](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-custom-toolbars)
 
 ### Tool Panel
 The demo has been configured to include the [AdapTable Tool Panel](https://docs.adaptabletools.com/docs/user-interface/tool-panel) available at the right hand side of the Grid
@@ -203,7 +203,7 @@ However it is possible to run AdapTable in Server Mode where all the Queries and
 
 ## Installation
 
-NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Wrapper Documentation](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-installation)
+NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Documentation](https://docs.adaptabletools.com/docs/angular-wrapper/angular-wrapper-installation)
 
 > If you do not have an Adpatable Login please contact support@adaptabletools.com
 
