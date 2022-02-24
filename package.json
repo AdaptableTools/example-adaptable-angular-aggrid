@@ -12,8 +12,8 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable-angular-aggrid": "11.0.0-canary.5",
-    "@adaptabletools/adaptable-plugin-finance": "11.0.0-canary.5",
+    "@adaptabletools/adaptable-angular-aggrid": "11.0.0",
+    "@adaptabletools/adaptable-plugin-finance": "11.0.0",
     "@ag-grid-community/all-modules": "27.0.0",
     "@ag-grid-community/angular": "27.0.0",
     "@ag-grid-enterprise/all-modules": "27.0.0",
