@@ -10,7 +10,7 @@ The demo is built using these key packages:
 
 - [Angular](https://github.com/angular/angular) version 10
 - [Adaptable](https://docs.adaptabletools.com/) version 11
-- [AG Grid](https://www.ag-grid.com) version 26.2.0
+- [AG Grid](https://www.ag-grid.com) version 27.0.0
 
 > 10 is the minimium Angular version required for using Adaptable.
 
@@ -253,6 +253,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+
 ## Licences
 
 A licence for AdapTable provides access to all product features as well as quarterly updates and enhancements through the lifetime of the licence, comprehensive support, and access to all 3rd party libraries.
@@ -263,15 +264,13 @@ Please contact [`sales@adaptabletools.com`](mailto:sales@adaptabletools.com) or 
 
 ## Demo
 
-To see AdapTable in action visit our [Demos](https://www.adaptabletools.com/demos). Here you can see a number of AdapTable demos each showing a different feature, function or option in AdapTable (using dummy data sets).
+To see AdapTable in action visit [Adaptable Documentation](https://docs.adaptabletools.com/) which contains a large number of small demos each showing a different feature, function or option in AdapTable (using dummy data sets).
+
+Additionally, there is a page with larger 'recipe-type' Demos at the [Adaptable Tools website](https://www.adaptabletools.com/demos).
 
 ## Help
 
 Developers can learn how to access AdapTable programmatically at [AdapTable Documentation](https://docs.adaptabletools.com).
-
-For help on the Angular CLI use `ng help` or consult the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-## More Information
 
 General information about Adaptable Tools is available at our [Website](http://www.adaptabletools.com)
 
