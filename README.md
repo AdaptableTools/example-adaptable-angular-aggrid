@@ -225,7 +225,7 @@ For ease of convenience, this demo Audit Log has been configured to send Cell Ed
 
 Everything in this demo takes place enitrely on the client in order to reduce the complexity.
 
-However it is possible to run AdapTable in Server Mode where all the Queries and Filters can be built by end-users in the UI but evaluated on the Server. See the [Server Functionality Guide](https://docs.adaptabletools.com/docs/key-topics/server-functionality) for more details.
+However it is possible to run AdapTable in Server Mode where all the Queries and Filters can be built by end-users in the UI but evaluated on the Server. See the [Server Functionality Guide](https://docs.adaptabletools.com/learn/dev-guide-tutorial-server-row-model) for more details.
 
 ## Installation
 
