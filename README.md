@@ -1,6 +1,6 @@
 # AdapTable Angular Example App
 
-This example app shows a demo instance of AdapTable using the [Angular Wrapper](https://docs.adaptabletools.com/learn/angular-overview).
+This example app shows a demo instance of [AdapTable Angular](https://docs.adaptabletools.com/learn/angular-overview).
 
 <img src="./demo.png"  >
 
@@ -192,11 +192,7 @@ The AdapTable [Dashboard](https://docs.adaptabletools.com/learn/ui-dashboard) ha
 
   - **LayoutToggle** is an Angular component which wraps an Angular Material ButtonToggle component and toggles between the different Layouts defined in AdaptableState. The entire implementation (and interaction with the AdaptableApi) is encapsulated&isolated in the component
 
-  - **SlideToggle** is a custom Angular component which interacts with another CustomToolbar ('LayoutMenu'), enabling/disabling it
-
-  - **LayoutMenu** is an Angular component which wraps and Angular Material Menu; the component implementation is generic and all the I/O params are provided dynamically
-
-- More detailed information regarding Angular Custom Toolbars are provided in the [Angular Wrapper Documentation](https://docs.adaptabletools.com/learn/angular-custom-components)
+- More detailed information regarding Angular Custom Toolbars are provided in the [AdapTable Angular Documentation](https://docs.adaptabletools.com/learn/angular-custom-components)
 
 ### Tool Panel
 
@@ -233,7 +229,7 @@ However it is possible to run AdapTable in Server Mode where all the Queries and
 
 ## Installation
 
-NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Wrapper Documentation](https://docs.adaptabletools.com/learn/angular-installation)
+NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Documentation](https://docs.adaptabletools.com/learn/angular-installation)
 
 > If you do not have an Adpatable Login please contact support@adaptabletools.com
 
