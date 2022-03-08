@@ -1,34 +1,20 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {
-  ColDef,
-  GridApi,
-  GridOptions,
-  Module,
-} from '@ag-grid-community/all-modules';
+import { ColDef, GridOptions, Module } from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 import {
-  ActionColumnButtonContext,
-  AdaptableApi,
   AdaptableButton,
   AdaptableOptions,
-  AdaptableReadyInfo,
   AdaptableToolPanelAgGridComponent,
-  ContextMenuContext,
+  CustomToolbarButtonContext,
   CustomToolPanelButtonContext,
-  PredicateDefHandlerParams,
   ToolPanelButtonContext,
 } from '@adaptabletools/adaptable-angular-aggrid';
 import finance from '@adaptabletools/adaptable-plugin-finance';
-import { DummyTradeBuilder, ITrade } from 'src/Itrade';
-import { ButtonToggleComponent } from './custom-toolbars/button-toggle.component';
-import { SlideToggleComponent } from './custom-toolbars/slide-toggle.component';
-import { MaterialMenuComponent } from './custom-toolbars/material-menu.component';
-import { CustomToolbarButtonContext } from '@adaptabletools/adaptable/src/AdaptableOptions/DashboardOptions';
-
-const dummyTradeBuilder: DummyTradeBuilder = new DummyTradeBuilder();
-let adapTableApi: AdaptableApi;
-const tradeCount = 1000;
+import { ButtonToggleComponent } from './custom-components/button-toggle.component';
+import { SlideToggleComponent } from './custom-components/slide-toggle.component';
+import { MaterialMenuComponent } from './custom-components/material-menu.component';
+import { rowData } from './rowData';
+import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-panel.component';
 
 @Component({
   selector: 'app-adaptable-root',
@@ -37,8 +23,6 @@ const tradeCount = 1000;
       [adaptableOptions]="adaptableOptions"
       [gridOptions]="gridOptions"
       [modules]="agGridModules"
-      [rowData]="rowData"
-      (adaptableReady)="adaptableReady($event)"
       style="flex: 1"
       class="ag-theme-balham"
     >
@@ -67,14 +51,11 @@ const tradeCount = 1000;
   ],
 })
 export class AppComponent {
-  public gridApi: GridApi;
   public agGridModules: Module[] = AllEnterpriseModules;
-  public gridColumnApi;
   public columnDefs;
-  public rowData: any[] = null;
   public gridOptions: GridOptions;
 
-  isLayoutShortcutMenuDisabled = true;
+  private isLayoutShortcutMenuDisabled = true;
 
   public adaptableOptions: AdaptableOptions = {
     primaryKey: 'tradeId',
@@ -82,117 +63,27 @@ export class AppComponent {
     // licenseKey: <add_provided_license_key>,
     adaptableId: 'AdapTable Angular Demo',
     plugins: [finance()],
-    alertOptions: {
-      maxAlertsInStore: 50,
-    },
-    userInterfaceOptions: {
-      editLookUpItems: [
+    settingsPanelOptions: {
+      customSettingsPanels: [
         {
-          scope: {
-            ColumnIds: ['status'],
-          },
-          values: ['Pending', 'Completed', 'Rejected'],
-        },
-      ],
-      actionColumns: [
-        {
-          columnId: 'statusActionColumn',
-          friendlyName: 'Action',
-          actionColumnButton: {
-            label: 'Reject',
-            hidden: (
-              button: AdaptableButton<ActionColumnButtonContext>,
-              context: ActionColumnButtonContext
-            ) => {
-              return context?.rowNode?.data?.status === 'Completed';
-            },
-            onClick: (
-              button: AdaptableButton<ActionColumnButtonContext>,
-              context: ActionColumnButtonContext
-            ) => {
-              const rowData: any = context.rowNode.data;
-              const newStatus: string =
-                rowData.status === 'Rejected' ? 'Pending' : 'Rejected';
-              adapTableApi.gridApi.setCellValue(
-                'status',
-                newStatus,
-                context.primaryKeyValue,
-                true
-              );
-            },
+          name: 'Custom Theme Settings Panel',
+          frameworkComponent: {
+            // The custom component wraps the same reusable Angular toggle component which is used in the Toolbar and ToolPanel components
+            type: ThemeSettingsPanelComponent,
           },
         },
       ],
     },
-    menuOptions: {
-      contextMenuItems: [
-        {
-          label: 'Reject Trade',
-          onClick: (menuContext: ContextMenuContext) => {
-            adapTableApi.gridApi.setCellValue(
-              'status',
-              'Rejected',
-              menuContext.primaryKeyValue,
-              true
-            );
-          },
-          hidden: (menuContext: ContextMenuContext) => {
-            return menuContext?.rowNode?.data?.status !== 'Pending';
-          },
-        },
-      ],
-    },
-    customPredicateDefs: [
-      {
-        id: 'high',
-        label: 'High',
-        columnScope: {
-          ColumnIds: ['tradeId'],
-        },
-        moduleScope: ['filter', 'alert', 'conditionalstyle'],
-        handler(params: PredicateDefHandlerParams) {
-          const notional: number = params.node.data.notional;
-          return notional > 8000000 ? true : false;
-        },
-      },
-      {
-        id: 'benelux',
-        label: 'Benelux',
-        columnScope: {
-          ColumnIds: ['Country'],
-        },
-        moduleScope: ['filter'],
-        handler(params: PredicateDefHandlerParams) {
-          return (
-            params.value === 'Luxembourg' ||
-            params.value === 'Belgium' ||
-            params.value === 'Holland'
-          );
-        },
-      },
-      {
-        id: 'post_takeover',
-        label: 'Post Takeover',
-        columnScope: {
-          DataTypes: ['Date'],
-        },
-        moduleScope: ['filter'],
-        handler(params: PredicateDefHandlerParams) {
-          const takeOverDate = new Date('2020-09-21');
-          return (params.value as Date) > takeOverDate;
-        },
-      },
-    ],
     dashboardOptions: {
       customToolbars: [
         // Show a Title and Configure Button
         {
-          name: 'Trades',
-          title: 'Trades',
+          name: 'Custom Theme Toolbar',
+          title: 'Custom Theme Toolbar',
           showConfigureButton: false,
           toolbarButtons: [
             {
-              label: 'Add Trade',
+              label: 'Open Theme Settings',
               buttonStyle: {
                 variant: 'raised',
                 tone: 'accent',
@@ -201,10 +92,9 @@ export class AppComponent {
                 button: AdaptableButton<CustomToolbarButtonContext>,
                 context: CustomToolbarButtonContext
               ) => {
-                const trade: ITrade = dummyTradeBuilder.createTrade(
-                  this.gridApi.getDisplayedRowCount() + 1
+                context.adaptableApi.settingsPanelApi.showCustomSettingsPanel(
+                  'Custom Theme Settings Panel'
                 );
-                adapTableApi.gridApi.addGridData([trade]);
               },
             },
           ],
@@ -354,19 +244,16 @@ export class AppComponent {
         Tabs: [
           {
             Name: 'Custom',
-            Toolbars: ['Trades', 'LayoutToggle', 'SlideToggle', 'LayoutMenu'],
-          },
-          {
-            Name: 'Grid',
-            Toolbars: ['Layout', 'Alert', 'CellSummary', 'Export', 'Theme'],
+            Toolbars: [
+              'Custom Theme Toolbar',
+              'LayoutToggle',
+              'SlideToggle',
+              'LayoutMenu',
+            ],
           },
           {
             Name: 'Search',
             Toolbars: ['Query'],
-          },
-          {
-            Name: 'Edit',
-            Toolbars: ['SmartEdit', 'BulkUpdate'],
           },
         ],
       },
@@ -384,9 +271,7 @@ export class AppComponent {
               'bid',
               'bidOfferSpread',
               'ask',
-              'bestAsk',
               'notional',
-              'size',
               'status',
               'statusActionColumn',
               'country',
@@ -395,18 +280,7 @@ export class AppComponent {
               'rating',
               'tradeDate',
               'settlementDate',
-              'diffDays',
-              'comments',
             ],
-            ColumnSorts: [
-              {
-                ColumnId: 'tradeId',
-                SortOrder: 'Desc',
-              },
-            ],
-            ColumnWidthMap: {
-              diffDays: 100,
-            },
           },
           {
             Name: 'Sorted',
@@ -438,7 +312,6 @@ export class AppComponent {
               'bid',
               'bidOfferSpread',
               'ask',
-              'bestAsk',
               'notional',
               'status',
             ],
@@ -458,196 +331,6 @@ export class AppComponent {
           },
         ],
       },
-      ConditionalStyle: {
-        ConditionalStyles: [
-          {
-            Scope: {
-              All: true,
-            },
-            Style: {
-              BackColor: 'lightGray ',
-              ForeColor: 'brown',
-            },
-            Rule: {
-              BooleanExpression: '[status]!="Pending"',
-            },
-          },
-          {
-            Scope: {
-              DataTypes: ['Number'],
-            },
-            Style: {
-              ForeColor: 'Green',
-            },
-            Rule: {
-              Predicate: {
-                PredicateId: 'Positive',
-              },
-            },
-          },
-          {
-            Scope: {
-              DataTypes: ['Number'],
-            },
-            Style: {
-              ForeColor: 'Red',
-            },
-            Rule: {
-              Predicate: {
-                PredicateId: 'Negative',
-              },
-            },
-          },
-          {
-            Scope: {
-              ColumnIds: ['country'],
-            },
-            Style: {
-              FontWeight: 'Bold',
-              FontStyle: 'Italic',
-            },
-            Rule: {
-              Predicate: {
-                PredicateId: 'Is',
-                Inputs: ['United States'],
-              },
-            },
-          },
-        ],
-      },
-      FormatColumn: {
-        FormatColumns: [
-          {
-            Scope: {
-              DataTypes: ['Date'],
-            },
-            DisplayFormat: {
-              Formatter: 'DateFormatter',
-              Options: {
-                Pattern: 'dd/MM/yyyy',
-              },
-            },
-          },
-          {
-            Scope: {
-              DataTypes: ['Number'],
-            },
-            CellAlignment: 'Right',
-          },
-          {
-            Scope: {
-              ColumnIds: ['ask', 'bid', 'price', 'bestAsk'],
-            },
-            CellAlignment: 'Right',
-            DisplayFormat: {
-              Formatter: 'NumberFormatter',
-              Options: {
-                FractionDigits: 3,
-              },
-            },
-          },
-          {
-            Scope: {
-              ColumnIds: ['notional'],
-            },
-            ColumnStyle: {
-              PercentBarStyle: {
-                CellRanges: [
-                  { Min: 1, Max: 2500000, Color: '#a52a2a' },
-                  { Min: 2500001, Max: 6000000, Color: '#ffa500' },
-                  { Min: 6000001, Max: 11000000, Color: '#006400' },
-                ],
-              },
-            },
-          },
-          {
-            Scope: {
-              ColumnIds: ['bidOfferSpread'],
-            },
-            ColumnStyle: {
-              GradientStyle: {
-                CellRanges: [{ Min: 0, Max: 0.5, Color: 'purple' }],
-              },
-            },
-          },
-        ],
-      },
-      FreeTextColumn: {
-        FreeTextColumns: [
-          {
-            ColumnId: 'comments',
-            DataType: 'String',
-            FreeTextStoredValues: [
-              {
-                PrimaryKey: 996,
-                FreeText: 'Need to check',
-              },
-              {
-                PrimaryKey: 983,
-                FreeText: 'Make sure notional is correct',
-              },
-            ],
-            FriendlyName: 'Comments',
-          },
-        ],
-      },
-      Query: {
-        CurrentQuery: '',
-        NamedQueries: [
-          {
-            Name: 'Pending Dollar Trades',
-            BooleanExpression:
-              "[status] = 'Pending' AND [tradeDate] > NOW() AND [currency] IN ('EUR', 'USD')",
-          },
-        ],
-      },
-      Export: {
-        Reports: [
-          {
-            Name: 'Trades Due This Week',
-            ReportColumnScope: 'ScopeColumns',
-            ReportRowScope: 'ExpressionRows',
-            Scope: {
-              ColumnIds: [
-                'tradeId',
-                'notional',
-                'counterparty',
-                'changeOnYear',
-                'tradeDate',
-                'bidOfferSpread',
-                'country',
-                'currency',
-                'price',
-                'rating',
-                'settlementDate',
-                'status',
-              ],
-            },
-            Query: {
-              BooleanExpression:
-                "[status] = 'Pending' AND  [tradeDate] > NOW() AND DIFF_DAYS([tradeDate], NOW()) <7",
-            },
-          },
-        ],
-      },
-      Schedule: {
-        ReportSchedules: [
-          {
-            ExportDestination: 'CSV',
-            ReportName: 'Trades Due This Week',
-            Schedule: {
-              Hour: 12,
-              Minute: 23,
-              OneOffDate: null,
-              DaysOfWeek: ['Monday'],
-            },
-            ScheduleType: 'Report',
-          },
-        ],
-      },
-      Theme: {
-        CurrentTheme: 'dark',
-      },
       CustomSort: {
         CustomSorts: [
           {
@@ -656,124 +339,10 @@ export class AppComponent {
           },
         ],
       },
-      QuickSearch: {
-        QuickSearchText: 'Gold',
-        Style: {
-          BackColor: '#ffff00',
-          ForeColor: '#808080',
-        },
-      },
-      CalculatedColumn: {
-        CalculatedColumns: [
-          {
-            CalculatedColumnSettings: {
-              Aggregatable: true,
-              DataType: 'Number',
-              Pivotable: true,
-              Filterable: true,
-            },
-            Query: {
-              ScalarExpression:
-                'MIN([ask] ,[markitAsk], [bloombergAsk],[indicativeAsk]) ',
-            },
-            ColumnId: 'bestAsk',
-            FriendlyName: 'Best Ask',
-          },
-          {
-            CalculatedColumnSettings: {
-              Aggregatable: true,
-              DataType: 'Number',
-              Filterable: true,
-            },
-            Query: {
-              ScalarExpression: 'DIFF_DAYS([settlementDate],[tradeDate]) ',
-            },
-
-            ColumnId: 'diffDays',
-            FriendlyName: 'Diff Days',
-          },
-          {
-            CalculatedColumnSettings: {
-              Pivotable: true,
-              DataType: 'String',
-              Filterable: true,
-            },
-            Query: {
-              ScalarExpression:
-                "[notional] < 300000? 'Low' : [notional] < 600000 ? 'Medium' : 'High' ",
-            },
-            ColumnId: 'size',
-            FriendlyName: 'Size',
-          },
-        ],
-      },
-      FlashingCell: {
-        FlashingCellDefinitions: [
-          {
-            Scope: {
-              ColumnIds: ['bid', 'ask', 'price'],
-            },
-            Rule: {
-              Predicate: {
-                PredicateId: 'Any',
-              },
-            },
-            FlashDuration: 250,
-            UpChangeStyle: {
-              BackColor: '#90ee90',
-            },
-            DownChangeStyle: {
-              BackColor: '#FF6666',
-            },
-          },
-        ],
-      },
-
-      Alert: {
-        AlertDefinitions: [
-          {
-            AlertProperties: {
-              LogToConsole: false,
-            },
-            MessageType: 'Warning',
-            Rule: {
-              Predicate: { PredicateId: 'Equals', Inputs: ['10000000'] },
-            },
-            Scope: { ColumnIds: ['notional'] },
-          },
-          {
-            Scope: {
-              ColumnIds: ['notional', 'bidOfferSpread'],
-            },
-            AlertProperties: {
-              PreventEdit: true,
-            },
-            MessageType: 'Error',
-            Rule: {
-              Predicate: {
-                PredicateId: 'Negative',
-              },
-            },
-          },
-        ],
-      },
-
-      Shortcut: {
-        Shortcuts: [
-          {
-            Scope: { All: true },
-            ShortcutKey: 'M',
-            ShortcutValue: 1000000,
-            ShortcutOperation: 'Multiply',
-          },
-        ],
-      },
     },
   };
 
-  constructor(private http: HttpClient) {
-    this.http = http;
-
+  constructor() {
     this.columnDefs = [
       {
         headerName: 'Trade Id',
@@ -948,35 +517,7 @@ export class AppComponent {
         AdaptableToolPanel: AdaptableToolPanelAgGridComponent,
       },
       columnDefs: this.columnDefs,
-      rowData: [],
-      onGridReady: this.onGridReady,
+      rowData,
     };
   }
-
-  adaptableReady = ({ adaptableApi, gridOptions }: AdaptableReadyInfo) => {
-    adapTableApi = adaptableApi;
-
-    adaptableApi.eventApi.on('AdaptableReady', () => {
-      dummyTradeBuilder.startTickingDataagGridTrade(
-        adaptableApi,
-        gridOptions,
-        50,
-        tradeCount
-      );
-    });
-  };
-
-  onGridReady = params => {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    setTimeout(() => {
-      const trades: ITrade[] = [];
-      for (let i = 1; i <= tradeCount; i++) {
-        trades.push(dummyTradeBuilder.createTrade(i));
-      }
-      this.gridApi.setRowData(trades);
-      this.gridColumnApi.autoSizeAllColumns();
-    }, 500);
-  };
 }

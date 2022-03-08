@@ -6,12 +6,13 @@ import { AdaptableAngularAgGridModule } from '@adaptabletools/adaptable-angular-
 import { AgGridModule } from '@ag-grid-community/angular';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ButtonToggleComponent } from './custom-toolbars/button-toggle.component';
+import { ButtonToggleComponent } from './custom-components/button-toggle.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { SlideToggleComponent } from './custom-toolbars/slide-toggle.component';
+import { SlideToggleComponent } from './custom-components/slide-toggle.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialMenuComponent } from './custom-toolbars/material-menu.component';
+import { MaterialMenuComponent } from './custom-components/material-menu.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-panel.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { MatMenuModule } from '@angular/material/menu';
     ButtonToggleComponent,
     SlideToggleComponent,
     MaterialMenuComponent,
+    ThemeSettingsPanelComponent,
   ],
   bootstrap: [AppComponent],
 })

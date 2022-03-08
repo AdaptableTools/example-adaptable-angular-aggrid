@@ -1,8 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import {
-  ADAPTABLE_API,
-  AdaptableApi,
-} from '@adaptabletools/adaptable-angular-aggrid';
+import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-material-menu',
@@ -29,6 +26,7 @@ import {
     `
       button[mat-button]:disabled {
         background: initial;
+        color: darkgray;
       }
     `,
   ],
