@@ -197,7 +197,7 @@ export class AppComponent {
         },
         {
           name: 'CustomToolPanelButton',
-          toolPanelButtons: [
+          buttons: [
             {
               label: 'AlertButton',
               buttonStyle: {
@@ -217,7 +217,7 @@ export class AppComponent {
           ],
         },
       ],
-      customToolPanelButtons: [
+      customButtons: [
         {
           label: 'Query Popup',
           icon: {
