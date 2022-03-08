@@ -78,7 +78,7 @@ export class AppComponent {
       customToolbars: [
         // Show a Title and Configure Button
         {
-          name: 'Custom Theme Toolbar',
+          name: 'CustomThemeToolbar',
           title: 'Custom Theme Toolbar',
           showConfigureButton: false,
           toolbarButtons: [
@@ -245,7 +245,7 @@ export class AppComponent {
           {
             Name: 'Custom',
             Toolbars: [
-              'Custom Theme Toolbar',
+              'CustomThemeToolbar',
               'LayoutToggle',
               'SlideToggle',
               'LayoutMenu',
