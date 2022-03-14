@@ -14,14 +14,14 @@ The demo is built using these key packages:
 
 ## AdapTable Angular  Custom Components
 
-The main benefit of using AdapTable React is that it allows you to supply custom components in AdapTable in a React-friendly way.
+The main benefit of using AdapTable Angular is that it allows you to supply custom components in AdapTable in a Angular-friendly way.
 
 > For full information on how to install and use AdapTable Angular see the [AdapTable Documentation](https://docs.adaptabletools.com/learn/angular-overview).
-This demo showcases 3 React-specific features of AdapTable:
+This demo showcases 3 Angular-specific features of AdapTable:
 
 ### Settings Panel
 
-The demo illustrates how to pass custom React components to the [Settings Panel](https://docs.adaptabletools.com/learn/ui-settings-panel):
+The demo illustrates how to pass custom Angular components to the [Settings Panel](https://docs.adaptabletools.com/learn/ui-settings-panel):
 
 ```ts
 const adaptableOptions: AdaptableOptions = {
@@ -43,7 +43,7 @@ const adaptableOptions: AdaptableOptions = {
 
 ### Tool Panel
 
-The demo illustrates how to pass custom React components to the [Tool Panel](https://docs.adaptabletools.com/learn/ui-tool-panel):
+The demo illustrates how to pass custom Angular components to the [Tool Panel](https://docs.adaptabletools.com/learn/ui-tool-panel):
 
 ```tsx
 const adaptableOptions: AdaptableOptions = {
@@ -76,7 +76,7 @@ const adaptableOptions: AdaptableOptions = {
 ```
 
 ### Custom Toolbar
-The demo illustrates how to pass custom React components to the [Dashboard Toolbar](https://docs.adaptabletools.com/learn/ui-dashboard#tabs-and-toolbars):
+The demo illustrates how to pass custom Angular components to the [Dashboard Toolbar](https://docs.adaptabletools.com/learn/ui-dashboard#tabs-and-toolbars):
 
 ```tsx
 const adaptableOptions: AdaptableOptions = {
