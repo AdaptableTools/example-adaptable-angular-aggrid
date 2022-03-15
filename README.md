@@ -1,6 +1,6 @@
 # AdapTable Angular Example App
 
-This example app shows a demo instance of [AdapTable Angular](https://docs.adaptabletools.com/learn/angular-overview).
+This example app shows a demo instance of [AdapTable Angular](https://docs.adaptabletools.com/guide/angular-overview).
 
 ## Versions and Dependencies
 
@@ -16,12 +16,12 @@ The demo is built using these key packages:
 
 The main benefit of using AdapTable Angular is that it allows you to supply custom components in AdapTable in a Angular-friendly way.
 
-> For full information on how to install and use AdapTable Angular see the [AdapTable Documentation](https://docs.adaptabletools.com/learn/angular-overview).
+> For full information on how to install and use AdapTable Angular see the [AdapTable Documentation](https://docs.adaptabletools.com/guide/angular-overview).
 This demo showcases 3 Angular-specific features of AdapTable:
 
 ### Settings Panel
 
-The demo illustrates how to pass custom Angular components to the [Settings Panel](https://docs.adaptabletools.com/learn/ui-settings-panel):
+The demo illustrates how to pass custom Angular components to the [Settings Panel](https://docs.adaptabletools.com/guide/ui-settings-panel):
 
 ```ts
 const adaptableOptions: AdaptableOptions = {
@@ -43,7 +43,7 @@ const adaptableOptions: AdaptableOptions = {
 
 ### Tool Panel
 
-The demo illustrates how to pass custom Angular components to the [Tool Panel](https://docs.adaptabletools.com/learn/ui-tool-panel):
+The demo illustrates how to pass custom Angular components to the [Tool Panel](https://docs.adaptabletools.com/guide/ui-tool-panel):
 
 ```tsx
 const adaptableOptions: AdaptableOptions = {
@@ -76,7 +76,7 @@ const adaptableOptions: AdaptableOptions = {
 ```
 
 ### Custom Toolbar
-The demo illustrates how to pass custom Angular components to the [Dashboard Toolbar](https://docs.adaptabletools.com/learn/ui-dashboard#tabs-and-toolbars):
+The demo illustrates how to pass custom Angular components to the [Dashboard Toolbar](https://docs.adaptabletools.com/guide/ui-dashboard#tabs-and-toolbars):
 
 ```tsx
 const adaptableOptions: AdaptableOptions = {
@@ -98,12 +98,12 @@ const adaptableOptions: AdaptableOptions = {
 }
 ```
 
-> For more information on how to use Angular Components in AdapTable see the [AdapTable Documentation](https://docs.adaptabletools.com/learn/angular-custom-components).
+> For more information on how to use Angular Components in AdapTable see the [AdapTable Documentation](https://docs.adaptabletools.com/guide/angular-custom-components).
 
 
 ## Installation
 
-NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Documentation](https://docs.adaptabletools.com/learn/angular-installation)
+NOTE: In order to be able to run `npm install`, you need to be logged into our private NPM registry - follow the instructions in the [Adaptable Angular Documentation](https://docs.adaptabletools.com/guide/angular-installation)
 
 > If you do not have an Adpatable Login please contact support@adaptabletools.com
 
