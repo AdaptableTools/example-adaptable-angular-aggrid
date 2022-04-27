@@ -500,7 +500,7 @@ export class AppComponent {
       {
         headerName: 'History',
         field: 'history',
-        type: 'abColDefNumberArray',
+        type: 'abColDefObject',
         resizable: true,
         cellRenderer: 'agSparklineCellRenderer',
         cellRendererParams: {
