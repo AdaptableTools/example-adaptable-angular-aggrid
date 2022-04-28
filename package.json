@@ -12,8 +12,8 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable-angular-aggrid": "~11.0.3",
-    "@adaptabletools/adaptable-plugin-finance": "~11.0.3",
+    "@adaptabletools/adaptable-angular-aggrid": "~11.1.9",
+    "@adaptabletools/adaptable-plugin-finance": "~11.1.9",
     "@ag-grid-community/all-modules": "27.0.0",
     "@ag-grid-community/angular": "27.0.0",
     "@ag-grid-enterprise/all-modules": "27.0.0",
@@ -27,8 +27,6 @@
     "@angular/platform-browser": "~10.2.5",
     "@angular/platform-browser-dynamic": "~10.2.5",
     "@angular/router": "~10.2.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
