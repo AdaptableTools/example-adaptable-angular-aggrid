@@ -14,9 +14,9 @@
   "dependencies": {
     "@adaptabletools/adaptable-angular-aggrid": "~11.1.9",
     "@adaptabletools/adaptable-plugin-finance": "~11.1.9",
-    "@ag-grid-community/all-modules": "27.0.0",
-    "@ag-grid-community/angular": "27.0.0",
-    "@ag-grid-enterprise/all-modules": "27.0.0",
+    "@ag-grid-community/all-modules": "27.1.0",
+    "@ag-grid-community/angular": "27.1.1",
+    "@ag-grid-enterprise/all-modules": "27.1.0",
     "@angular/animations": "~10.2.5",
     "@angular/cdk": "~10.2.7",
     "@angular/common": "~10.2.5",
