@@ -8,7 +8,6 @@
     "module": "es2020",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
