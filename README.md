@@ -1,16 +1,16 @@
-# AdapTable Angular Example App
+# AdapTable Angular Example App (Angular 12 Branch)
 
 This example app shows a demo instance of [AdapTable Angular](https://docs.adaptabletools.com/guide/angular-overview).
 
 ## Versions and Dependencies
 
-The demo is built using these key packages:
+This branch of the Angular demo is built using these key packages:
 
-- [Angular](https://github.com/angular/angular) version 10
+- [Angular](https://github.com/angular/angular) version 12 (the [master branch](https://github.com/AdaptableTools/example-adaptable-angular-aggrid/tree/master) uses Angular 11)
 - [Adaptable](https://docs.adaptabletools.com/) version 11
-- [AG Grid](https://www.ag-grid.com) version 27.0.0
+- [AG Grid](https://www.ag-grid.com) version 27.2.1
 
-> 10 is the minimium Angular version required for using Adaptable.
+   
 
 ## AdapTable Angular  Custom Components
 
