@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ColDef, GridOptions, Module } from '@ag-grid-community/all-modules';
 import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
 import {
+  AdaptableApi,
   AdaptableButton,
   AdaptableOptions,
   AdaptableToolPanelAgGridComponent,
@@ -23,6 +24,7 @@ import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-
       [adaptableOptions]="adaptableOptions"
       [gridOptions]="gridOptions"
       [modules]="agGridModules"
+      (adaptableReady)="adaptableReady($event)"
       style="flex: 1"
       class="ag-theme-balham"
     >
@@ -54,6 +56,7 @@ export class AppComponent {
   public agGridModules: Module[] = AllEnterpriseModules;
   public columnDefs;
   public gridOptions: GridOptions;
+  public adaptableApi: AdaptableApi;
 
   private isLayoutShortcutMenuDisabled = true;
 
@@ -551,4 +554,9 @@ export class AppComponent {
       rowData,
     };
   }
+
+  adaptableReady = ({ adaptableApi, gridOptions }) => {
+    this.adaptableApi = adaptableApi;
+    // use AdaptableApi for runtime access to Adaptable
+  };
 }
