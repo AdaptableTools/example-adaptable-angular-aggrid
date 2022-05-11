@@ -550,6 +550,11 @@ export class AppComponent {
       components: {
         AdaptableToolPanel: AdaptableToolPanelAgGridComponent,
       },
+      defaultColDef: {
+        enablePivot: true,
+        enableRowGroup: true,
+        enableValue: true,
+      },
       columnDefs: this.columnDefs,
       rowData,
     };
