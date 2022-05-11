@@ -57,6 +57,7 @@ export class AppComponent {
   public columnDefs;
   public adaptableApi: AdaptableApi;
   public gridOptions: GridOptions;
+  public adaptableApi: AdaptableApi;
 
   private isLayoutShortcutMenuDisabled = true;
 
@@ -549,6 +550,11 @@ export class AppComponent {
       },
       components: {
         AdaptableToolPanel: AdaptableToolPanelAgGridComponent,
+      },
+      defaultColDef: {
+        enablePivot: true,
+        enableRowGroup: true,
+        enableValue: true,
       },
       columnDefs: this.columnDefs,
       rowData,
