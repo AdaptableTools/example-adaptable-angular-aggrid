@@ -57,7 +57,6 @@ export class AppComponent {
   public columnDefs;
   public adaptableApi: AdaptableApi;
   public gridOptions: GridOptions;
-  public adaptableApi: AdaptableApi;
 
   private isLayoutShortcutMenuDisabled = true;
 
