@@ -5,7 +5,6 @@ import {
   AdaptableApi,
   AdaptableButton,
   AdaptableOptions,
-  AdaptableToolPanelAgGridComponent,
   CustomToolbarButtonContext,
   CustomToolPanelButtonContext,
   ToolPanelButtonContext,
@@ -185,7 +184,6 @@ export class AppComponent {
       ],
     },
     toolPanelOptions: {
-      toolPanelOrder: ['adaptable', 'columns', 'filters'],
       customToolPanels: [
         {
           name: 'SlideToggle',
@@ -538,7 +536,7 @@ export class AppComponent {
     this.gridOptions = {
       enableCharts: true,
       enableRangeSelection: true,
-      sideBar: true,
+      sideBar: ['adaptable', 'columns', 'filters'],
       suppressMenuHide: true,
       singleClickEdit: true,
       statusBar: {
@@ -546,9 +544,6 @@ export class AppComponent {
           { statusPanel: 'agTotalRowCountComponent', align: 'left' },
           { statusPanel: 'agFilteredRowCountComponent' },
         ],
-      },
-      components: {
-        AdaptableToolPanel: AdaptableToolPanelAgGridComponent,
       },
       defaultColDef: {
         enablePivot: true,
