@@ -12,8 +12,8 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable-angular-aggrid": "13.0.0-canary.16",
-    "@adaptabletools/adaptable-plugin-finance": "13.0.0-canary.16",
+    "@adaptabletools/adaptable-angular-aggrid": "13.0.0-canary.18",
+    "@adaptabletools/adaptable-plugin-finance": "13.0.0-canary.18",
     "@ag-grid-community/angular": "~28.1.0",
     "@ag-grid-community/client-side-row-model": "~28.1.0",
     "@ag-grid-community/core": "~28.1.0",
