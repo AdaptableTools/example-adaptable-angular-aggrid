@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ColDef, GridOptions, Module } from '@ag-grid-community/all-modules';
-import { AllEnterpriseModules } from '@ag-grid-enterprise/all-modules';
+import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
 import {
   AdaptableApi,
   AdaptableButton,
@@ -15,6 +14,7 @@ import { SlideToggleComponent } from './custom-components/slide-toggle.component
 import { MaterialMenuComponent } from './custom-components/material-menu.component';
 import { rowData } from './rowData';
 import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-panel.component';
+import { RECOMMENDED_MODULES } from '../agGridModules';
 
 @Component({
   selector: 'app-adaptable-root',
@@ -52,7 +52,7 @@ import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-
   ],
 })
 export class AppComponent {
-  public agGridModules: Module[] = AllEnterpriseModules;
+  public agGridModules: Module[] = RECOMMENDED_MODULES;
   public columnDefs;
   public adaptableApi: AdaptableApi;
   public gridOptions: GridOptions;

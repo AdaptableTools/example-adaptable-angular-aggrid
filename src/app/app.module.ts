@@ -21,7 +21,7 @@ import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-
     FormsModule,
     AdaptableAngularAgGridModule,
     HttpClientModule,
-    AgGridModule.withComponents([]),
+    AgGridModule,
     MatButtonToggleModule,
     MatMenuModule,
   ],
