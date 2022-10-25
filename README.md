@@ -4,8 +4,6 @@ This is a very basic example of how to get started with AdapTable Angular.
 
 AdapTable Angular is the Angular Framework version of AdapTable - the market-leading, low code AG Grid Add-On.
 
-This template is particularly useful if you wish to build a very small demo for Support purposes.
-
 For full information on how to use AdapTable Angular see the [AdapTable Documentation](https://docs.adaptabletools.com/guide/angular-overview).
 
 ## Versions and Dependencies
