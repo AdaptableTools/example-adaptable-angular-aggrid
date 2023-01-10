@@ -213,7 +213,7 @@ export class AppComponent {
               return {
                 // the component interacts with the adaptableApi provided in the framework component params
                 menuItems: adaptableApi.layoutApi
-                  .getAllLayout()
+                  .getLayouts()
                   .map(layout => layout.Name),
                 onItemClick: layoutName => {
                   adaptableApi.layoutApi.setLayout(layoutName);

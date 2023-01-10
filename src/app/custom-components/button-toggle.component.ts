@@ -34,7 +34,7 @@ export class ButtonToggleComponent {
   }
 
   get allLayouts(): Layout[] {
-    return this.adaptableApi.layoutApi.getAllLayout();
+    return this.adaptableApi.layoutApi.getLayouts();
   }
 
   onToggleChange({ value }: { value: string }) {
