@@ -124,7 +124,7 @@ export class AppComponent {
                 button: AdaptableButton<CustomToolbarButtonContext>,
                 context: CustomToolbarButtonContext
               ) => {
-                context.adaptableApi.settingsPanelApi.showCustomSettingsPanel(
+                context.adaptableApi.settingsPanelApi.openCustomSettingsPanel(
                   'Custom Theme Settings Panel'
                 );
               },
@@ -262,7 +262,7 @@ export class AppComponent {
             button: AdaptableButton<ToolPanelButtonContext>,
             context: ToolPanelButtonContext
           ) => {
-            context.adaptableApi.queryApi.showQueryPopup();
+            context.adaptableApi.queryApi.openQuerySettingsPanel();
           },
         },
       ],
