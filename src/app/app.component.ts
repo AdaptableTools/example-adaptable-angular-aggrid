@@ -3,7 +3,7 @@ import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
 import {
   AdaptableApi,
   AdaptableButton,
-  AdaptableOptions,
+  AdaptableOptions, AdaptableReadyInfo,
   CustomToolbarButtonContext,
   CustomToolPanelButtonContext,
   ToolPanelButtonContext,
@@ -12,7 +12,7 @@ import finance from '@adaptabletools/adaptable-plugin-finance';
 import { ButtonToggleComponent } from './custom-components/button-toggle.component';
 import { SlideToggleComponent } from './custom-components/slide-toggle.component';
 import { MaterialMenuComponent } from './custom-components/material-menu.component';
-import { rowData } from './rowData';
+import {ITrade, rowData} from './rowData';
 import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-panel.component';
 import { RECOMMENDED_MODULES } from '../agGridModules';
 
@@ -53,13 +53,13 @@ import { RECOMMENDED_MODULES } from '../agGridModules';
 })
 export class AppComponent {
   public agGridModules: Module[] = RECOMMENDED_MODULES;
-  public columnDefs;
+  public columnDefs:ColDef<ITrade>[];
   public adaptableApi: AdaptableApi;
-  public gridOptions: GridOptions;
+  public gridOptions: GridOptions<ITrade>;
 
   private isLayoutShortcutMenuDisabled = true;
 
-  public adaptableOptions: AdaptableOptions = {
+  public adaptableOptions: AdaptableOptions<ITrade> = {
     primaryKey: 'tradeId',
     userName: 'demo user',
     // licenseKey: <add_provided_license_key>,
@@ -555,7 +555,7 @@ export class AppComponent {
     };
   }
 
-  adaptableReady = ({ adaptableApi, gridOptions }) => {
+  adaptableReady = ({ adaptableApi, gridOptions }:AdaptableReadyInfo) => {
     this.adaptableApi = adaptableApi;
     // use AdaptableApi for runtime access to Adaptable
   };
