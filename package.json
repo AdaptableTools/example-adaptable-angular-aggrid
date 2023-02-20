@@ -12,8 +12,8 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable-angular-aggrid": "15.0.0",
-    "@adaptabletools/adaptable-plugin-finance": "15.0.0",
+    "@adaptabletools/adaptable-angular-aggrid": "15.0.1",
+    "@adaptabletools/adaptable-plugin-finance": "15.0.1",
     "@ag-grid-community/angular": "29.0.0",
     "@ag-grid-community/client-side-row-model": "29.0.0",
     "@ag-grid-community/core": "29.0.0",
