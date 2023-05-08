@@ -2,7 +2,7 @@
 
 This is a fairly basic example of how to get started with AdapTable Angular.
 
-AdapTable Angular is the Angular Framework version of AdapTable - the market-leading, low code AG Grid Add-On.
+AdapTable Angular is the Angular Framework version of AdapTable - the market-leading, low code AG Grid extension.
 
 For full information on how to use AdapTable Angular see the [AdapTable Documentation](https://docs.adaptabletools.com/guide/angular-overview).
 
