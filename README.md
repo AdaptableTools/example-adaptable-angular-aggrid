@@ -1,10 +1,12 @@
 # AdapTable Angular Template
 
-This is a very basic example of how to get started with AdapTable Angular.
+This is a fairly basic example of how to get started with AdapTable Angular.
 
 AdapTable Angular is the Angular Framework version of AdapTable - the market-leading, low code AG Grid Add-On.
 
 For full information on how to use AdapTable Angular see the [AdapTable Documentation](https://docs.adaptabletools.com/guide/angular-overview).
+
+> For an absolute barebones example see the [Adaptable Angular Support Template](https://github.com/AdaptableTools/support-template-adaptable-angular-aggrid) 
 
 ## Versions and Dependencies
 
@@ -133,7 +135,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Licences
 
-An AdapTable Licence provides access to all product features as well as quarterly updates and enhancements through the lifetime of the licence, comprehensive support, and access to all 3rd party libraries.
+An [AdapTable Licence](https://docs.adaptabletools.com/guide/licensing) provides access to all product features as well as quarterly updates and enhancements through the lifetime of the licence, comprehensive support, and access to all 3rd party libraries.
 
 Licences can be purchased individually, for a team, for an organisation or for integration into software for onward sale.
 
@@ -157,4 +159,4 @@ General information about Adaptable Tools is available at our [Website](http://w
  
 ## Support
 
-For all support enquiries please email [`support@adaptabletools.com`](mailto:support@adaptabletools.com) or [raise a Support Ticket](https://adaptabletools.zendesk.com/hc/en-us/requests/new).
+For all support enquiries please [raise a Support Ticket](https://adaptabletools.zendesk.com/hc/en-us/requests/new).
