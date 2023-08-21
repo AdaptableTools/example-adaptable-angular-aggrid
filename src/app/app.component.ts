@@ -57,9 +57,6 @@ export class AppComponent {
     userInterfaceOptions: {
       showDocumentationLinks: false
     },
-    gridOptions: {
-      sideBar: ['filters', 'columns']
-    },
     stateOptions: {
       loadState: () => Promise.resolve(),
       saveState: () => {},
