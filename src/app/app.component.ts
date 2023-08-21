@@ -57,11 +57,6 @@ export class AppComponent {
     userInterfaceOptions: {
       showDocumentationLinks: false
     },
-    stateOptions: {
-      loadState: () => Promise.resolve(),
-      saveState: () => {},
-      persistState: () => Promise.resolve()
-    },
     predefinedConfig:{
       FreeTextColumn: {
         FreeTextColumns: [
