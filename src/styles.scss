@@ -1,10 +1,10 @@
 /* Add application styles & imports to this file! */
-@import '~@ag-grid-community/styles/ag-grid.css';
-@import '~@ag-grid-community/styles/ag-theme-alpine.css';
-@import '~@ag-grid-community/styles/ag-theme-balham.css';
+@import '@ag-grid-community/styles/ag-grid.css';
+@import '@ag-grid-community/styles/ag-theme-alpine.css';
+@import '@ag-grid-community/styles/ag-theme-balham.css';
 
-@import '~@adaptabletools/adaptable-angular-aggrid/index.css';
-@import '~@adaptabletools/adaptable-angular-aggrid/themes/dark.css';
+@import '@adaptabletools/adaptable-angular-aggrid/index.css';
+@import '@adaptabletools/adaptable-angular-aggrid/themes/dark.css';
 
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 

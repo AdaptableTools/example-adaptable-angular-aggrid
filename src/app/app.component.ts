@@ -264,7 +264,7 @@ export class AppComponent {
             button: AdaptableButton<ToolPanelButtonContext>,
             context: ToolPanelButtonContext
           ) => {
-            context.adaptableApi.queryApi.openQuerySettingsPanel();
+            context.adaptableApi.namedQueryApi.openNamedQuerySettingsPanel();
           },
         },
       ],
