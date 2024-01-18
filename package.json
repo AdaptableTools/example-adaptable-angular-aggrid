@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable-angular-aggrid": "17.0.0-canary.6",
+    "@adaptabletools/adaptable-angular-aggrid": "17.0.0",
     "@ag-grid-community/angular": "~30.2.1",
     "@ag-grid-community/client-side-row-model": "~30.2.1",
     "@ag-grid-community/core": "~30.2.1",
