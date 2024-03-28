@@ -1,31 +1,39 @@
-import {Component} from '@angular/core';
-import {ColDef, GridOptions, Module} from '@ag-grid-community/core';
+import { Component } from '@angular/core';
+import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
 import {
   AdaptableApi,
   AdaptableButton,
   AdaptableOptions,
   AdaptableReadyInfo,
-  CustomToolbarButtonContext, CustomToolPanelButtonContext, ToolPanelButtonContext,
+  CustomToolbarButtonContext,
+  CustomToolPanelButtonContext,
+  ToolPanelButtonContext,
 } from '@adaptabletools/adaptable-angular-aggrid';
-import {ITrade, rowData} from './rowData';
-import {RECOMMENDED_MODULES} from '../agGridModules';
+import { ITrade, rowData } from './rowData';
+import { RECOMMENDED_MODULES } from '../agGridModules';
 import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-panel.component';
-import {ButtonToggleComponent} from "./custom-components/button-toggle.component";
-import {SlideToggleComponent} from "./custom-components/slide-toggle.component";
-import {MaterialMenuComponent} from "./custom-components/material-menu.component";
+import { ButtonToggleComponent } from './custom-components/button-toggle.component';
+import { SlideToggleComponent } from './custom-components/slide-toggle.component';
+import { MaterialMenuComponent } from './custom-components/material-menu.component';
 
 @Component({
   selector: 'app-adaptable-root',
   template: `
-    <ag-grid-angular
+    <adaptable-provider
       [adaptableOptions]="adaptableOptions"
       [gridOptions]="gridOptions"
       [modules]="agGridModules"
       (adaptableReady)="adaptableReady($event)"
-      style="flex: 1"
-      class="ag-theme-balham"
+      style="height: 100vh; width: 100vw;"
     >
-    </ag-grid-angular>
+      <adaptable-ui style="flex: none"></adaptable-ui>
+      <adaptable-ag-grid-angular
+        *adaptable
+        style="flex: 1"
+        class="ag-theme-balham"
+      >
+      </adaptable-ag-grid-angular>
+    </adaptable-provider>
   `,
   styles: [
     `
@@ -51,22 +59,14 @@ import {MaterialMenuComponent} from "./custom-components/material-menu.component
 })
 export class AppComponent {
   public agGridModules: Module[] = RECOMMENDED_MODULES;
-  public columnDefs:ColDef<ITrade>[];
+  public columnDefs: ColDef<ITrade>[];
   public adaptableApi: AdaptableApi;
   public gridOptions: GridOptions<ITrade>;
 
   private isLayoutShortcutMenuDisabled = true;
 
-  public adaptableOptions: AdaptableOptions<ITrade> =  {
-  // @ts-ignore
-    primaryKey: '',
-    autogeneratePrimaryKey: true,
-    layoutOptions: {
-      autoSaveLayouts: false
-    },
-    userInterfaceOptions: {
-      showDocumentationLinks: false
-    },
+  public adaptableOptions: AdaptableOptions<ITrade> = {
+    primaryKey: 'tradeId',
     settingsPanelOptions: {
       customSettingsPanels: [
         {
@@ -269,7 +269,7 @@ export class AppComponent {
         },
       ],
     },
-    predefinedConfig:{
+    predefinedConfig: {
       Dashboard: {
         Revision: Date.now(),
         ModuleButtons: ['SettingsPanel'],
@@ -378,9 +378,9 @@ export class AppComponent {
             ColumnId: 'comments',
             FriendlyName: 'Comments',
             FreeTextStoredValues: [
-              {PrimaryKey: 24195339, FreeText: 'Used by US team'},
-              {PrimaryKey: 224663696, FreeText: 'My favourite'},
-              {PrimaryKey: 82095231, FreeText: 'Required by Support'},
+              { PrimaryKey: 24195339, FreeText: 'Used by US team' },
+              { PrimaryKey: 224663696, FreeText: 'My favourite' },
+              { PrimaryKey: 82095231, FreeText: 'Required by Support' },
             ],
             FreeTextColumnSettings: {
               Resizable: true,
@@ -402,10 +402,10 @@ export class AppComponent {
             FriendlyName: 'Is Used',
             DefaultValue: false,
             FreeTextStoredValues: [
-              {PrimaryKey: 10270250, FreeText: true},
-              {PrimaryKey: 24195339, FreeText: true},
-              {PrimaryKey: 224663696, FreeText: true},
-              {PrimaryKey: 82095231, FreeText: true},
+              { PrimaryKey: 10270250, FreeText: true },
+              { PrimaryKey: 24195339, FreeText: true },
+              { PrimaryKey: 224663696, FreeText: true },
+              { PrimaryKey: 82095231, FreeText: true },
             ],
             FreeTextColumnSettings: {
               DataType: 'Boolean',
@@ -415,8 +415,8 @@ export class AppComponent {
           },
         ],
       },
-    }
-  }
+    },
+  };
 
   constructor() {
     this.columnDefs = [
@@ -599,7 +599,7 @@ export class AppComponent {
     };
   }
 
-  adaptableReady = ({ adaptableApi, gridOptions }:AdaptableReadyInfo) => {
+  adaptableReady = ({ adaptableApi }: AdaptableReadyInfo) => {
     this.adaptableApi = adaptableApi;
     // use AdaptableApi for runtime access to Adaptable
   };
