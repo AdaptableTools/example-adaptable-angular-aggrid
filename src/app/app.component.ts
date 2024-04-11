@@ -27,12 +27,15 @@ import { MaterialMenuComponent } from './custom-components/material-menu.compone
       style="height: 100vh; width: 100vw;"
     >
       <adaptable-ui style="flex: none"></adaptable-ui>
-      <adaptable-ag-grid-angular
-        *adaptable
+      <ag-grid-angular
+        *adaptable="let adaptable"
+        [gridOptions]="adaptable.gridOptions"
+        [modules]="adaptable.modules"
+        [rowData]="rowData"
         style="flex: 1"
         class="ag-theme-balham"
       >
-      </adaptable-ag-grid-angular>
+      </ag-grid-angular>
     </adaptable-provider>
   `,
   styles: [
@@ -64,6 +67,8 @@ export class AppComponent {
   public gridOptions: GridOptions<ITrade>;
 
   private isLayoutShortcutMenuDisabled = true;
+
+  rowData = rowData;
 
   public adaptableOptions: AdaptableOptions<ITrade> = {
     primaryKey: 'tradeId',
@@ -595,7 +600,6 @@ export class AppComponent {
         enableValue: true,
       },
       columnDefs: this.columnDefs,
-      rowData,
     };
   }
 
