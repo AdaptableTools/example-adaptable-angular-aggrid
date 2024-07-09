@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable-angular-aggrid": "18.0.13",
+    "@adaptabletools/adaptable-angular-aggrid": "18.1.7",
     "@ag-grid-community/angular": "~31.3.2",
     "@ag-grid-community/client-side-row-model": "~31.3.2",
     "@ag-grid-community/core": "~31.3.2",
