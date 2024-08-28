@@ -33,7 +33,7 @@ import { MaterialMenuComponent } from './custom-components/material-menu.compone
         [modules]="adaptable.modules"
         [rowData]="rowData"
         style="flex: 1"
-        class="ag-theme-balham"
+        class="ag-theme-quartz"
       >
       </ag-grid-angular>
     </adaptable-provider>
