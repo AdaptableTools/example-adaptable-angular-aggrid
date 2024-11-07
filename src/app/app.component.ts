@@ -274,7 +274,8 @@ export class AppComponent {
           },
         },
       ],
-    }, // Typically you will store State remotely; here we simply leverage local storage for convenience
+    },
+    // Typically you will store State remotely; here we simply leverage local storage for convenience
     stateOptions: {
       persistState: (state, adaptableStateFunctionConfig) => {
         localStorage.setItem(
