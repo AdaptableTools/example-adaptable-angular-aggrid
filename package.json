@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@adaptabletools/adaptable-angular-aggrid": "20.0.0-canary.9",
+    "@adaptabletools/adaptable-angular-aggrid": "20.0.0-canary.11",
     "ag-grid-angular": "33.0.4",
     "ag-grid-enterprise": "33.0.4",
     "ag-charts-enterprise": "11.0.4",
