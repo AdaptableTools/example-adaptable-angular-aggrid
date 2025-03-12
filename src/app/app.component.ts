@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
+import { ColDef, GridOptions, Module } from 'ag-grid-enterprise';
 import {
   AdaptableApi,
   AdaptableButton,
@@ -86,11 +86,12 @@ export class AppComponent {
       ],
     },
     dashboardOptions: {
+      buttonsLocation: 'left',
       customToolbars: [
         {
           name: 'GithubRepo',
           title: 'Github Repo',
-          showConfigureButton: false,
+          toolbarActions: ['Close'],
           toolbarButtons: [
             {
               label: 'See Source Code',
@@ -121,7 +122,7 @@ export class AppComponent {
         {
           name: 'CustomThemeToolbar',
           title: 'Custom Theme Toolbar',
-          showConfigureButton: false,
+          toolbarActions: ['Close'],
           toolbarButtons: [
             {
               label: 'Open Theme Settings',
@@ -324,7 +325,7 @@ export class AppComponent {
         Layouts: [
           {
             Name: 'Basic',
-            Columns: [
+            TableColumns: [
               'tradeId',
               'currency',
               'history',
@@ -346,7 +347,7 @@ export class AppComponent {
           },
           {
             Name: 'Sorted',
-            Columns: [
+            TableColumns: [
               'tradeId',
               'currency',
               'changeOnYear',
@@ -367,7 +368,7 @@ export class AppComponent {
           },
           {
             Name: 'Row Grouped',
-            Columns: [
+            TableColumns: [
               'tradeId',
               'changeOnYear',
               'counterparty',
@@ -381,15 +382,22 @@ export class AppComponent {
           },
           {
             Name: 'Pivot',
-            Columns: [],
             PivotColumns: ['status'],
-            RowGroupedColumns: ['counterparty'],
-            EnablePivot: true,
-            AggregationColumns: {
-              bid: 'avg',
-              ask: 'sum',
-              price: true,
-            },
+            PivotGroupedColumns: ['counterparty'],
+            PivotAggregationColumns: [
+              {
+                ColumnId: 'bid',
+                AggFunc: 'avg',
+              },
+              {
+                ColumnId: 'ask',
+                AggFunc: 'sum',
+              },
+              {
+                ColumnId: 'price',
+                AggFunc: true,
+              },
+            ],
           },
         ],
       },
@@ -413,7 +421,7 @@ export class AppComponent {
             ],
             FreeTextColumnSettings: {
               Resizable: true,
-              DataType: 'String',
+              DataType: 'text',
             },
           },
           {
@@ -421,7 +429,7 @@ export class AppComponent {
             FriendlyName: 'Order Code',
             DefaultValue: 123,
             FreeTextColumnSettings: {
-              DataType: 'Number',
+              DataType: 'number',
               Sortable: false,
               SuppressMenu: true,
             },
@@ -437,9 +445,36 @@ export class AppComponent {
               { PrimaryKey: 82095231, FreeText: true },
             ],
             FreeTextColumnSettings: {
-              DataType: 'Boolean',
+              DataType: 'boolean',
               Filterable: true,
               Groupable: true,
+            },
+          },
+        ],
+      },
+      StyledColumn: {
+        StyledColumns: [
+          {
+            ColumnId: 'history',
+            SparklineStyle: {
+              options: {
+                type: 'line',
+                stroke: 'rgb(124, 255, 178)',
+                strokeWidth: 2,
+                padding: {
+                  top: 5,
+                  bottom: 5,
+                },
+                marker: {
+                  size: 3,
+                  shape: 'diamond',
+                },
+                highlightStyle: {
+                  item: {
+                    strokeWidth: 10,
+                  },
+                },
+              },
             },
           },
         ],
@@ -453,7 +488,7 @@ export class AppComponent {
         headerName: 'Trade Id',
         field: 'tradeId',
         editable: true,
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Notional',
@@ -461,7 +496,7 @@ export class AppComponent {
         enableValue: true,
         editable: true,
         cellClass: 'number-cell',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
         aggFunc: 'sum',
       },
       {
@@ -469,40 +504,40 @@ export class AppComponent {
         field: 'counterparty',
         editable: true,
         enableRowGroup: true,
-        type: 'abColDefString',
+        cellDataType: 'text',
       },
       {
         headerName: 'Change',
         field: 'changeOnYear',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Currency',
         field: 'currency',
         editable: true,
         enableRowGroup: true,
-        type: 'abColDefString',
+        cellDataType: 'text',
       },
       {
         headerName: 'B/O Spread',
         field: 'bidOfferSpread',
         enableValue: true,
         editable: true,
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Price',
         field: 'price',
         enableValue: true,
         enableRowGroup: true,
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Country',
         field: 'country',
         editable: true,
         enableRowGroup: true,
-        type: 'abColDefString',
+        cellDataType: 'text',
       },
       {
         headerName: 'Status',
@@ -512,91 +547,70 @@ export class AppComponent {
         enableRowGroup: true,
         enablePivot: true,
         aggFunc: 'sum',
-        type: 'abColDefString',
+        cellDataType: 'text',
         resizable: true,
       },
       {
         headerName: 'Trade Date',
         field: 'tradeDate',
-        type: 'abColDefDate',
+        cellDataType: 'date',
       },
       {
         headerName: 'Settlement Date',
         field: 'settlementDate',
-        type: 'abColDefDate',
+        cellDataType: 'date',
       },
       {
         headerName: 'Ask',
         field: 'ask',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Bid',
         field: 'bid',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Ind Ask',
         field: 'indicativeAsk',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Ind Bid',
         field: 'indicativeBid',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Markit Ask',
         field: 'markitAsk',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Markit Bid',
         field: 'markitBid',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Bbg Ask',
         field: 'bloombergAsk',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Bbg Bid',
         field: 'bloombergBid',
-        type: 'abColDefNumber',
+        cellDataType: 'number',
       },
       {
         headerName: 'Rating',
         field: 'rating',
         editable: true,
-        type: 'abColDefString',
+        cellDataType: 'text',
       },
       {
         headerName: 'History',
         field: 'history',
-        type: 'abColDefObject',
+        cellDataType: 'numberArray',
         resizable: true,
-        cellRenderer: 'agSparklineCellRenderer',
-        cellRendererParams: {
-          sparklineOptions: {
-            type: 'line',
-            line: {
-              stroke: 'rgb(124, 255, 178)',
-              strokeWidth: 2,
-            },
-            padding: {
-              top: 5,
-              bottom: 5,
-            },
-            marker: {
-              size: 3,
-              shape: 'diamond',
-            },
-            highlightStyle: {
-              size: 10,
-            },
-          },
-        },
       },
     ].map((c: ColDef) => {
       c.filter = true;
@@ -607,8 +621,9 @@ export class AppComponent {
     });
 
     this.gridOptions = {
+      theme: 'legacy',
       enableCharts: true,
-      enableRangeSelection: true,
+      cellSelection: true,
       sideBar: ['adaptable', 'columns', 'filters'],
       suppressMenuHide: true,
       singleClickEdit: true,

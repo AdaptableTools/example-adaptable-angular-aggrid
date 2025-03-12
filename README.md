@@ -12,9 +12,9 @@ For full information on how to use AdapTable Angular see the [AdapTable Document
 
 The demo is built using these key packages:
 
-- [Angular](https://github.com/angular/angular) version 16.x
-- [Adaptable](https://docs.adaptabletools.com/) version 19.x
-- [AG Grid](https://www.ag-grid.com) version 32.x
+- [Angular](https://github.com/angular/angular) version 17.x
+- [Adaptable](https://docs.adaptabletools.com/) version 20.x
+- [AG Grid](https://www.ag-grid.com) version 33.x
 
 > 16 is the minimium Angular version required for using Adaptable.
 

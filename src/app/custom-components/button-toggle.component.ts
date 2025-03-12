@@ -13,7 +13,11 @@ import {
       (change)="onToggleChange($event)"
     >
       <mat-button-toggle *ngFor="let layout of allLayouts" [value]="layout.Name"
-        >{{ layout.Name }} ({{ layout.Columns.length }})</mat-button-toggle
+        >{{
+          layout.Name
+        }}
+        ({{ layout.TableColumns?.length ??  layout.PivotColumns?.length
+        }})</mat-button-toggle
       >
     </mat-button-toggle-group>
   `,

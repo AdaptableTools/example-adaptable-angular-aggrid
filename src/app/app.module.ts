@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AdaptableAngularAgGridModule } from '@adaptabletools/adaptable-angular-aggrid';
 
-import { AgGridModule } from '@ag-grid-community/angular';
+import { AgGridModule } from 'ag-grid-angular';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonToggleComponent } from './custom-components/button-toggle.component';
