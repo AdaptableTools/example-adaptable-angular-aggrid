@@ -11,8 +11,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SlideToggleComponent } from './custom-components/slide-toggle.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialMenuComponent } from './custom-components/material-menu.component';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { ThemeSettingsPanelComponent } from './custom-components/theme-settings-panel.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [

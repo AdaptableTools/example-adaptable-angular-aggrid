@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
 import {
   AdaptableApi,
@@ -60,6 +60,7 @@ import { MaterialMenuComponent } from './custom-components/material-menu.compone
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   public agGridModules: Module[] = RECOMMENDED_MODULES;
