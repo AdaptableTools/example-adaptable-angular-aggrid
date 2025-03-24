@@ -91,7 +91,7 @@ export class AppComponent {
         {
           name: 'GithubRepo',
           title: 'Github Repo',
-          toolbarActions: ['Close'],
+          toolbarActions: ['close'],
           toolbarButtons: [
             {
               label: 'See Source Code',
@@ -122,7 +122,7 @@ export class AppComponent {
         {
           name: 'CustomThemeToolbar',
           title: 'Custom Theme Toolbar',
-          toolbarActions: ['Close'],
+          toolbarActions: ['close'],
           toolbarButtons: [
             {
               label: 'Open Theme Settings',
@@ -299,7 +299,7 @@ export class AppComponent {
         });
       },
     },
-    predefinedConfig: {
+    initialState: {
       Dashboard: {
         Revision: Date.now(),
         ModuleButtons: ['SettingsPanel'],
