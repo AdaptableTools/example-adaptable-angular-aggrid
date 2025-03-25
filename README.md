@@ -141,7 +141,7 @@ Licences can be purchased individually, for a team, for an organisation or for i
 
 We can make a Trial Licence available for a short period of time to allow you to try out AdapTable for yourself.
 
-Please contact [`sales@adaptabletools.com`](mailto:sales@adaptabletools.com) for more information.
+Please contact [`sales@adaptabletools.com`](mailto:sales@adaptabletools.com) or read the [Licence Documentation](https://docs.adaptabletools.com/guide/buying-adaptable-licensing) for more information.
 
 ## Help
 
