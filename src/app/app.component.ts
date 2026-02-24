@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ColDef, GridOptions, Module } from 'ag-grid-enterprise';
+import { ColDef, GridOptions, Module, themeQuartz } from 'ag-grid-enterprise';
 import {
   AdaptableApi,
   AdaptableButton,
@@ -34,7 +34,6 @@ import { MaterialMenuComponent } from './custom-components/material-menu.compone
         [modules]="adaptable.modules"
         [rowData]="rowData"
         style="flex: 1"
-        class="ag-theme-quartz"
       >
       </ag-grid-angular>
     </adaptable-provider>
@@ -404,6 +403,7 @@ export class AppComponent {
       CustomSort: {
         CustomSorts: [
           {
+            Name: 'Currency Custom Sort',
             ColumnId: 'currency',
             SortedValues: ['USD', 'GBP', 'EUR'],
           },
@@ -468,11 +468,6 @@ export class AppComponent {
                 marker: {
                   size: 3,
                   shape: 'diamond',
-                },
-                highlightStyle: {
-                  item: {
-                    strokeWidth: 10,
-                  },
                 },
               },
             },
@@ -621,7 +616,7 @@ export class AppComponent {
     });
 
     this.gridOptions = {
-      theme: 'legacy',
+      theme: themeQuartz,
       enableCharts: true,
       cellSelection: true,
       sideBar: ['adaptable', 'columns', 'filters'],

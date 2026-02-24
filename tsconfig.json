@@ -19,6 +19,7 @@
       "ES2021",
       "DOM"
     ],
+    "skipLibCheck": true,
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
